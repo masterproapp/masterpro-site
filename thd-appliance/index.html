@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1a1a1a" />
+<meta name="description" content="The Home Depot Appliance Program — customer requirements portal by MasterPro. Everything you need for a smooth appliance install day." />
+<title>The Home Depot Appliance Program</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f96302'/%3E%3Ctext x='16' y='22' font-family='Arial Black,sans-serif' font-size='18' font-weight='900' text-anchor='middle' fill='%23fff'%3EH%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-card: #ffffff;
+    --bg-deep: #1a1a1a;
+    --bg-deep-2: #232323;
+    --ink: #1a1a1a;
+    --ink-soft: #555;
+    --ink-faint: #8a8a8a;
+    --line: #e3ddd0;
+    --line-strong: #c8bfac;
+    --orange: #f96302;
+    --orange-deep: #d35200;
+    --blueprint: #1e3a5f;
+    --cream: #fbf7ec;
+    --green: #2d7a3a;
+    --red: #b9362c;
+    --max: 1440px;          /* content max-width (was 1200) */
+    --gutter: clamp(20px, 4vw, 56px);  /* fluid side padding */
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; width: 100%; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg); color: var(--ink);
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .display { font-family: 'Archivo Black', 'Archivo', sans-serif; letter-spacing: -0.02em; }
+
+  /* ───── Top nav ───── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg-deep); color: #fff;
+    border-bottom: 3px solid var(--orange);
+  }
+  .topbar-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px var(--gutter); gap: 24px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .brand .x { color: var(--orange); font-size: 20px; font-weight: 700; }
+  .brand img.logo { height: 36px; width: 36px; display: block; border-radius: 2px; }
+  .brand img.hd-logo { background: #f96302; padding: 0; }
+  .navlinks {
+    display: flex; gap: 22px; font-size: 13px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .navlinks a { color: #d8d8d8; text-decoration: none; transition: color 0.15s; }
+  .navlinks a:hover { color: var(--orange); }
+  @media (max-width: 720px) {
+    .navlinks { display: none; }
+    .topbar-inner { padding: 12px var(--gutter); }
+  }
+
+  /* ───── Hero ───── */
+  .hero {
+    background: var(--bg-deep); color: #fff;
+    padding: clamp(56px, 8vw, 110px) var(--gutter) clamp(72px, 9vw, 130px);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: var(--max); margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* ───── Spinning Stamps ───── */
+  .stamps-row {
+    position: absolute; top: 40px; right: 0;
+    display: flex; gap: 16px;
+    z-index: 2;
+  }
+  .spin-stamp {
+    width: 130px; height: 130px;
+    position: relative;
+  }
+  .spin-stamp svg.ring {
+    width: 100%; height: 100%;
+    animation: spin 18s linear infinite;
+  }
+  .spin-stamp.cw svg.ring { animation-direction: reverse; }
+  .spin-stamp .ring text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    fill: var(--orange);
+  }
+  .spin-stamp.alt .ring text { fill: var(--cream); }
+  .spin-stamp .center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    pointer-events: none;
+  }
+  .spin-stamp .center .num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px; line-height: 1;
+    color: var(--orange);
+    letter-spacing: -0.02em;
+  }
+  .spin-stamp.alt .center .num { color: var(--cream); }
+  .spin-stamp .center .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #fff; margin-top: 4px;
+    line-height: 1.1;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @media (max-width: 900px) {
+    .stamps-row { position: relative; top: auto; right: auto;
+      justify-content: flex-start; margin-bottom: 28px; }
+    .spin-stamp { width: 110px; height: 110px; }
+    .spin-stamp .center .num { font-size: 24px; }
+  }
+  .hero .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--orange); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 0.95; letter-spacing: -0.025em;
+    margin: 0 0 22px;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero p.lede {
+    font-size: 18px; max-width: 640px; color: #cfc9bb; margin: 0 0 28px;
+  }
+  .hero p.lede strong { color: #fff; font-weight: 700; }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    max-width: 800px;
+  }
+  .hero-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ───── Process Block (in hero) — REDESIGNED ───── */
+  .process-block {
+    margin-top: 56px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 44px;
+  }
+  .process-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .process-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.0; letter-spacing: -0.025em;
+    margin: 0 0 20px; color: #fff;
+  }
+  .process-title .accent { color: var(--orange); }
+  .process-narrative {
+    font-size: 16px; color: #cfc9bb;
+    line-height: 1.65; margin: 0 0 36px;
+    max-width: 720px;
+  }
+  .process-narrative strong { color: #fff; font-weight: 700; }
+
+  /* Step label leading into the decision */
+  .process-step-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: #fff;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 14px;
+    border-left: 3px solid var(--orange);
+    padding-left: 12px;
+  }
+  .process-step-label .muted { color: #cfc9bb; font-weight: 400; }
+
+  /* Two-card decision flow */
+  .process-flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .flow-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 26px 26px 22px;
+    display: flex; flex-direction: column;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .flow-card:hover {
+    background: rgba(249,99,2,0.06);
+    border-color: rgba(249,99,2,0.3);
+  }
+  .flow-letter-row {
+    display: flex; align-items: flex-start;
+    gap: 18px; margin-bottom: 4px;
+  }
+  .flow-letter {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 76px; line-height: 0.82;
+    color: var(--orange);
+    letter-spacing: -0.05em;
+    flex-shrink: 0;
+  }
+  .flow-letter-meta {
+    flex: 1; padding-top: 8px;
+  }
+  .flow-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .flow-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -0.005em; color: #fff;
+    line-height: 1.15;
+  }
+  .flow-steps {
+    display: flex; align-items: stretch;
+    gap: 10px;
+    margin: 20px 0 18px;
+  }
+  .flow-step-box {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    padding: 12px 14px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    flex: 1; text-align: center;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 54px;
+  }
+  .flow-step-box.muted {
+    background: transparent;
+    border-style: dashed;
+    border-color: rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.55);
+  }
+  .flow-step-arrow {
+    display: flex; align-items: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 24px; color: var(--orange);
+    flex-shrink: 0;
+  }
+  .flow-desc {
+    font-size: 13.5px; color: #cfc9bb;
+    line-height: 1.6;
+    margin-top: auto;
+  }
+  .flow-desc strong { color: #fff; font-weight: 700; }
+  .flow-examples {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+  .flow-examples-tag {
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-right: 8px;
+    font-size: 10px;
+  }
+
+  /* Final "what happens next" callout (time window) — clock variant */
+  .next-step-block {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px; align-items: center;
+    margin-top: 14px;
+    padding: 22px 26px;
+    background: linear-gradient(135deg, rgba(249,99,2,0.10), rgba(249,99,2,0.02));
+    border: 1px solid rgba(249,99,2,0.28);
+    border-left: 4px solid var(--orange);
+  }
+  .next-step-clock {
+    width: 76px; height: 76px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .next-step-clock .min-hand {
+    transform-origin: 40px 40px;
+    animation: clockSpin 12s linear infinite;
+  }
+  @keyframes clockSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .next-step-body { line-height: 1.5; }
+  .next-step-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 6px;
+  }
+  .next-step-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 17px; text-transform: uppercase;
+    letter-spacing: -0.005em; color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.15;
+  }
+  .next-step-desc {
+    font-size: 13.5px; color: #cfc9bb;
+    line-height: 1.6;
+  }
+  .next-step-desc strong { color: #fff; font-weight: 700; }
+
+  @media (max-width: 760px) {
+    .process-flow { grid-template-columns: 1fr; gap: 12px; }
+    .next-step-block { gap: 18px; padding: 20px; }
+    .next-step-clock { width: 60px; height: 60px; }
+    .flow-letter { font-size: 64px; }
+  }
+  @media (max-width: 720px) {
+    .process-block { margin-top: 36px; padding-top: 32px; }
+  }
+
+  /* ───── Tabs Bar ───── */
+  .tabs-bar {
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 60px; z-index: 40;
+  }
+  .tabs-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: flex; overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .tabs-inner::-webkit-scrollbar { height: 4px; }
+  .tabs-inner::-webkit-scrollbar-thumb { background: var(--line-strong); }
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 18px 18px 16px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tab-btn:hover { color: var(--ink); }
+  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .tab-icon { font-size: 16px; }
+
+  /* ───── Sections ───── */
+  section { padding: clamp(64px, 7vw, 100px) var(--gutter) clamp(80px, 8vw, 120px); }
+  .container { max-width: var(--max); margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--orange);
+    padding: 4px 10px; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--ink-soft);
+    max-width: 760px; margin: 0 0 36px;
+  }
+
+  /* ───── Panels (one per appliance) ───── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .panel-header-row {
+    display: flex; align-items: center; gap: 20px;
+    margin-bottom: 28px; padding-bottom: 24px;
+    border-bottom: 2px solid var(--line);
+  }
+  .panel-icon {
+    font-size: 40px; line-height: 1;
+    background: var(--cream);
+    border: 2px solid var(--line);
+    width: 72px; height: 72px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .panel-meta { flex: 1; }
+  .panel-meta .panel-title-text {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin: 0 0 6px;
+  }
+  .panel-meta .panel-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink-soft);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  /* ───── Subtype toggle ───── */
+  .subtype-row { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .subtype-btn {
+    background: #fff; border: 2px solid var(--bg-deep);
+    padding: 10px 18px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; color: var(--ink);
+    transition: all 0.12s;
+  }
+  .subtype-btn:hover { background: var(--bg); }
+  .subtype-btn.active { background: var(--bg-deep); color: #fff; }
+
+  /* ───── Section labels within panels ───── */
+  .req-section { margin-bottom: 32px; }
+  .req-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .req-section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--line);
+  }
+
+  /* ───── Requirement cards (industrial grid) ───── */
+  .req-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px; background: var(--line-strong);
+    border: 1px solid var(--line-strong);
+  }
+  .req-card {
+    background: #fff;
+    padding: 22px 22px 24px;
+    position: relative;
+  }
+  .req-card .req-card-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--orange);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .req-card-title {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 15px; margin: 0 0 8px;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .req-card-body { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+  .req-card-body strong { color: var(--ink); font-weight: 700; }
+  .req-card.warn { background: #fff8f0; }
+  .req-card.warn .req-card-num { color: var(--red); }
+
+  /* ───── Alert banners ───── */
+  .alert {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 16px; align-items: flex-start;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    border-left: 4px solid;
+    background: #fff;
+  }
+  .alert-icon {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; letter-spacing: 0.08em;
+    padding: 6px 10px; color: #fff;
+    align-self: stretch;
+    display: flex; align-items: center;
+  }
+  .alert-body { font-size: 14px; color: var(--ink-soft); line-height: 1.6; padding: 4px 0; }
+  .alert-body strong { color: var(--ink); font-weight: 700; }
+  .alert.orange { border-color: var(--orange); background: rgba(249,99,2,0.08); }
+  .alert.orange .alert-icon { background: var(--orange); }
+  .alert.green { border-color: var(--green); background: rgba(45,122,58,0.08); }
+  .alert.green .alert-icon { background: var(--green); }
+  .alert.red { border-color: var(--red); background: rgba(185,54,44,0.08); }
+  .alert.red .alert-icon { background: var(--red); }
+  .alert.blue { border-color: var(--blueprint); background: rgba(30,58,95,0.08); }
+  .alert.blue .alert-icon { background: var(--blueprint); }
+
+  /* ───── THD note (dark callout, like Sales Portal services) ───── */
+  .thd-note {
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 24px; align-items: center;
+  }
+  .thd-note-stamp {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1.5px solid var(--orange);
+    padding: 8px 14px;
+    align-self: flex-start;
+  }
+  .thd-note p {
+    font-size: 15px; line-height: 1.65; color: #cfc9bb; margin: 0;
+  }
+  .thd-note p strong { color: #fff; font-weight: 700; }
+
+  /* ───── Scope (Included / Not Included) ───── */
+  .scope-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1px; background: var(--line-strong);
+    border: 1px solid var(--line-strong);
+    margin-bottom: 28px;
+  }
+  .scope-box { background: #fff; }
+  .scope-head {
+    padding: 14px 22px;
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    border-bottom: 2px solid var(--line);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .scope-head.in { color: var(--green); }
+  .scope-head.out { color: var(--red); }
+  .scope-icon {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 12px; color: #fff;
+  }
+  .scope-head.in .scope-icon { background: var(--green); }
+  .scope-head.out .scope-icon { background: var(--red); }
+  .scope-list { list-style: none; margin: 0; padding: 0; }
+  .scope-list li {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 12px; padding: 12px 22px;
+    font-size: 14px; color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+    line-height: 1.5;
+  }
+  .scope-list li:last-child { border-bottom: none; }
+  .scope-list li .mark {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 13px; line-height: 1.4;
+  }
+  .scope-list.in li .mark { color: var(--green); }
+  .scope-list.out li .mark { color: var(--red); }
+  .scope-list.out li .mark.warn { color: var(--orange); }
+
+  /* Add-on availability note — appears at the bottom of every "Outside Scope" list */
+  .scope-list.out::after {
+    content: '⊕ Many of these can be done by our installers as add-ons. Ask your sales associate for pricing before install day.';
+    display: block;
+    padding: 14px 22px;
+    margin-top: 4px;
+    background: rgba(249,99,2,0.08);
+    border-top: 1.5px solid var(--orange);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12.5px;
+    color: var(--ink);
+    line-height: 1.55;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  @media (max-width: 760px) {
+    .scope-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── Contact ───── */
+  .contact {
+    background: var(--bg-deep); color: #fff;
+    padding: clamp(72px, 8vw, 120px) var(--gutter);
+    position: relative; overflow: hidden;
+  }
+  .contact::after {
+    content: 'MASTERPRO'; position: absolute;
+    bottom: -28px; right: -10px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(80px, 15vw, 220px);
+    color: rgba(255,255,255,0.03);
+    line-height: 1; letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+  .contact-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px);
+    position: relative; z-index: 1;
+  }
+  .contact h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .contact h2 .accent { color: var(--orange); }
+  .contact p { color: #cfc9bb; font-size: 16px; max-width: 460px; }
+  .contact-card {
+    background: var(--bg-deep-2);
+    border: 1px solid #333;
+    padding: 28px;
+  }
+  .contact-row { margin-bottom: 18px; }
+  .contact-row:last-child { margin-bottom: 0; }
+  .contact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .contact-value {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 18px; color: #fff;
+  }
+  .contact-value a { color: #fff; text-decoration: none; border-bottom: 1px solid var(--orange); }
+  @media (max-width: 760px) {
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ───── Promise Banner (above footer) ───── */
+  .promise {
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: clamp(72px, 8vw, 120px) var(--gutter) clamp(64px, 7vw, 100px);
+    position: relative; overflow: hidden;
+  }
+  .promise::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .promise::after {
+    content: 'AUTHORIZED'; position: absolute;
+    bottom: -22px; left: -10px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(70px, 14vw, 180px);
+    color: rgba(0,0,0,0.045);
+    line-height: 1; letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+  .promise-inner {
+    max-width: var(--max); margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .promise-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .promise-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4.4vw, 48px);
+    line-height: 1.0; letter-spacing: -0.025em;
+    margin: 0 0 16px;
+    color: var(--ink);
+    max-width: 880px;
+  }
+  .promise-title .accent { color: var(--orange); }
+  .promise-sub {
+    font-family: 'Archivo', sans-serif; font-weight: 500;
+    font-size: 17px; color: var(--ink-soft);
+    margin: 0 0 44px;
+    max-width: 640px;
+  }
+  .promise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .promise-pillar {
+    padding: 28px 26px 28px 0;
+    border-right: 1px solid var(--line);
+  }
+  .promise-pillar:last-child { border-right: none; }
+  .promise-pillar:not(:first-child) { padding-left: 26px; }
+  .promise-pillar-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .promise-pillar-headline {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 19px; text-transform: uppercase;
+    letter-spacing: -0.005em; color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .promise-pillar-text {
+    font-size: 14.5px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .promise-pillar-text strong { color: var(--ink); font-weight: 700; }
+  .promise-signoff {
+    display: flex; align-items: center; gap: 14px;
+    flex-wrap: wrap;
+  }
+  .promise-signoff-stamp {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--orange);
+    border: 1.5px solid var(--orange);
+    padding: 8px 14px;
+  }
+  .promise-signoff-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--ink-soft);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  @media (max-width: 760px) {
+
+    .promise-grid { grid-template-columns: 1fr; }
+    .promise-pillar { padding: 22px 0; border-right: none; border-bottom: 1px solid var(--line); }
+    .promise-pillar:last-child { border-bottom: none; }
+    .promise-pillar:not(:first-child) { padding-left: 0; }
+  }
+
+  /* ───── Footer ───── */
+  footer {
+    background: #0d0d0d; color: #777;
+    padding: 28px var(--gutter); text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer .orange { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<!-- ───── Top Nav ───── -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img class="logo" src="data:image/png;base64,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" alt="MasterPro">
+      <span class="x">×</span>
+      <img class="logo hd-logo" src="data:image/png;base64,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" alt="The Home Depot">
+    </div>
+    <nav class="navlinks">
+      <a href="#range">Range</a>
+      <a href="#cooktop">Cooktop</a>
+      <a href="#walloven">Wall Oven</a>
+      <a href="#dishwasher">Dishwasher</a>
+      <a href="#otr">Microwave</a>
+      <a href="#hood">Range Hood</a>
+      <a href="#fridge">Fridge</a>
+      <a href="#laundry">Laundry</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ───── Hero ───── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">// Customer Requirements Portal · Home Depot</div>
+    <h1>Your appliance install<br>is in <span class="accent">good hands.</span></h1>
+    <p class="lede"><strong>See the requirements below for a seamless appointment.</strong> We handle the install — scheduling, execution, and <strong>2 years of free post-install support.</strong> Delivery is handled by Home Depot directly with you.</p>
+
+    <div class="process-block">
+      <div class="process-step-label">Where to start <span class="muted">· pick the path that matches your appliance</span></div>
+
+      <div class="process-flow">
+        <div class="flow-card">
+          <div class="flow-letter-row">
+            <div class="flow-letter">A</div>
+            <div class="flow-letter-meta">
+              <div class="flow-tag">Path A</div>
+              <div class="flow-title">Built-In Appliance</div>
+            </div>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step-box">Measure</div>
+            <div class="flow-step-arrow">→</div>
+            <div class="flow-step-box">Install</div>
+          </div>
+          <div class="flow-desc">Starts with a <strong>measure appointment.</strong> Even when you think it'll fit, modification is sometimes required.</div>
+          <div class="flow-examples"><span class="flow-examples-tag">e.g.</span>Dishwashers · Wall Ovens · Cooktops · Built-In Microwave + Trim · Built-In Refrigerators · Range Hoods</div>
+        </div>
+        <div class="flow-card">
+          <div class="flow-letter-row">
+            <div class="flow-letter">B</div>
+            <div class="flow-letter-meta">
+              <div class="flow-tag">Path B</div>
+              <div class="flow-title">Free-Standing Appliance</div>
+            </div>
+          </div>
+          <div class="flow-steps">
+            <div class="flow-step-box muted">No Measure<br>Needed</div>
+            <div class="flow-step-arrow">→</div>
+            <div class="flow-step-box">Install</div>
+          </div>
+          <div class="flow-desc">We're <strong>good to go.</strong> Just review the requirements below for your appliance type before install day.</div>
+          <div class="flow-examples"><span class="flow-examples-tag">e.g.</span>Slide-In &amp; Free-Standing Ranges · Washers &amp; Dryers · OTR Microwaves · Garbage Disposals · Trash Compactors</div>
+        </div>
+      </div>
+
+      <div class="next-step-block">
+        <svg class="next-step-clock" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 40 8 A 32 32 0 0 1 67.71 56 L 40 40 Z" fill="#f96302" opacity="0.22"/>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="#f96302" stroke-width="2.5"/>
+          <g stroke="#f96302" stroke-width="2.5" stroke-linecap="round">
+            <line x1="40" y1="10" x2="40" y2="15"/>
+            <line x1="70" y1="40" x2="65" y2="40"/>
+            <line x1="40" y1="70" x2="40" y2="65"/>
+            <line x1="10" y1="40" x2="15" y2="40"/>
+          </g>
+          <g stroke="#f96302" stroke-width="1.5" opacity="0.5" stroke-linecap="round">
+            <line x1="55" y1="13" x2="53" y2="17"/>
+            <line x1="66" y1="24" x2="62.5" y2="26"/>
+            <line x1="66" y1="55" x2="62.5" y2="53"/>
+            <line x1="55" y1="67" x2="53" y2="63"/>
+            <line x1="25" y1="67" x2="27" y2="63"/>
+            <line x1="14" y1="55" x2="17.5" y2="53"/>
+            <line x1="14" y1="24" x2="17.5" y2="26"/>
+            <line x1="25" y1="13" x2="27" y2="17"/>
+          </g>
+          <line x1="40" y1="40" x2="40" y2="22" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+          <line class="min-hand" x1="40" y1="40" x2="56" y2="40" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="40" cy="40" r="3" fill="#f96302"/>
+        </svg>
+        <div class="next-step-body">
+          <div class="next-step-tag">Night before your appointment</div>
+          <div class="next-step-title">You'll get a 4-hour arrival window by email.</div>
+          <div class="next-step-desc">We send the window to the address on file the evening before your appointment. <strong>No need to call to confirm</strong> — we'll be in touch.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Tabs Bar ───── -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('range',this)"><span class="tab-icon">♨️</span> Range</button>
+    <button class="tab-btn" onclick="showTab('cooktop',this)"><span class="tab-icon">🍳</span> Cooktop</button>
+    <button class="tab-btn" onclick="showTab('walloven',this)"><span class="tab-icon">🔥</span> Wall Oven</button>
+    <button class="tab-btn" onclick="showTab('dishwasher',this)"><span class="tab-icon">🍽️</span> Dishwasher</button>
+    <button class="tab-btn" onclick="showTab('otr',this)"><span class="tab-icon">📡</span> OTR Micro</button>
+    <button class="tab-btn" onclick="showTab('hood',this)"><span class="tab-icon">💨</span> Range Hood</button>
+    <button class="tab-btn" onclick="showTab('fridge',this)"><span class="tab-icon">❄️</span> Built-In Fridge</button>
+    <button class="tab-btn" onclick="showTab('laundry',this)"><span class="tab-icon">🫧</span> Washer &amp; Dryer</button>
+    <button class="tab-btn" onclick="showTab('compactor',this)"><span class="tab-icon">🗑️</span> Compactor</button>
+    <button class="tab-btn" onclick="showTab('disposal',this)"><span class="tab-icon">🔩</span> Disposal</button>
+    <button class="tab-btn" onclick="showTab('trimkit',this)"><span class="tab-icon">📦</span> Built-In Micro + Trim</button>
+  </div>
+</div>
+
+<section>
+<div class="container">
+
+<!-- ═════════════════ RANGE ═════════════════ -->
+<div id="panel-range" class="panel active">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">♨️</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Range Installation</h2>
+      <div class="panel-sub">Free-Standing · Slide-In · Gas · Electric · Dual Fuel · Pro Range</div>
+    </div>
+  </div>
+
+  <div class="subtype-row">
+    <button class="subtype-btn active" onclick="switchSub('range','gas',this)">Gas Range</button>
+    <button class="subtype-btn" onclick="switchSub('range','electric',this)">Electric Range</button>
+    <button class="subtype-btn" onclick="switchSub('range','dual',this)">Dual Fuel</button>
+    <button class="subtype-btn" onclick="switchSub('range','pro',this)">Pro Range</button>
+  </div>
+
+  <!-- GAS RANGE -->
+  <div id="range-gas">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Gas ranges connect to your home's existing gas line. We connect, leak-test, and verify operation. <strong>If you have LP/propane, conversion is NOT included by default</strong> — see below.</p>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Gas Shutoff Valve</div><div class="req-card-body">Accessible gas shutoff valve within 4 ft of the range location. Valve must operate freely. ½" gas connector standard.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V Outlet</div><div class="req-card-body">Standard grounded 120V outlet for the oven controls, clock, and igniters. Must be reachable from the back of the range.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Cabinet Opening</div><div class="req-card-body">Standard 30" wide opening (some pro ranges go up to 36" or 48"). Confirm width and depth match your unit specs.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Anti-Tip Bracket</div><div class="req-card-body">Required by code. Comes with the range — installer secures to floor or back wall during install.</div></div>
+      </div>
+    </div>
+
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>LP / Propane Conversion is NOT included.</strong> If your home runs on propane instead of natural gas, the range needs to be converted with a manufacturer LP conversion kit. <strong>The kit is sold separately</strong> — we can provide the kit and perform the conversion as an add-on service. Confirm with your sales associate before install day so it's ready.</div>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Disconnect and haul away old range</li>
+          <li><span class="mark">✓</span>Connect to existing gas line</li>
+          <li><span class="mark">✓</span>Gas leak test on all connections</li>
+          <li><span class="mark">✓</span>Connect 120V power</li>
+          <li><span class="mark">✓</span>Install anti-tip bracket</li>
+          <li><span class="mark">✓</span>Level range, function test all burners and oven</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark warn">⚠</span>LP / Propane Conversion (kit + labor — available as add-on)</li>
+          <li><span class="mark">✗</span>New gas line installation or rerouting</li>
+          <li><span class="mark">✗</span>New electrical outlet</li>
+          <li><span class="mark">✗</span>Cabinet modification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELECTRIC RANGE -->
+  <div id="range-electric" style="display:none">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Electric ranges (smooth top, coil, or induction) require a <strong>240V dedicated circuit</strong>. If your home doesn't have one, our team can install electrical work as an add-on identified during measure.</p>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">240V / 40-50A Outlet</div><div class="req-card-body">4-prong NEMA 14-50 outlet preferred. Older 3-prong outlets require a cord adapter (sold separately).</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Cabinet Opening</div><div class="req-card-body">Standard 30" wide opening for most. Pro ranges may need 36"–48". Confirm against unit specs.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Anti-Tip Bracket</div><div class="req-card-body">Required by code. Comes with the range — installer secures to floor or back wall.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Induction Power Draw</div><div class="req-card-body">Induction ranges may draw more amperage than older electric ranges. Confirm your panel can support the load.</div></div>
+      </div>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Disconnect and haul away old range</li>
+          <li><span class="mark">✓</span>Connect to existing 240V outlet</li>
+          <li><span class="mark">✓</span>Install anti-tip bracket</li>
+          <li><span class="mark">✓</span>Level and full function test</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>New electrical circuit (electrical add-ons quoted at measure)</li>
+          <li><span class="mark">✗</span>Panel upgrades</li>
+          <li><span class="mark">✗</span>Cabinet modification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DUAL FUEL -->
+  <div id="range-dual" style="display:none">
+    <div class="alert blue">
+      <div class="alert-icon">i</div>
+      <div class="alert-body"><strong>Dual fuel ranges</strong> use gas burners on top and an electric oven below — combining both worlds. They require <strong>both</strong> a gas connection AND a 240V electrical circuit.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Gas Shutoff Valve</div><div class="req-card-body">Accessible gas shutoff within 4 ft. ½" gas connector standard.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">240V / 30-50A Circuit</div><div class="req-card-body">Dedicated electrical circuit for the oven. Confirm amperage with product documentation.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Cabinet Opening</div><div class="req-card-body">Standard 30" or 36" wide. Pro dual fuel ranges may require larger openings.</div></div>
+      </div>
+    </div>
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>LP / Propane Conversion not included.</strong> If converting to propane, the LP conversion kit must be purchased separately — we can provide it and perform the conversion as an add-on. Mention to your sales associate.</div>
+    </div>
+  </div>
+
+  <!-- PRO RANGE -->
+  <div id="range-pro" style="display:none">
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>Pro ranges (36"–48") require a measure visit.</strong> Sizes vary widely between brands and the cutout, hood clearance, and utilities all need verification. Pro ranges over 36" require 2-installer crews and additional labor charges.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Gas + Electrical</div><div class="req-card-body">Gas line within 4 ft (for gas/dual fuel models) and 240V circuit for electric oven (dual fuel) or 120V for igniters (gas).</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">36"–48" Cabinet Opening</div><div class="req-card-body">Confirm width with manufacturer specs. Cabinet sides must be heat-rated where required.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Hood Clearance</div><div class="req-card-body">Pro ranges generate more BTUs — confirm hood is sized appropriately and at the correct clearance height.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Delivery Access</div><div class="req-card-body">Pro ranges are heavy (300–500 lbs). Doorways must be 36"+ and stairways need to be communicated in advance.</div></div>
+      </div>
+    </div>
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>LP / Propane Conversion not included.</strong> Pro ranges almost always need conversion if running on propane. The LP conversion kit is a separate purchase — we can provide it and perform the conversion as an add-on. Confirm with your sales associate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ COOKTOP ═════════════════ -->
+<div id="panel-cooktop" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🍳</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Cooktop Installation</h2>
+      <div class="panel-sub">Gas · Electric · Induction · Downdraft</div>
+    </div>
+  </div>
+
+  <div class="subtype-row">
+    <button class="subtype-btn active" onclick="switchSub('cooktop','gas',this)">Gas Cooktop</button>
+    <button class="subtype-btn" onclick="switchSub('cooktop','electric',this)">Electric / Induction</button>
+    <button class="subtype-btn" onclick="switchSub('cooktop','downdraft',this)">Downdraft</button>
+  </div>
+
+  <!-- GAS -->
+  <div id="cooktop-gas">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Home Depot's program covers a <strong>like-for-like swap</strong> of an existing gas cooktop. Cutout modifications may be needed even with same-size units. New gas line runs are outside scope.</p>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Existing Gas Supply</div><div class="req-card-body">An accessible, working gas shutoff valve within 6 ft of the cooktop location. Valve must operate freely.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Electrical Outlet</div><div class="req-card-body">120V grounded outlet within reach for ignition. Required even on gas models.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Cutout Dimensions</div><div class="req-card-body">Confirm your countertop cutout matches the new unit's specs. Same brand ≠ same cutout. Provide measurements before install day.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Countertop Material</div><div class="req-card-body">Cutout adjustments on stone, granite, or tile countertops can be performed by our team at <strong>an additional fee</strong> — to be discussed and approved with your Home Depot store prior to the appointment.</div></div>
+      </div>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Disconnect and haul away old cooktop</li>
+          <li><span class="mark">✓</span>Connect to existing gas supply line</li>
+          <li><span class="mark">✓</span>Gas leak test after connection</li>
+          <li><span class="mark">✓</span>Set and secure cooktop in cutout</li>
+          <li><span class="mark">✓</span>Function test all burners</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>New gas line installation or rerouting</li>
+          <li><span class="mark">✗</span>LP / propane conversion</li>
+          <li><span class="mark">✗</span>Cabinet structural modifications</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELECTRIC -->
+  <div id="cooktop-electric" style="display:none">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Electric and induction cooktops require a <strong>dedicated 240V circuit</strong>. If your home does not have the required circuit, our team can provide electrical work as an add-on service — identified and confirmed during your measure appointment.</p>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">240V Dedicated Circuit</div><div class="req-card-body">40–50 amp dedicated breaker with correct wire gauge. If not in place, our team can provide as an add-on — quoted at the measure appointment.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Cutout Match</div><div class="req-card-body">Verify cutout dimensions against new unit specs. Electric cooktops vary widely between brands.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 03</div><div class="req-card-title">Induction Cooktops</div><div class="req-card-body">Induction units may draw more amperage than older electric cooktops. Confirm your panel can support the load.</div></div>
+      </div>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Disconnect and haul away old unit</li>
+          <li><span class="mark">✓</span>Connect to existing 240V circuit</li>
+          <li><span class="mark">✓</span>Set and secure in cutout</li>
+          <li><span class="mark">✓</span>Full function test</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>Panel upgrades (electrical add-ons quoted at measure)</li>
+          <li><span class="mark">✗</span>Countertop cutout fabrication (available at fee)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNDRAFT -->
+  <div id="cooktop-downdraft" style="display:none">
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>Measurement required before ordering.</strong> Downdraft cooktops require precise under-counter clearance for the pop-up duct and blower. Do not order without a pre-install site visit.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Under-Cabinet Clearance</div><div class="req-card-body">Minimum 12" of clear space below the counter for duct and blower assembly. Cabinet must be free of obstructions.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Existing Ductwork</div><div class="req-card-body">Duct must already be routed to an exterior wall. New duct runs are not included.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Power</div><div class="req-card-body">Both cooktop (240V) and blower (120V) circuits must be present and accessible.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ WALL OVEN ═════════════════ -->
+<div id="panel-walloven" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🔥</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Wall Oven Installation</h2>
+      <div class="panel-sub">Single · Double · Combination Oven + Microwave</div>
+    </div>
+  </div>
+
+  <div class="subtype-row">
+    <button class="subtype-btn active" onclick="switchSub('walloven','single',this)">Single</button>
+    <button class="subtype-btn" onclick="switchSub('walloven','double',this)">Double</button>
+    <button class="subtype-btn" onclick="switchSub('walloven','combo',this)">Combo Oven</button>
+  </div>
+
+  <!-- SINGLE -->
+  <div id="walloven-single">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Standard scope covers <strong>replacing an existing wall oven</strong> of the same type. Match your existing cutout dimensions before ordering. Electrical add-ons can be quoted at measure.</p>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Cabinet Cutout</div><div class="req-card-body">Cutout must match new unit width, height, and depth. Measure existing cutout — not the old appliance — and compare to new unit specs.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">240V Dedicated Circuit</div><div class="req-card-body">30–50 amp dedicated breaker with junction box accessible behind or beneath the oven cavity. <strong>If not in place, our team can provide</strong> — identified during the measure appointment.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Access Path</div><div class="req-card-body">Clear path from entry to kitchen. Wall ovens are heavy — minimum 32" doorways and no stairs without prior notice.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Cabinet Strength</div><div class="req-card-body">Cabinet must be structurally sound and fastened to wall studs. Weak or modified cabinets must be reinforced before install.</div></div>
+      </div>
+    </div>
+
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Remove and haul away old oven</li>
+          <li><span class="mark">✓</span>Slide in and secure new unit to cabinet</li>
+          <li><span class="mark">✓</span>Connect to existing 240V circuit</li>
+          <li><span class="mark">✓</span>Function test (bake, broil, convection)</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>Cabinet cutout modifications</li>
+          <li><span class="mark">✗</span>Panel upgrades (electrical add-ons quoted at measure)</li>
+          <li><span class="mark">✗</span>Wood filler or finish cabinetry (color matching)</li>
+          <li><span class="mark">✗</span>First-time wall oven installation (no existing)</li>
+          <li><span class="mark warn">⚠</span>Platforms and metal trim kits — available at additional charge</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOUBLE -->
+  <div id="walloven-double" style="display:none">
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>Double ovens are heavier and taller.</strong> Confirm your cabinet cutout accommodates the full height of a double unit (typically 50"–52"). Two installers will be sent for double oven installs.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Extended Cutout Height</div><div class="req-card-body">Double ovens require taller cabinet openings than single. Measure carefully — typical range is 50" to 52". Confirm with product specs before ordering.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">240V / 50A Circuit</div><div class="req-card-body">Double ovens typically require a 50A circuit. Electrical add-on available at measure if needed.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Clear Access</div><div class="req-card-body">Doorways of at least 36" wide preferred. Stairways must be communicated in advance so a 3-person crew can be arranged.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMBO -->
+  <div id="walloven-combo" style="display:none">
+    <div class="alert blue">
+      <div class="alert-icon">i</div>
+      <div class="alert-body"><strong>Combination oven + microwave units</strong> require a single cutout sized for the combined appliance. Confirm you are replacing an existing combo unit — converting from separate appliances requires cabinet work not included in standard scope.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Combo Cutout Size</div><div class="req-card-body">Cutout for combo units is taller than a single oven. Verify height, width, and depth against new unit specs.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Dual Power Requirements</div><div class="req-card-body">Some combo units require both a 240V circuit (oven) and a 120V outlet (microwave). Confirm power requirements in product documentation.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ DISHWASHER ═════════════════ -->
+<div id="panel-dishwasher" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🍽️</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Dishwasher Installation</h2>
+      <div class="panel-sub">Built-in undercounter · 24" standard opening</div>
+    </div>
+  </div>
+
+  <div class="thd-note">
+    <div class="thd-note-stamp">Pro Note</div>
+    <p>Standard scope is <strong>replacing an existing dishwasher</strong>. First-time dishwasher installs require new plumbing rough-in (water supply, drain line, and electrical) — this must be completed by a plumber before our installer arrives.</p>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Water Supply Line</div><div class="req-card-body">Hot water supply valve under the sink, accessible and functioning. ⅜" compression fitting recommended.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Drain Connection</div><div class="req-card-body">Drain hose must connect to garbage disposal or sink drain via high-loop. <strong>California requires an air gap</strong> — if a hole needs to be drilled in the countertop for it, we can do this on any countertop material. <strong>Oregon does not require an air gap.</strong></div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Dedicated 120V Circuit</div><div class="req-card-body">15–20 amp dedicated circuit with junction box located <strong>under the sink or in a nearby cabinet</strong> — not behind the dishwasher. Must be accessible before installation begins.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Standard Opening</div><div class="req-card-body">24" wide × 34" high opening standard. European dishwashers may vary. Measure before ordering.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 05</div><div class="req-card-title">Flooring Clearance</div><div class="req-card-body">New flooring or tile raising the floor height may prevent dishwasher from fitting under countertop. Check clearance before install.</div></div>
+    </div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Disconnect and haul away old dishwasher</li>
+        <li><span class="mark">✓</span>Connect water supply and drain</li>
+        <li><span class="mark">✓</span>Connect to existing electrical circuit</li>
+        <li><span class="mark">✓</span>Level and secure dishwasher to cabinet</li>
+        <li><span class="mark">✓</span>Run test cycle and check for leaks</li>
+        <li><span class="mark">✓</span>Customer walkthrough</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>First-time install (new plumbing/electrical)</li>
+        <li><span class="mark">✗</span>New water supply or drain line rough-in</li>
+        <li><span class="mark">✗</span>New electrical circuit</li>
+        <li><span class="mark">✗</span>Air gap replacement or new hole for air gap (hole drilling included — see Drain Connection note above)</li>
+        <li><span class="mark">✗</span>Flooring or cabinet modifications</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ OTR MICROWAVE ═════════════════ -->
+<div id="panel-otr" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">📡</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Over-the-Range Microwave</h2>
+      <div class="panel-sub">Replaces OTR microwave or range hood over standard range</div>
+    </div>
+  </div>
+
+  <div class="thd-note">
+    <div class="thd-note-stamp">Pro Note</div>
+    <p>OTR microwaves require <strong>upper cabinets above the range and a 120V outlet inside the cabinet</strong>. If no upper cabinet exists or the outlet is missing, our installer cannot complete the install.</p>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Upper Cabinet</div><div class="req-card-body">A full upper cabinet (not just trim) must be present directly above the range for mounting. Cabinet must be secured to wall studs.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V Outlet Inside Cabinet</div><div class="req-card-body">A grounded 120V / 15–20A outlet inside or immediately above the upper cabinet. This is the most common reason installs cannot proceed.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Vent Configuration</div><div class="req-card-body">Decide between ducted (exterior vent through cabinet/wall) or recirculating (charcoal filter, no duct). Ducted requires existing ductwork.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Width Match</div><div class="req-card-body">OTR microwave should match the width of the range below (typically 30"). Confirm unit width before ordering.</div></div>
+    </div>
+  </div>
+
+  <div class="alert red">
+    <div class="alert-icon">!</div>
+    <div class="alert-body"><strong>No upper cabinet = no install.</strong> If no upper cabinet is present, the microwave cannot be safely mounted. A carpenter must install cabinetry before we can proceed.</div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Remove and haul away old OTR or hood</li>
+        <li><span class="mark">✓</span>Mount microwave to upper cabinet and wall</li>
+        <li><span class="mark">✓</span>Connect to existing 120V outlet</li>
+        <li><span class="mark">✓</span>Configure vent (ducted or recirculating)</li>
+        <li><span class="mark">✓</span>Function test all features</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>New upper cabinet installation</li>
+        <li><span class="mark">✗</span>New electrical outlet inside cabinet</li>
+        <li><span class="mark">✗</span>New ductwork or exterior wall penetration</li>
+        <li><span class="mark">✗</span>First-time install over no prior unit</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ RANGE HOOD ═════════════════ -->
+<div id="panel-hood" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">💨</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Range Hood Installation</h2>
+      <div class="panel-sub">Wall-Mounted · Under-Cabinet · Island · Insert (Power Pack)</div>
+    </div>
+  </div>
+
+  <div class="subtype-row">
+    <button class="subtype-btn active" onclick="switchSub('hood','wall',this)">Wall-Mounted</button>
+    <button class="subtype-btn" onclick="switchSub('hood','undercabinet',this)">Under-Cabinet</button>
+    <button class="subtype-btn" onclick="switchSub('hood','island',this)">Island</button>
+    <button class="subtype-btn" onclick="switchSub('hood','insert',this)">Insert (Power Pack)</button>
+  </div>
+
+  <!-- WALL -->
+  <div id="hood-wall">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>Wall-mounted hoods require <strong>existing ductwork to the exterior</strong> and a <strong>120V outlet</strong> at the hood location. Duct runs through walls or ceilings are outside scope.</p>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Existing Exterior Duct</div><div class="req-card-body">Ductwork must already be installed and routed to the exterior. Duct diameter must match the hood's exhaust port (typically 6" or 8" round).</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V Outlet</div><div class="req-card-body">Grounded outlet at or above the hood location, within reach of the power cord.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Wall Studs</div><div class="req-card-body">Hood must be anchored into wall studs. Drywall-only mounting is not acceptable for safety.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Height Clearance</div><div class="req-card-body">Minimum 24"–30" between cooktop surface and hood bottom. Confirm manufacturer's recommendation.</div></div>
+      </div>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Remove old hood or OTR</li>
+          <li><span class="mark">✓</span>Mount hood to wall studs</li>
+          <li><span class="mark">✓</span>Connect to existing ductwork</li>
+          <li><span class="mark">✓</span>Connect to existing 120V outlet</li>
+          <li><span class="mark">✓</span>Function and airflow test</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>New duct runs through walls or ceiling</li>
+          <li><span class="mark">✗</span>Exterior wall penetration</li>
+          <li><span class="mark">✗</span>New electrical outlet installation</li>
+          <li><span class="mark">✗</span>Drywall patching or painting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- UNDER-CABINET -->
+  <div id="hood-undercabinet" style="display:none">
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Upper Cabinet</div><div class="req-card-body">Solid upper cabinet for mounting. Hood attaches to cabinet bottom — cabinet must be properly secured to wall.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Duct or Recirculating</div><div class="req-card-body">Ducted version needs existing duct through cabinet. Recirculating (ductless) uses charcoal filter — no duct needed but less effective.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">120V Outlet in Cabinet</div><div class="req-card-body">Power source inside or directly above upper cabinet for the hood's power cord or hardwired connection.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ISLAND -->
+  <div id="hood-island" style="display:none">
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>Island hoods require ceiling duct routing.</strong> Ductwork must already run through the ceiling to an exterior point. This is a complex install — a site assessment is strongly recommended before ordering.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Ceiling Ductwork</div><div class="req-card-body">Existing duct must run through the ceiling and exit through the roof or soffit. Must be sized correctly for the hood's CFM rating.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Ceiling Mounting Support</div><div class="req-card-body">Island hoods are heavy. Ceiling joists or blocking must be in place. Installer will confirm structural adequacy on-site.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Hardwired or Outlet Above</div><div class="req-card-body">120V power at ceiling location. Hardwired connections by a licensed electrician may be required depending on the unit.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSERT (Power Pack) -->
+  <div id="hood-insert" style="display:none">
+    <div class="thd-note">
+      <div class="thd-note-stamp">Pro Note</div>
+      <p>An insert hood is a <strong>blower / liner unit that mounts inside an existing custom hood enclosure</strong> — typically a decorative wood or metal canopy already built into the kitchen. The visible hood structure is part of the cabinetry; we install the working ventilation unit inside it.</p>
+    </div>
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>The hood enclosure must already be in place.</strong> We do not build, fabricate, or modify the decorative hood structure. The enclosure must match the insert dimensions and be properly anchored before our installer arrives.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Existing Hood Enclosure</div><div class="req-card-body">Custom hood housing must be in place, dimensioned to match the insert width and depth, and structurally anchored to wall studs or ceiling joists.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Existing Ductwork</div><div class="req-card-body">Duct must already be routed from inside the hood enclosure to the exterior. Diameter must match insert specs (typically 6", 8", or 10" round).</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">120V Outlet Inside Enclosure</div><div class="req-card-body">Grounded 120V outlet inside the hood enclosure. Higher-CFM units may require hardwiring — confirm with product documentation.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Width &amp; Depth Match</div><div class="req-card-body">Insert width must fit precisely inside the enclosure opening. Standard widths are 28", 34", 40", 46". Verify before ordering.</div></div>
+        <div class="req-card warn"><div class="req-card-num">NOTE · 05</div><div class="req-card-title">CFM &amp; Make-Up Air</div><div class="req-card-body">Inserts over 400 CFM may require a make-up air system per local code. Make-up air installation is not included.</div></div>
+      </div>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Remove old insert (if present)</li>
+          <li><span class="mark">✓</span>Mount new insert inside the existing enclosure</li>
+          <li><span class="mark">✓</span>Connect to existing ductwork</li>
+          <li><span class="mark">✓</span>Connect to existing 120V power</li>
+          <li><span class="mark">✓</span>Function and airflow test</li>
+          <li><span class="mark">✓</span>Customer walkthrough</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>Building or modifying the hood enclosure</li>
+          <li><span class="mark">✗</span>New ductwork through walls or ceiling</li>
+          <li><span class="mark">✗</span>Exterior wall or roof penetration</li>
+          <li><span class="mark">✗</span>Make-up air system installation</li>
+          <li><span class="mark">✗</span>Hardwiring (if not pre-existing) — quoted as electrical add-on</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ BUILT-IN FRIDGE ═════════════════ -->
+<div id="panel-fridge" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">❄️</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Built-In Refrigerator</h2>
+      <div class="panel-sub">Panel-Ready · Counter-Depth · Column Refrigerator / Freezer</div>
+    </div>
+  </div>
+
+  <div class="alert orange">
+    <div class="alert-icon">!</div>
+    <div class="alert-body"><strong>Pre-install site measurement is required.</strong> Built-in refrigerators are precision-fit appliances. Our team must measure the opening, cabinetry, and utilities before the unit is delivered. Do not schedule delivery without a confirmed site visit.</div>
+  </div>
+
+  <div class="thd-note">
+    <div class="thd-note-stamp">Pro Note</div>
+    <p>Built-in refrigerators are <strong>the most complex residential appliance install</strong>. Cabinet panels, custom trim, and tight tolerances mean every job is different. We will send measurements to the store — the sales associate will work with you to confirm fit before ordering.</p>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Precise Opening</div><div class="req-card-body">Width, height, and depth must be exact. Built-in units have zero tolerance for mismatched openings. Framing adjustments may be needed.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Dedicated 120V / 20A</div><div class="req-card-body">Dedicated circuit with outlet inside the recess. Must not share with other appliances.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Optional: Water Line</div><div class="req-card-body">If the unit has an ice maker or water dispenser, a ¼" copper or braided line with shutoff valve is required within 6 ft.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Delivery Access</div><div class="req-card-body">Built-in fridges are very large and heavy. Confirm all doorways, hallways, and entry paths are clear. Minimum 36" width required.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 05</div><div class="req-card-title">Cabinet Panels</div><div class="req-card-body">Panel-ready units require custom panels ordered separately. Panels must be on-site before install day. Installation of panels is included.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 06</div><div class="req-card-title">Ventilation Grille</div><div class="req-card-body">Built-in fridges require a ventilation grille at the top or bottom. Confirm the opening allows for proper airflow per manufacturer specs.</div></div>
+    </div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Remove and haul away old refrigerator</li>
+        <li><span class="mark">✓</span>Slide in and level new unit</li>
+        <li><span class="mark">✓</span>Connect water line (if existing)</li>
+        <li><span class="mark">✓</span>Attach cabinet panels (if on-site)</li>
+        <li><span class="mark">✓</span>Connect to existing electrical</li>
+        <li><span class="mark">✓</span>Full function test including ice maker</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>Cabinet framing or structural modifications</li>
+        <li><span class="mark">✗</span>New water line rough-in</li>
+        <li><span class="mark">✗</span>New electrical circuit</li>
+        <li><span class="mark">✗</span>Custom panel fabrication or ordering</li>
+        <li><span class="mark">✗</span>Flooring protection or repair</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ WASHER & DRYER ═════════════════ -->
+<div id="panel-laundry" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🫧</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Washer &amp; Dryer Installation</h2>
+      <div class="panel-sub">Top-Load · Front-Load · Stacked · Gas / Electric</div>
+    </div>
+  </div>
+
+  <div class="subtype-row">
+    <button class="subtype-btn active" onclick="switchSub('laundry','washer',this)">Washer</button>
+    <button class="subtype-btn" onclick="switchSub('laundry','edryer',this)">Electric Dryer</button>
+    <button class="subtype-btn" onclick="switchSub('laundry','gdryer',this)">Gas Dryer</button>
+    <button class="subtype-btn" onclick="switchSub('laundry','stacked',this)">Stacked</button>
+  </div>
+
+  <!-- WASHER -->
+  <div id="laundry-washer">
+    <div class="alert green">
+      <div class="alert-icon">✓</div>
+      <div class="alert-body">We can install your washer and dryer in the <strong>garage</strong> — just let us know when scheduling so we can confirm utility access.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Hot &amp; Cold Water Valves</div><div class="req-card-body">Two working shutoff valves (hot and cold) with hose bib connections behind or beside the washer. Must be within 4 ft of the machine.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Drain Standpipe</div><div class="req-card-body">Standpipe or utility sink for drain hose. Minimum 2" diameter, minimum 18" high, maximum 96" high from floor.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">120V / 20A Outlet</div><div class="req-card-body">Standard grounded outlet within reach of the power cord. Must be a dedicated or laundry-area circuit.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 04</div><div class="req-card-title">Level Floor</div><div class="req-card-body">Floor must be reasonably level. Installer will adjust leveling legs. Severely uneven floors may require a platform.</div></div>
+      </div>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-box">
+        <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+        <ul class="scope-list in">
+          <li><span class="mark">✓</span>Disconnect and haul away old washer</li>
+          <li><span class="mark">✓</span>Connect hot/cold water hoses</li>
+          <li><span class="mark">✓</span>Connect drain hose to standpipe</li>
+          <li><span class="mark">✓</span>Level machine and run test cycle</li>
+        </ul>
+      </div>
+      <div class="scope-box">
+        <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+        <ul class="scope-list out">
+          <li><span class="mark">✗</span>New water supply lines or valves</li>
+          <li><span class="mark">✗</span>New drain standpipe installation</li>
+          <li><span class="mark">✗</span>New electrical circuit</li>
+          <li><span class="mark">✗</span>Platform or pedestal installation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELECTRIC DRYER -->
+  <div id="laundry-edryer" style="display:none">
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">240V / 30A Outlet</div><div class="req-card-body">4-prong NEMA 14-30 outlet strongly preferred. Older 3-prong NEMA 10-30 outlets require a cord adapter (not included).</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Existing Exhaust Duct</div><div class="req-card-body">4" rigid or semi-rigid metal duct to exterior. Flexible vinyl duct is not acceptable — it's a fire hazard.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAS DRYER -->
+  <div id="laundry-gdryer" style="display:none">
+    <div class="req-section">
+      <div class="req-section-label">What Must Be Ready</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Gas Shutoff Valve</div><div class="req-card-body">Accessible gas shutoff within 6 ft. Must accept a standard ½" gas connector. Valve must operate freely.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V Outlet</div><div class="req-card-body">Standard grounded outlet for drum light and controls.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Existing Exhaust Duct</div><div class="req-card-body">4" metal duct to exterior. Gas dryers must be ducted — no exceptions.</div></div>
+      </div>
+    </div>
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>Gas leak test required.</strong> Our installer will test all connections before departure. If a leak is detected at the valve, our installer can perform the valve repair as an <strong>out-of-scope add-on service</strong> — quoted on-site and requires customer approval before proceeding.</div>
+    </div>
+    <div class="alert orange">
+      <div class="alert-icon">!</div>
+      <div class="alert-body"><strong>LP / Propane Conversion is NOT included.</strong> If your home runs on propane, the dryer needs to be converted with a manufacturer LP conversion kit. <strong>The kit is sold separately</strong> — we can provide it and perform the conversion as an add-on service. Confirm with your sales associate before install day.</div>
+    </div>
+  </div>
+
+  <!-- STACKED -->
+  <div id="laundry-stacked" style="display:none">
+    <div class="alert blue">
+      <div class="alert-icon">i</div>
+      <div class="alert-body"><strong>Stacked units are heavier and require two installers.</strong> Both washer and dryer requirements above apply. Confirm ceiling height allows the stacked height of both units.</div>
+    </div>
+    <div class="req-section">
+      <div class="req-section-label">Additional Requirements</div>
+      <div class="req-grid">
+        <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Stacking Kit Required</div><div class="req-card-body">Make sure to purchase the stacking kit (sold separately) when working with your Home Depot store. It must match your washer/dryer model exactly and be on-site, unboxed, and ready on install day. Universal kits are not accepted.</div></div>
+        <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Ceiling Clearance</div><div class="req-card-body">Stacked pair typically reaches 74"–76". Confirm ceiling height in laundry area accommodates this, including duct connections at top.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ TRASH COMPACTOR ═════════════════ -->
+<div id="panel-compactor" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🗑️</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Trash Compactor</h2>
+      <div class="panel-sub">Built-In Undercounter · Freestanding</div>
+    </div>
+  </div>
+
+  <div class="thd-note">
+    <div class="thd-note-stamp">Pro Note</div>
+    <p>Trash compactors are a <strong>straightforward swap</strong> if an existing unit is present. Width must match exactly — standard is 15" or 18". Verify before ordering.</p>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Cabinet Opening</div><div class="req-card-body">15" or 18" wide opening (confirm your unit width). Height is typically 34" — verify against new unit specs.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V / 20A Outlet</div><div class="req-card-body">Grounded outlet inside the cabinet cavity or immediately adjacent. Must be accessible without removing cabinetry.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 03</div><div class="req-card-title">First-Time Install</div><div class="req-card-body">If no compactor was previously installed, the cabinet opening may need to be cut and an outlet added. Both require separate contractors.</div></div>
+    </div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Remove and haul away old compactor</li>
+        <li><span class="mark">✓</span>Slide in and level new unit</li>
+        <li><span class="mark">✓</span>Connect to existing outlet</li>
+        <li><span class="mark">✓</span>Function test</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>Cabinet opening creation or modification</li>
+        <li><span class="mark">✗</span>New electrical outlet</li>
+        <li><span class="mark">✗</span>Custom panel or trim kit</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ GARBAGE DISPOSAL ═════════════════ -->
+<div id="panel-disposal" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">🔩</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Garbage Disposal</h2>
+      <div class="panel-sub">Continuous Feed · Batch Feed · With or Without Dishwasher</div>
+    </div>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Switched 120V Outlet</div><div class="req-card-body">A switched outlet under the sink (controlled by a wall switch) or a direct hardwire connection. Must be accessible inside the sink cabinet.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">Sink Drain Flange</div><div class="req-card-body">Standard 3½" sink drain opening. Stainless steel sink recommended. Porcelain or specialty sinks may require extra care during mount.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Dishwasher Drain</div><div class="req-card-body">If a dishwasher is present, the disposal must have a dishwasher inlet port. Installer will connect the dishwasher drain line to the disposal.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Septic System</div><div class="req-card-body">Homes on septic systems should only use disposals rated for septic use. Check your system's capacity and local codes before ordering.</div></div>
+    </div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Remove and dispose of old unit</li>
+        <li><span class="mark">✓</span>Install mounting assembly and new disposal</li>
+        <li><span class="mark">✓</span>Connect drain and dishwasher line</li>
+        <li><span class="mark">✓</span>Connect to existing electrical</li>
+        <li><span class="mark">✓</span>Test for leaks and function</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>New electrical outlet or wall switch</li>
+        <li><span class="mark">✗</span>Drain line rerouting</li>
+        <li><span class="mark">✗</span>Sink flange modification</li>
+        <li><span class="mark">✗</span>Air gap installation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════════════ TRIM KIT ═════════════════ -->
+<div id="panel-trimkit" class="panel">
+  <div class="section-tag">// Appliance Spec Sheet</div>
+  <div class="panel-header-row">
+    <div class="panel-icon">📦</div>
+    <div class="panel-meta">
+      <h2 class="panel-title-text">Built-In Microwave + Trim Kit</h2>
+      <div class="panel-sub">Countertop Microwave with Cabinet-Flush Trim Kit</div>
+    </div>
+  </div>
+
+  <div class="thd-note">
+    <div class="thd-note-stamp">Pro Note</div>
+    <p>A built-in microwave with trim kit is a <strong>countertop microwave installed inside a cabinet opening</strong> with a frame that makes it appear built-in. The trim kit must be <strong>purchased separately and be model-specific</strong> — universal kits do not work.</p>
+  </div>
+
+  <div class="alert orange">
+    <div class="alert-icon">!</div>
+    <div class="alert-body"><strong>Trim kit must be on-site and unboxed before install day.</strong> We cannot proceed without it. Confirm compatibility with your microwave model number before ordering.</div>
+  </div>
+
+  <div class="req-section">
+    <div class="req-section-label">What Must Be Ready</div>
+    <div class="req-grid">
+      <div class="req-card"><div class="req-card-num">REQ · 01</div><div class="req-card-title">Cabinet Opening</div><div class="req-card-body">Opening must match the trim kit dimensions exactly. Measure width, height, and depth. Cabinet interior must allow ventilation clearance specified by manufacturer.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 02</div><div class="req-card-title">120V / 20A Outlet Inside Cabinet</div><div class="req-card-body">A dedicated outlet inside the cabinet cavity, recessed or positioned so the microwave door closes fully. Most common reason installs cannot be completed.</div></div>
+      <div class="req-card"><div class="req-card-num">REQ · 03</div><div class="req-card-title">Trim Kit On-Site</div><div class="req-card-body">Model-specific trim kit must match the microwave exactly. Must be unboxed and present when the installer arrives. No substitutions accepted.</div></div>
+      <div class="req-card warn"><div class="req-card-num">NOTE · 04</div><div class="req-card-title">Ventilation</div><div class="req-card-body">Built-in microwaves recirculate air — cabinet must allow for air intake and exhaust per manufacturer specs. Solid enclosed cabinets with no airflow cannot be used.</div></div>
+    </div>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-box">
+      <div class="scope-head in"><span class="scope-icon">✓</span>Always Included</div>
+      <ul class="scope-list in">
+        <li><span class="mark">✓</span>Remove old microwave or built-in unit</li>
+        <li><span class="mark">✓</span>Slide microwave into cabinet opening</li>
+        <li><span class="mark">✓</span>Install trim kit frame around unit</li>
+        <li><span class="mark">✓</span>Connect to existing outlet</li>
+        <li><span class="mark">✓</span>Full function test</li>
+        <li><span class="mark">✓</span>Customer walkthrough</li>
+      </ul>
+    </div>
+    <div class="scope-box">
+      <div class="scope-head out"><span class="scope-icon">✗</span>Outside Standard Scope</div>
+      <ul class="scope-list out">
+        <li><span class="mark">✗</span>Cabinet opening creation or modification</li>
+        <li><span class="mark">✗</span>New electrical outlet installation</li>
+        <li><span class="mark">✗</span>Trim kit purchase or sourcing</li>
+        <li><span class="mark">✗</span>Ductwork or exterior venting</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+</section>
+
+<!-- ───── Promise Banner ───── -->
+<section class="promise">
+  <div class="promise-inner">
+    <div class="promise-eyebrow">// The Promise</div>
+    <h2 class="promise-title">We're the pros <span class="accent">Home Depot</span> refers to install your appliances.</h2>
+    <p class="promise-sub">Before, during, and after your appointment — we're with you the whole way.</p>
+
+    <div class="promise-grid">
+      <div class="promise-pillar">
+        <div class="promise-pillar-tag">Before</div>
+        <div class="promise-pillar-headline">Schedule + confirm</div>
+        <div class="promise-pillar-text">We coordinate the install date and email your <strong>4-hour arrival window</strong> the night before — no calls required.</div>
+      </div>
+      <div class="promise-pillar">
+        <div class="promise-pillar-tag">During</div>
+        <div class="promise-pillar-headline">Install + walkthrough</div>
+        <div class="promise-pillar-text">Licensed pros handle the install with care. Same-day completion when the prep requirements are met.</div>
+      </div>
+      <div class="promise-pillar">
+        <div class="promise-pillar-tag">After</div>
+        <div class="promise-pillar-headline">2-year support</div>
+        <div class="promise-pillar-text">Free post-install customer support for two full years. Call or email — <strong>we respond fast.</strong></div>
+      </div>
+    </div>
+
+    <div class="promise-signoff">
+      <div class="promise-signoff-stamp">★ Authorized Home Depot Installer</div>
+      <div class="promise-signoff-meta">MasterPro Installs Corp · San Leandro, CA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Contact ───── -->
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div>
+      <h2>Questions before<br>your install? <span class="accent">Reach us.</span></h2>
+      <p>For scheduling, requirement clarification, or special site situations — call or email us directly. We answer fast.</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-label">Customer Support</div>
+        <div class="contact-value"><a href="tel:+18778982668">1-877-898-2668</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:thd-appliance-support@masterpro.app">thd-appliance-support@masterpro.app</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Hours</div>
+        <div class="contact-value">Mon–Sat · 7am–7pm PST</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Website</div>
+        <div class="contact-value"><a href="https://masterpro.app" target="_blank">masterpro.app</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 MasterPro Installs Corp · <span class="orange">Authorized Home Depot Installer</span> · San Leandro, CA
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.tabs-bar').offsetTop, behavior: 'smooth' });
+}
+const subMap = {
+  range: ['gas','electric','dual','pro'],
+  cooktop: ['gas','electric','downdraft'],
+  walloven: ['single','double','combo'],
+  hood: ['wall','undercabinet','island','insert'],
+  laundry: ['washer','edryer','gdryer','stacked']
+};
+function switchSub(appliance, type, btn) {
+  const types = subMap[appliance];
+  if (!types) return;
+  types.forEach(t => {
+    const el = document.getElementById(appliance + '-' + t);
+    if (el) el.style.display = (t === type) ? 'block' : 'none';
+  });
+  btn.closest('.subtype-row').querySelectorAll('.subtype-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+document.querySelectorAll('.navlinks a').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').substring(1);
+    if (['contact'].includes(id)) return;
+    e.preventDefault();
+    const tabBtn = document.querySelector(`.tab-btn[onclick*="'${id}'"]`);
+    if (tabBtn) tabBtn.click();
+  });
+});
+</script>
+</body>
+</html>
