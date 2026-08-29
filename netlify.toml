@@ -1,0 +1,35 @@
+# ============================================================
+# MASTERPRO / NETLIFY CONFIGURATION
+# Each folder containing an index.html becomes a URL path.
+#   index.html        ->  masterpro.app
+#   thd/index.html    ->  masterpro.app/thd
+# Folders starting with "_" are ignored (used for templates).
+# ============================================================
+
+[build]
+  publish = "."
+
+# Security headers for every page
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Images and icons: cache aggressively
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.ico"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML: always revalidate so updates appear immediately
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

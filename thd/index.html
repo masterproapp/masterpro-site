@@ -1,0 +1,1469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1a1a">
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MasterPro | Home Depot Sales Associate Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-card: #ffffff;
+    --bg-deep: #1a1a1a;
+    --bg-deep-2: #232323;
+    --ink: #1a1a1a;
+    --ink-soft: #555;
+    --ink-faint: #8a8a8a;
+    --line: #e3ddd0;
+    --line-strong: #c8bfac;
+    --orange: #f96302;
+    --orange-deep: #d35200;
+    --blueprint: #1e3a5f;
+    --cream: #fbf7ec;
+    --green: #2d7a3a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .display { font-family: 'Archivo Black', 'Archivo', sans-serif; letter-spacing: -0.02em; }
+  .archivo { font-family: 'Archivo', sans-serif; }
+
+  /* ───── Top nav ───── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg-deep); color: #fff;
+    border-bottom: 3px solid var(--orange);
+  }
+  .topbar-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 24px; gap: 24px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px; letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .brand .x { color: var(--orange); font-size: 20px; font-weight: 700; }
+  .brand img.logo {
+    height: 36px; width: 36px; display: block;
+    border-radius: 2px;
+  }
+  .navlinks {
+    display: flex; gap: 22px; font-size: 13px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .navlinks a { color: #d8d8d8; text-decoration: none; transition: color 0.15s; }
+  .navlinks a:hover { color: var(--orange); }
+  @media (max-width: 720px) {
+    .navlinks { display: none; }
+    .topbar-inner { padding: 10px 16px; }
+  }
+
+  /* ───── State selector ───── */
+  .state-select {
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .state-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 600;
+  }
+  .state-toggle {
+    display: inline-flex; border: 1px solid #444; border-radius: 6px;
+    overflow: hidden; background: var(--bg-deep-2);
+  }
+  .state-btn {
+    appearance: none; border: none; cursor: pointer;
+    background: transparent; color: #d8d8d8;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.04em; padding: 7px 16px; transition: all 0.15s;
+  }
+  .state-btn:not(:last-child) { border-right: 1px solid #444; }
+  .state-btn:hover { color: #fff; }
+  .state-btn.active { background: var(--orange); color: #fff; }
+  @media (max-width: 720px) {
+    .state-label { display: none; }
+    .state-btn { padding: 6px 12px; font-size: 12px; }
+  }
+
+  /* State-conditional content visibility */
+  body[data-state="OR"] .ca-only { display: none !important; }
+  body[data-state="CA"] .or-only { display: none !important; }
+
+  /* ───── Region gate (landing splash) ───── */
+  /* Hide the whole portal until a region is chosen */
+  body:not([data-state]) .portal-shell { display: none !important; }
+  /* Hide the gate once a region is chosen */
+  body[data-state] #regionGate { display: none !important; }
+
+  #regionGate {
+    position: fixed; inset: 0; z-index: 200;
+    background: var(--bg-deep);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .gate-inner {
+    width: 100%; max-width: 760px; text-align: center;
+  }
+  .gate-brand {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin-bottom: 36px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: #fff;
+  }
+  .gate-brand img { height: 44px; width: 44px; border-radius: 2px; display: block; }
+  .gate-brand img.hd { width: auto; }
+  .gate-brand .x { color: var(--orange); font-size: 22px; font-weight: 700; }
+  .gate-eyebrow {
+    font-size: 12px; color: var(--orange); letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 700; margin-bottom: 14px;
+  }
+  .gate-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 34px; line-height: 1.1; color: #fff; margin-bottom: 12px;
+  }
+  .gate-sub {
+    font-size: 16px; color: #b8b8b8; margin-bottom: 40px;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+  }
+  .gate-options {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  }
+  .gate-card {
+    appearance: none; cursor: pointer;
+    flex: 1 1 240px; max-width: 320px;
+    background: var(--bg-deep-2); border: 2px solid #3a3a3a; border-radius: 14px;
+    padding: 32px 28px; text-align: left; color: #fff;
+    font-family: inherit; transition: all 0.18s;
+  }
+  .gate-card:hover {
+    border-color: var(--orange); transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+  .gate-card-state {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 26px; margin-bottom: 8px;
+  }
+  .gate-card-abbr { color: var(--orange); }
+  .gate-card-desc { font-size: 14px; color: #aaa; line-height: 1.5; }
+  .gate-card-go {
+    margin-top: 18px; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--orange);
+  }
+  @media (max-width: 720px) {
+    .gate-title { font-size: 26px; }
+    .gate-options { flex-direction: column; align-items: stretch; }
+    .gate-card { max-width: none; }
+  }
+
+  /* ───── Hero ───── */
+  .hero {
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 64px 24px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px;
+    align-items: end;
+  }
+  .hero .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--orange); letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 0 0 22px;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero p.lede {
+    font-size: 18px; max-width: 560px; color: #cfc9bb;
+    margin: 0;
+  }
+  .hero p.lede strong { color: #fff; font-weight: 700; }
+  .trophy-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--orange); color: #fff;
+    padding: 10px 16px; border-radius: 2px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    box-shadow: 0 4px 0 var(--orange-deep);
+  }
+  .trophy-tag .star { font-size: 14px; }
+  @media (max-width: 720px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero { padding: 40px 16px 56px; }
+  }
+
+  /* ───── 50A Stamp banner ───── */
+  .stamp-banner {
+    background: var(--cream);
+    padding: 56px 24px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stamp-banner-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: auto 1fr auto;
+    align-items: center; gap: 36px;
+  }
+  .stamp {
+    width: 140px; height: 140px;
+    border: 4px solid var(--orange);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    color: var(--orange);
+    background: #fff;
+    position: relative;
+    transform: rotate(-8deg);
+    flex-shrink: 0;
+    box-shadow: 0 4px 0 rgba(211,82,0,0.15);
+  }
+  .stamp::before {
+    content: ''; position: absolute;
+    inset: 6px;
+    border: 1.5px solid var(--orange);
+    border-radius: 50%;
+  }
+  .stamp .amp {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 44px; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .stamp .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .stamp-body {
+    max-width: 560px;
+  }
+  .stamp-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--orange);
+    padding: 4px 10px; margin-bottom: 14px;
+    display: inline-block;
+  }
+  .stamp-body h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px; line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .stamp-body p {
+    font-size: 15px; color: var(--ink-soft);
+    margin: 0; line-height: 1.55;
+  }
+  .stamp-body p strong {
+    color: var(--ink); font-weight: 700;
+    background: rgba(249,99,2,0.12);
+    padding: 1px 6px;
+  }
+  .stamp-tag {
+    background: var(--bg-deep); color: #fff;
+    padding: 14px 20px;
+    text-align: center;
+    border-left: 4px solid var(--orange);
+  }
+  .stamp-tag .tag-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--orange);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stamp-tag .tag-val {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; line-height: 1.3;
+  }
+  @media (max-width: 900px) {
+    .stamp-banner-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+    .stamp { margin: 0 auto; }
+    .stamp-body { margin: 0 auto; }
+    .stamp-tag { max-width: 320px; margin: 0 auto; }
+  }
+
+  /* ───── Sections ───── */
+  section { padding: 72px 24px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--orange);
+    padding: 4px 10px; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .section-sub {
+    font-size: 17px; color: var(--ink-soft);
+    max-width: 660px; margin: 0 0 40px;
+  }
+
+  /* ───── How it works ───── */
+  .how { background: var(--bg); }
+  .steps {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; border: 1px solid var(--line-strong);
+    background: #fff;
+  }
+  .step {
+    padding: 28px 20px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .step:last-child { border-right: none; }
+  .step-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 48px; line-height: 1;
+    color: var(--orange);
+    margin-bottom: 16px;
+  }
+  .step-title {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 17px; margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
+  .step-body { font-size: 14px; color: var(--ink-soft); }
+  .step-body strong { color: var(--ink); font-weight: 700; }
+  @media (max-width: 1100px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .step:nth-child(3) { border-right: none; }
+    .step:nth-child(1), .step:nth-child(2), .step:nth-child(3) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .step { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .step:nth-child(2n) { border-right: none; }
+  }
+  @media (max-width: 540px) {
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--line); }
+    .step:last-child { border-bottom: none; }
+  }
+
+  /* ───── Included ───── */
+  .included { background: var(--bg-deep); color: #fff; }
+  .included .section-title { color: #fff; }
+  .included .section-sub { color: #cfc9bb; }
+  .included .section-tag { color: var(--orange); border-color: var(--orange); }
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: #333;
+    border: 1px solid #333;
+  }
+  .svc {
+    background: var(--bg-deep-2);
+    padding: 28px 26px;
+  }
+  .svc .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .svc .price {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 48px; line-height: 1;
+    color: #fff; margin-bottom: 6px;
+  }
+  .svc .price .unit { font-size: 18px; color: var(--ink-faint); margin-left: 4px; }
+  .svc .name {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 16px; margin-bottom: 10px;
+  }
+  .svc .note { font-size: 13px; color: #aaa; line-height: 1.5; }
+  @media (max-width: 800px) {
+    .svc-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── Conditional Add-Ons ───── */
+  .addons { background: #fff; }
+  .addon-meta {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px;
+    background: rgba(249,99,2,0.08);
+    border-left: 4px solid var(--orange);
+    margin-bottom: 28px;
+    font-size: 14px; color: var(--ink-soft);
+  }
+  .addon-meta strong { color: var(--ink); }
+  .addon-cats {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .addon-cat {
+    border: 1px solid var(--line-strong);
+    background: #fff;
+  }
+  .addon-cat-head {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 14px 20px;
+  }
+  .addon-cat-head .cat-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .addon-cat-head .cat-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.12em;
+  }
+  .addon-list {
+    list-style: none; margin: 0; padding: 0;
+  }
+  .addon-list li {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 16px; align-items: baseline;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .addon-list li:last-child { border-bottom: none; }
+  .addon-list .name {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 14px; color: var(--ink);
+    line-height: 1.3;
+  }
+  .addon-list .price {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px; color: var(--ink);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .addon-list .price .dollar { color: var(--orange); }
+  .addon-list .price.custom {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  @media (max-width: 800px) {
+    .addon-cats { grid-template-columns: 1fr; }
+  }
+
+  /* ───── Pricing lookup ───── */
+  .lookup { background: var(--cream); }
+  .lookup-tools {
+    display: grid; grid-template-columns: 1fr auto auto;
+    gap: 12px; margin-bottom: 24px;
+    align-items: stretch;
+  }
+  .search {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 2px solid var(--bg-deep);
+    padding: 12px 16px;
+    transition: border-color 0.15s;
+  }
+  .search:focus-within { border-color: var(--orange); }
+  .search svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--ink); }
+  .search input {
+    border: none; outline: none; background: transparent;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px; width: 100%; color: var(--ink);
+  }
+  .search input::placeholder { color: var(--ink-faint); }
+  .filter-group {
+    display: flex; gap: 0; border: 2px solid var(--bg-deep);
+    background: #fff;
+  }
+  .filter-btn {
+    padding: 12px 18px;
+    background: #fff; color: var(--ink);
+    border: none; cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    transition: all 0.15s;
+    border-right: 1px solid var(--line);
+  }
+  .filter-btn:last-child { border-right: none; }
+  .filter-btn:hover { background: var(--bg); }
+  .filter-btn.active { background: var(--bg-deep); color: #fff; }
+  @media (max-width: 760px) {
+    .lookup-tools { grid-template-columns: 1fr; }
+    .filter-group { flex-wrap: wrap; }
+    .filter-btn { flex: 1; min-width: 0; }
+  }
+
+  .results-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink-soft);
+    margin-bottom: 16px; letter-spacing: 0.05em;
+  }
+  .results-meta .count { color: var(--orange); font-weight: 600; }
+
+  .price-grid {
+    display: grid; gap: 10px;
+  }
+  .price-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 110px 100px;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--bg-deep);
+    padding: 16px 18px;
+    transition: all 0.12s;
+  }
+  .price-row:hover {
+    border-left-color: var(--orange);
+    transform: translateX(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.04);
+  }
+  .price-row[data-cat="builtin"] { border-left-color: var(--blueprint); }
+  .price-row[data-cat="builtin"]:hover { border-left-color: var(--orange); }
+  .opt-code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; color: var(--ink-soft);
+    background: var(--bg); padding: 4px 8px; border-radius: 2px;
+    text-align: center;
+  }
+  .opt-name {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 16px; color: var(--ink);
+  }
+  .opt-cat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .opt-price {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; color: var(--ink);
+    text-align: right;
+  }
+  .opt-price .dollar { color: var(--orange); }
+  .price-row.empty {
+    grid-template-columns: 1fr;
+    text-align: center; padding: 40px;
+    color: var(--ink-faint);
+    border-left-color: var(--line);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px; letter-spacing: 0.05em;
+  }
+  @media (max-width: 720px) {
+    .price-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "code price"
+        "name price"
+        "cat  price";
+      gap: 4px 16px;
+      padding: 14px 16px;
+    }
+    .opt-code { grid-area: code; justify-self: start; }
+    .opt-name { grid-area: name; }
+    .opt-cat { grid-area: cat; }
+    .opt-price { grid-area: price; align-self: center; font-size: 24px; }
+  }
+
+  /* ───── Programs & Recognition ───── */
+  .programs { background: var(--bg); }
+  .programs-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .prog-card {
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .prog-card.dark {
+    background: var(--bg-deep);
+    color: #fff;
+    border-color: var(--bg-deep);
+  }
+  .prog-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .prog-card h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px; line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+  }
+  .prog-card.dark h3 .accent { color: var(--orange); }
+  .prog-card p {
+    font-size: 15px; color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0 0 22px;
+    flex: 1;
+  }
+  .prog-card.dark p { color: #cfc9bb; }
+  .prog-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--orange); color: #fff;
+    padding: 14px 22px;
+    text-decoration: none;
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-radius: 2px;
+    box-shadow: 0 4px 0 var(--orange-deep);
+    transition: transform 0.12s, box-shadow 0.12s;
+    align-self: flex-start;
+  }
+  .prog-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--orange-deep);
+  }
+  .prog-cta .arrow { font-size: 16px; }
+  .prog-url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink-faint);
+    margin-top: 12px;
+    word-break: break-all;
+  }
+  .winner {
+    display: flex; align-items: center; gap: 18px;
+    padding: 18px;
+    background: rgba(249,99,2,0.1);
+    border: 1px solid var(--orange);
+    margin-top: 4px;
+  }
+  .winner-medal {
+    width: 60px; height: 60px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; color: #fff;
+    box-shadow: 0 3px 0 var(--orange-deep);
+  }
+  .winner-info .winner-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--orange);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .winner-info .winner-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 22px; color: #fff;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .winner-info .winner-cat {
+    font-size: 12px; color: #cfc9bb;
+    margin-top: 4px;
+  }
+  @media (max-width: 800px) {
+    .programs-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── Renovation banner ───── */
+  .renovation-banner {
+    background: var(--bg-deep);
+    color: #fff;
+    padding: 56px 24px;
+  }
+  .renovation-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: auto 1fr auto;
+    align-items: center; gap: 36px;
+  }
+  .reno-badge {
+    width: 130px; height: 130px;
+    background: var(--blueprint);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    flex-shrink: 0;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+  }
+  .reno-badge .pct {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 48px; line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .reno-badge .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-top: 4px;
+    max-width: 90px;
+  }
+  .reno-body {
+    max-width: 600px;
+  }
+  .reno-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--orange);
+    padding: 4px 10px; margin-bottom: 14px;
+    display: inline-block;
+  }
+  .reno-body h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 28px; line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+    color: #fff;
+  }
+  .reno-body p {
+    font-size: 15px; color: #cfc9bb;
+    margin: 0; line-height: 1.6;
+  }
+  .reno-body p strong {
+    color: #fff; font-weight: 700;
+  }
+  .reno-tag {
+    background: var(--orange); color: #fff;
+    padding: 14px 20px;
+    text-align: center;
+    border-left: 4px solid #fff;
+  }
+  .reno-tag .tag-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+  .reno-tag .tag-val {
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 14px; line-height: 1.3;
+  }
+  @media (max-width: 900px) {
+    .renovation-inner { grid-template-columns: 1fr; text-align: center; gap: 24px; }
+    .reno-badge { margin: 0 auto; }
+    .reno-body { margin: 0 auto; }
+    .reno-tag { max-width: 320px; margin: 0 auto; }
+  }
+
+  /* ───── Sales tips ───── */
+  .tips { background: var(--bg); }
+  .tips-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--line-strong); border: 1px solid var(--line-strong);
+  }
+  .tip {
+    background: #fff; padding: 28px;
+  }
+  .tip-q {
+    display: flex; gap: 12px; align-items: baseline;
+    font-family: 'Archivo', sans-serif; font-weight: 700;
+    font-size: 17px; margin-bottom: 10px;
+  }
+  .tip-q .qmark {
+    font-family: 'Archivo Black', sans-serif;
+    color: var(--orange); font-size: 22px; line-height: 1;
+  }
+  .tip-a { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+  .tip-a strong { color: var(--ink); }
+  @media (max-width: 760px) {
+    .tips-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── Contact ───── */
+  .contact {
+    background: var(--bg-deep); color: #fff;
+    padding: 80px 24px;
+    position: relative; overflow: hidden;
+  }
+  .contact::after {
+    content: 'MASTERPRO'; position: absolute;
+    bottom: -28px; right: -10px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(80px, 15vw, 200px);
+    color: rgba(255,255,255,0.03);
+    line-height: 1; letter-spacing: -0.04em;
+    pointer-events: none;
+  }
+  .contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    position: relative; z-index: 1;
+  }
+  .contact h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .contact h2 .accent { color: var(--orange); }
+  .contact p { color: #cfc9bb; font-size: 16px; max-width: 460px; }
+  .contact-card {
+    background: var(--bg-deep-2);
+    border: 1px solid #333;
+    padding: 28px;
+  }
+  .contact-row { margin-bottom: 18px; }
+  .contact-row:last-child { margin-bottom: 0; }
+  .contact-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .contact-value {
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+    font-size: 18px; color: #fff;
+  }
+  .contact-value a { color: #fff; text-decoration: none; border-bottom: 1px solid var(--orange); }
+  @media (max-width: 760px) {
+    .contact-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ───── Footer ───── */
+  footer {
+    background: #0d0d0d; color: #777;
+    padding: 24px; text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer .orange { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<!-- ───── Region Gate (landing) ───── -->
+<div id="regionGate">
+  <div class="gate-inner">
+    <div class="gate-brand">
+      <img src="data:image/png;base64,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" alt="MasterPro">
+      <span class="x">×</span>
+      <img class="hd" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgBAMAAAAQtmoLAAAAGFBMVEX//v7wsYTnei7oeSzneSzneSvmeSzmdCTiAfKCAAAJMUlEQVR42o2Y/W8b9R3H399znFLIwznFtiA0OXu0HXKpTBiJtkqhbNBteHGTVskYqUvcQRDTtAk08WfA+LVTR7cp/ECF+wBJtAmmaiJrWpGSBj+kdXO+JrbTnB3726RxLri+7364B5+dIeqfbPneft3n6f39nMmL+N6X6n8P2FcRAADc91+PTARAMogHFagBCYA6Lj2oYCkCAEgeeECB2gW0eT28fmnD90eQ6lp7Q/SWx+mDCdTAe/dGzqIydXDtu25JlepSlP+UEzpl4TuztBSsSxG7ewBgY+p3CNS+MamuBjmbRCD7JQCweesF6Wh2ZMVU904CQK5nqqKIdod6m99GUH0SqyIyWg3yuwDI/ZIzuP2WljoA2YzCp0nZBQFgY56rYxK3LYK/Od9xGJ/ETv1NTgAgdxXlYH0M6ejKmywu8Zp6T/MVXgEALB65DtxqpiK3rdHYGOSgVovM1Y/2hrUv8s69J3kMQOa2N5pM2FgmCEANpHKBCQ3GPgzETh4EGFfXaBLA/gH55TEVyETgvNhuINZzn1JSX7jMVQeAvKP1vPyspM0BZyAu+Hdvq7QaSI0KAGs8SdgZIRMB5CAMRG7X4jZBJoLzRwHINj/yBwISwMakKuIAWK1ADUhI2gWA/V2CczwC1CEkgFjrsBijYPkjl4HSK1d+13BZq92mY6ai1SL94y+o20JQvRTQEWdcM3qRrYg5SkIWQlr+doeiI74dnd6Z0Ntjo81AcEeyFc6aImfYQPDnvTFeR/RLZi2mgotVQjpKuXRFQ5Df3+BpI9URO8woGrICZ01RPqAheNc5FbsHUB8FOShUJy4dpYC4QAG2rJx45OBUm5IwmtxIlFtQzDqoPgpAZh4AYuP41b8MijGe1CJIaLY604sZNjoN7BiOKSCHuyc3E6Fvem7ow6Aj3BWHWWm1T5KzPCCXw4ArFgEKpwY9zGFFkOOLVddIx5myfGgeEJcqW6N7JwEocVeG2Q1EMUHdFYfZfGpAdHuKe3hA9vMurYtQ/JjPhQ3EcyDDS5JJSEdpcTTu6JwHslu93ZN6Jih6Yzoi5y+09Oxb0QVqx2Ww/PCtpqwCpXU9Ss3y54emAQClYjH0ZVQs6qa/1AkgWeZmXwDIsM/ilNQYBiDyspQMajGofX/mAXVc2t3AwzXbCd4UyAE9ChKyaccWp1lFGEAyyM3yJLR43fGGxxAwSUe4rvV94OGTmlVyYBMaQoArIiyOnhsyFVPlsAbIRNTGsD6i7UdBNUSK64X0zFn1rKnI+Sd4AK5rAQnJxj/NweYFyFfNyx0ZBaxw5H508IdfDPri8aGsnqpfxl+ZBnlzJkrB8nFeS2vzC/O9/mmgkHz0pY+nlv8bD81HG1s0RZ4srMJd6Z2nQPG1FU1AvvrN9ZmKAjT7/pVSgM3EqzumXJrCbj+QIG/ORDc3AFYo6gdK+zm0hwFy/GoKAFA4vafzZqMHAHL9AlznAhIVtP1BE3ACuAkermhRj7VwvovdHPIAYJAcIUgoH9X2h6oJtIfJiWRYnxnc/IHAznR7ADb+zWhkcNbDbBqiagJMKdzOJwKHtebBQk+idPhAlqKhMWafS1Es7EsBrFAVkIc6nrvUlBN1gyj9KkvF5FCWlkbm+yYBNG21UKBgcb71WQZwhgexi12Qj53t9gD+8w4A8vNdAJjVW+/FaFPVg9bLzXQ+1Lo/+1DnP/8QU4CltRZaZ/fU6qTlwFEUTp2KPLtWRDkMIN/XBbRZCW2xGrMuJJupojiz6zPK/s8rClDINd/tsLr3I7VmTcsDAAkIALvgCwOgKuy+qlWKWqxjIvQRyPkBuCQRQG59ggdyfuKZMwVLxwyzNhLFBICE5gb7AXbdFwbY7m6f0GCuDKcP6YhmYYI3bMB17dgp8BS5XRM8BXKcmaVMpChoJ4IlCpBQ5uNiUTKj4My0FgKmVZgHJ0N077WXU8aJOKF5sy7YiIBAdws5qOUdqPiWzJ+54IfzosUqJbClcr+B8E7wAAFH+z54R/ec3CzPVwmZCMAu+Un9kZOJqONhgPAAu7HmEwyBtlXkbYbNGVGoAQnJRh4IA4B9zlwS05qb5noKWjpLIyuth6e5x2/GKFh+aJpTD9/ech3fMm5J1VOUrwyYiVIB57V+CUCSwJkrjb772kUt0y8CorELO9tWNAR5+9OytIeTiUoBb+rtOVUCZz5wqM+Z5v60MT1jfQOkL1B0OgBIDgmcV78eNi/Si3db9KMp17CqvdlIJB67FaWFcEIB67jDw3R0Dmogde+EsRs0G01Bc30BCWzMASAZtJwYNm86Sp2pBX1ocmndIfFoOo7H+fJPMgpYof+OKeC0FJnrx9Pdmm+3hQKp0T13h78eAHDzdPWIsTVGKUojsjGXuSd6s1BI228/i9KbW/fiDY5lBbjvIqbgtUkA4ubuX2gGtrn/86EfPfXSM58EJ7H5s9VseKNAQU5eNxG2ZQrUIHr+HSdTiT1fUiBvp6I8kFDa3Durt0T1o77z5wZiGQ6HY3FVAUo83Wy91nz3iZVqDJzRoI4P9ZpdGjwmQS238QBb87b2y/32p4VqWo1g3K++79C8nvDkp4VMv3r/fYC8q95/v81ZsQg4Y7MDGdWbu0g7MoFTpxt5gJ35BNjwWa6H7Y/6NpFyNR7Snd4lBv9KNxMj00Dp9coVjyUCwLbya32bCP9HLzd561b0DrCZsivAwszDPTut/mvzF/R+E3fotXDf750nClB6axooPdZyxwoAxy2YO5E2l2Q4E8m8zgPsIx5gpbJQ88Rg87aYCK3cbrV3srLaPa8hiJurAYBDHYKEMhEg+SQPsAke5EgtADYvLAjOTt2V3kmArXbPAw0nrjx5oxYADlYEKAlJDNARkGqKbBAsCNtm6+rjylMJHdFUcNTUQE3d5TlYEeKO0BrWY4KBsNUClgaDmpG1iBsaAk0pAWh+4bKGaGp4uOaZ6vnT2SIHANyqsdkNCwC4cQFA0oO6Z+HMORjPokYUbpUABmKFntiqEaytAml9m7mlbXbHF7WP44JuYLUvAuPPCnTGeQCur/UY248CYCNrdQJGaJ8u4G6FATK8aFRnXAAc5+uubz/EiNSgb/x8FnAtPWN81yK8RwbFuiKDcwyKxFwdROKxfGdfWRP+7x8j/wPEIpC3DbsUpQAAAABJRU5ErkJggg==" alt="The Home Depot">
+    </div>
+    <div class="gate-eyebrow">// Sales Associate Portal · 2026 Pricing</div>
+    <h1 class="gate-title">Select your region to begin.</h1>
+    <p class="gate-sub">Pricing, code requirements, and program details differ by state. Choose the region you're selling in to open the portal.</p>
+    <div class="gate-options">
+      <button type="button" class="gate-card" data-set-state="CA">
+        <div class="gate-card-state">California <span class="gate-card-abbr">· CA</span></div>
+        <div class="gate-card-go">Open Portal →</div>
+      </button>
+      <button type="button" class="gate-card" data-set-state="OR">
+        <div class="gate-card-state">Oregon <span class="gate-card-abbr">· OR</span></div>
+        <div class="gate-card-go">Open Portal →</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="portal-shell">
+
+<!-- ───── Top Nav ───── -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <img class="logo" src="data:image/png;base64,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" alt="MasterPro">
+      <span class="x">×</span>
+      <img class="logo" src="data:image/png;base64,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" alt="The Home Depot">
+    </div>
+    <nav class="navlinks">
+      <a href="#how">How It Works</a>
+      <a href="#included">What's Included</a>
+      <a href="#pricing">Install Labor</a>
+      <a href="#addons">Add-Ons</a>
+      <a href="#tips">Talking Points</a>
+      <a href="#programs">Programs</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="state-select">
+      <span class="state-label">Region</span>
+      <div class="state-toggle" role="group" aria-label="Select region">
+        <button type="button" class="state-btn" data-set-state="CA">California</button>
+        <button type="button" class="state-btn" data-set-state="OR">Oregon</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ───── Hero ───── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">// Sales Associate Portal · 2026 Pricing</div>
+      <h1>Sell appliance installation<br>with <span class="accent">confidence.</span></h1>
+      <p class="lede"><strong>Our team will make it fit.</strong> Cabinets, countertops, electrical, gas — we handle the trade work that turns a delivery into a finished install. Quote add-ons accurately and close the sale at the register.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───── How It Works ───── -->
+<section id="how" class="how">
+  <div class="container">
+    <div class="section-tag">01 / Process</div>
+    <h2 class="section-title">How the program works.</h2>
+    <p class="section-sub">From the moment a customer buys a Measure to the day MasterPro completes the install — here's the five-step flow.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Customer Buys a Measure</div>
+        <div class="step-body">Customer purchases the Measure SKU at the register or online. This kicks off the program. The charge is credited back toward the final installation cost.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Notes Sent to Us</div>
+        <div class="step-body">You capture the customer's preferences and any site notes — pass them along with the order so we know what they're looking for.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">We Measure &amp; Upload</div>
+        <div class="step-body">A MasterPro tech visits the home, takes the measurements, and uploads the specs back to the order.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">You Close the Sale</div>
+        <div class="step-body">Use our specs to confirm the right model with the customer and complete the appliance sale at the register.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-title">Schedule + Install</div>
+        <div class="step-body">We schedule with the customer, send a confirmation email the day before with a <strong>4-hour arrival window</strong>, then complete the install.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── What's Included ───── -->
+<section id="included" class="included">
+  <div class="container">
+    <div class="section-tag">02 / Base Services</div>
+    <h2 class="section-title">What's included<br>in every install.</h2>
+    <p class="section-sub">Every order starts with these base services. Delivery is handled by Home Depot — MasterPro covers the install, the measure, and the trade work.</p>
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="label">Built-In · SKU 488723</div>
+        <div class="price">$120<span class="unit">retail</span></div>
+        <div class="name">Pre-Install Measurement</div>
+        <div class="note">A MasterPro tech visits before the install to measure the cabinet opening, water/gas/electrical, and confirm fit. This is the <strong style="color:#fff">Measure</strong> the customer buys first — required for all built-in appliances.</div>
+      </div>
+      <div class="svc">
+        <div class="label">Per-Job · Variable</div>
+        <div class="price">+$25<span class="unit">/up</span></div>
+        <div class="name">Per-Job Add-Ons</div>
+        <div class="note">Add-ons start at $25 and vary based on the appliance and what the install requires — parts, valves, line work, modifications. Use the lookup below to quote accurately.</div>
+      </div>
+      <div class="svc">
+        <div class="label">Recommended · Every Sale</div>
+        <div class="price">$50<span class="unit">/up</span></div>
+        <div class="name">Haul-Away</div>
+        <div class="note">$50 standard appliance · $65 pro/oversized. <strong style="color:#fff">Recommend this on every sale</strong> — customers expect us to take the old unit, and it avoids a callback.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── 50A Conversion Stamp ───── -->
+<div class="stamp-banner">
+  <div class="stamp-banner-inner">
+    <div class="stamp">
+      <div class="amp">50A</div>
+      <div class="lbl">Conversion</div>
+    </div>
+    <div class="stamp-body">
+      <span class="stamp-eyebrow">Custom Electrical Work</span>
+      <h3>Need a 50-amp circuit?<br>We can convert it.</h3>
+      <p>Customer upgrading to an induction cooktop or pro appliance that needs more power? We can convert from 30A or 110V up to 50A as <strong>Custom Electrical Work</strong> — quoted after a site assessment. Mention it whenever a customer is upgrading to higher amperage.</p>
+    </div>
+    <div class="stamp-tag">
+      <div class="tag-label">Quoted After</div>
+      <div class="tag-val">Site Assessment<br>Required</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── Pricing Lookup ───── -->
+<section id="pricing" class="lookup">
+  <div class="container">
+    <div class="section-tag">03 / Install Labor — by Appliance</div>
+    <h2 class="section-title">Install labor lookup.</h2>
+    <p class="section-sub">The labor charge for each appliance type. Search or filter to quote a customer in seconds. For situational add-ons (cabinet cuts, electrical, hood installs, etc.) see the next section.</p>
+
+    <div class="lookup-tools">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchBox" type="text" placeholder="Search appliance type, e.g. dishwasher, dryer, range…" />
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="builtin">Built-In</button>
+        <button class="filter-btn" data-filter="freestanding">Free-Standing</button>
+      </div>
+    </div>
+
+    <div class="results-meta">
+      Showing <span class="count" id="countNum">0</span> add-on options · Prices in USD · Effective 2026
+    </div>
+
+    <div class="price-grid" id="priceGrid"></div>
+  </div>
+</section>
+
+<!-- ───── Conditional Add-Ons ───── -->
+<section id="addons" class="addons">
+  <div class="container">
+    <div class="section-tag">04 / Conditional Add-Ons</div>
+    <h2 class="section-title">Site-specific add-ons.</h2>
+    <p class="section-sub">Additional services that may be required based on installation conditions — cabinet cuts, stone work, plumbing, electrical, hoods. Quote them up front so the customer isn't surprised on install day.</p>
+
+    <div class="addon-meta">
+      <strong>Pricing reference</strong> · All prices in USD · Effective 2026 · 30 add-on services across 6 categories
+    </div>
+
+    <div class="addon-cats">
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Cabinetry / Trim Work</div>
+          <div class="cat-count">7 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Baseboard cut for dishwasher</span><span class="price"><span class="dollar">$</span>106</span></li>
+          <li><span class="name">1 cut on cabinets</span><span class="price"><span class="dollar">$</span>212</span></li>
+          <li><span class="name">2 cuts on cabinets</span><span class="price"><span class="dollar">$</span>267</span></li>
+          <li><span class="name">3 or more cabinet cuts</span><span class="price"><span class="dollar">$</span>334</span></li>
+          <li><span class="name">Custom trim installation</span><span class="price"><span class="dollar">$</span>170</span></li>
+          <li><span class="name">Fillers installation (hidden, no finish)</span><span class="price"><span class="dollar">$</span>100</span></li>
+          <li><span class="name">Fillers installation (with finish)</span><span class="price custom">Custom Quote</span></li>
+        </ul>
+      </div>
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Countertop / Stone Work</div>
+          <div class="cat-count">5 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Hole for airgap</span><span class="price"><span class="dollar">$</span>212</span></li>
+          <li><span class="name">Drilling into backsplash (up to 4 holes)</span><span class="price"><span class="dollar">$</span>212</span></li>
+          <li><span class="name">1 cut on stone</span><span class="price"><span class="dollar">$</span>247</span></li>
+          <li><span class="name">2 cuts on stone</span><span class="price"><span class="dollar">$</span>367</span></li>
+          <li><span class="name">3 or more cuts on stone</span><span class="price"><span class="dollar">$</span>467</span></li>
+        </ul>
+      </div>
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Plumbing / Gas</div>
+          <div class="cat-count">4 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Water / gas valve replacement</span><span class="price"><span class="dollar">$</span>247</span></li>
+          <li><span class="name">Gas line</span><span class="price"><span class="dollar">$</span>71</span></li>
+          <li><span class="name">Airgap install</span><span class="price"><span class="dollar">$</span>155</span></li>
+          <li><span class="name">Dishwasher basic accessories</span><span class="price"><span class="dollar">$</span>57</span></li>
+        </ul>
+      </div>
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Electrical</div>
+          <div class="cat-count">3 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Electrical outlet install</span><span class="price"><span class="dollar">$</span>233</span></li>
+          <li><span class="name">Power conversion (220V to 110V)</span><span class="price"><span class="dollar">$</span>314</span></li>
+          <li><span class="name">Junction box relocation</span><span class="price"><span class="dollar">$</span>234</span></li>
+        </ul>
+      </div>
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Ventilation / Hood / Range</div>
+          <div class="cat-count">8 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Insert hood install</span><span class="price"><span class="dollar">$</span>287</span></li>
+          <li><span class="name">Island hood &lt;37" install</span><span class="price"><span class="dollar">$</span>174</span></li>
+          <li><span class="name">Island hood 37"+ install</span><span class="price"><span class="dollar">$</span>354</span></li>
+          <li><span class="name">Wall-mounted hood &lt;37" install</span><span class="price"><span class="dollar">$</span>200</span></li>
+          <li><span class="name">Wall-mounted hood 37"+ install</span><span class="price"><span class="dollar">$</span>420</span></li>
+          <li><span class="name">Transition boot or ducting work replaced</span><span class="price"><span class="dollar">$</span>184</span></li>
+          <li><span class="name">Pro range &lt;37" install</span><span class="price"><span class="dollar">$</span>307</span></li>
+          <li><span class="name">Pro range 37"+ install</span><span class="price"><span class="dollar">$</span>714</span></li>
+        </ul>
+      </div>
+
+      <div class="addon-cat">
+        <div class="addon-cat-head">
+          <div class="cat-name">Labor / Special Handling</div>
+          <div class="cat-count">3 items</div>
+        </div>
+        <ul class="addon-list">
+          <li><span class="name">Additional man power</span><span class="price"><span class="dollar">$</span>334</span></li>
+          <li><span class="name">Platform for oven</span><span class="price"><span class="dollar">$</span>267</span></li>
+          <li><span class="name">Angled dishwasher (extra service &amp; parts)</span><span class="price"><span class="dollar">$</span>177</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── Renovation Banner ───── -->
+<div class="renovation-banner">
+  <div class="renovation-inner">
+    <div class="reno-badge">
+      <div class="pct">60<span style="font-size:30px">%</span></div>
+      <div class="lbl">Uninstall<br>Pricing</div>
+    </div>
+    <div class="reno-body">
+      <span class="reno-eyebrow">Remodel &amp; Renovation Jobs</span>
+      <h3>Selling new flooring, countertops or cabinets too?</h3>
+      <p>If the customer is doing a kitchen or laundry remodel along with new appliances, we can <strong>uninstall the old appliances at 60% of the regular install price</strong> so the contractor can do the renovation. We then come back on a regular later appointment to install the new appliances. <strong>Mention this any time renovation work is part of the sale.</strong></p>
+    </div>
+    <div class="reno-tag">
+      <div class="tag-label">Two-Visit</div>
+      <div class="tag-val">Uninstall Now<br>Install Later</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── Talking Points ───── -->
+<section id="tips" class="tips">
+  <div class="container">
+    <div class="section-tag">05 / Talking Points</div>
+    <h2 class="section-title">What customers ask at the register.</h2>
+    <p class="section-sub">Quick answers to the questions that come up most. Use these to close the install attach without slowing down the checkout.</p>
+
+    <div class="tips-grid">
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Why do I need a measurement visit?"</span></div>
+        <div class="tip-a">For built-in appliances (cooktops, wall ovens, built-in microwaves, dishwashers), the cabinet opening and utility connections need to be verified <strong>before</strong> the install day. The measurement visit prevents wasted trips, surprise charges, and damaged cabinets. It's a one-time $120 charge and it's required.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"How fast will they come out?"</span></div>
+        <div class="tip-a">MasterPro reaches out within <strong>1 business day</strong> of the order being placed. Most installs are scheduled within the first available delivery window — usually 3–7 days depending on appliance availability and the customer's preferred slot.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Can they take the old one away?"</span></div>
+        <div class="tip-a">Yes. Add the haul-away SKU at checkout — <strong>$50 for a standard appliance, $65 for pro/oversized</strong>. The tech removes and disposes of it at the time of install. No separate trip needed.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Are they licensed?"</span></div>
+        <div class="tip-a">MasterPro is a <strong>licensed contractor</strong>. Every tech is background-checked and insured. Customer's home is covered under MasterPro's general liability and the Home Depot service guarantee.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"What if they're not happy?"</span></div>
+        <div class="tip-a">The install is backed by the <strong>Home Depot service guarantee</strong>. If anything is wrong, MasterPro will return at no additional cost to make it right. Customers can call MasterPro directly or escalate through the store.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"What about parts I might need? (cords, hoses, etc.)"</span></div>
+        <div class="tip-a">Many installs require additional parts — dryer cords, water lines, gas connectors, dishwasher hammer arrestors. <strong>Sell the parts at the register.</strong> If the customer skips them, the tech may have to reschedule, which delays the install and frustrates the customer.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Built-in microwave — do I need a trim kit?"</span></div>
+        <div class="tip-a"><strong>Yes — always sell the trim kit with a built-in microwave.</strong> The trim kit is the frame that fits the microwave into the cabinet opening — without it, the install can't be completed. Trim kits are model-specific, so make sure the customer is buying the one that matches the exact microwave model. The Built-In Microwave w/ Trim install (SKU 13899 · $179) covers the labor.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Do you install built-in refrigerators?"</span></div>
+        <div class="tip-a"><strong>Yes.</strong> Built-in refrigerators are part of our complex install service. They require a pre-install measurement — cabinet opening, water line, electrical, and clearances all need to be verified before delivery. Once measured, we handle the install end-to-end.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Can you install a gas dryer in the garage?"</span></div>
+        <div class="tip-a"><strong>Yes.</strong> We install gas dryers in garages where there's an existing gas line and proper venting. If the gas hose needs to be added or extended, that's a Gas Line add-on ($71) at the time of install.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"What if the cabinets or countertops need to be cut?"</span></div>
+        <div class="tip-a"><strong>We make the cuts.</strong> Cabinets, countertops, and stone — all handled by our team on the install day. Cuts are priced per the add-on list (1 cut on cabinets $212 · 2 cuts $267 · 1 cut on stone $247 · etc.). Quote it up front so the customer isn't surprised.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Can you relocate an electrical outlet?"</span></div>
+        <div class="tip-a"><strong>Yes.</strong> We can install a new outlet ($233), relocate a junction box ($234), or do power conversions like 220V to 110V ($314). Custom electrical work like a 50A conversion is quoted after a site assessment.</div>
+      </div>
+      <div class="tip">
+        <div class="tip-q"><span class="qmark">Q</span><span>"What about a stacking washer/dryer?"</span></div>
+        <div class="tip-a"><strong>Yes — and don't forget the stacking kit.</strong> The kit is what physically secures the dryer on top of the washer. It's brand- and model-specific, so make sure the customer buys the right one with the units. Without it, the tech can't safely complete the stack.</div>
+      </div>
+      <div class="tip ca-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Dishwasher install — what else can you handle?"</span></div>
+        <div class="tip-a">A lot. We can <strong>replace angle stops</strong>, <strong>install or replace toilets and p-traps</strong>, and <strong>drill a hole for an airgap on the countertop</strong> ($212). Add the line items at the register so the tech arrives with everything quoted and ready.</div>
+      </div>
+      <div class="tip or-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Dishwasher install — what else can you handle?"</span></div>
+        <div class="tip-a">A lot. We can <strong>replace angle stops</strong> and <strong>install or replace toilets and p-traps</strong>. Add the line items at the register so the tech arrives with everything quoted and ready.</div>
+      </div>
+      <div class="tip or-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Does the dishwasher need an air gap or GFCI?"</span></div>
+        <div class="tip-a"><strong>No.</strong> In Oregon, a dishwasher does <strong>not</strong> require an air gap or a GFCI, and it <strong>can be hardwired</strong>. No countertop air-gap hole is needed. (Note: in California these are required — confirm the region is set correctly above.)</div>
+      </div>
+      <div class="tip ca-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Does the dishwasher need an air gap or GFCI?"</span></div>
+        <div class="tip-a"><strong>Yes.</strong> In California a dishwasher requires an <strong>air gap</strong> and a <strong>GFCI</strong>. If a countertop air-gap hole is needed, that's a drilled hole add-on ($212) — quote it at the register.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Programs & Recognition ───── -->
+<section id="programs" class="programs">
+  <div class="container">
+    <div class="section-tag">06 / Programs &amp; Recognition</div>
+    <h2 class="section-title">For your store. For your team.</h2>
+    <p class="section-sub">We back the program with hands-on training and we celebrate the stores driving the most install attach. Your store can do both.</p>
+
+    <div class="programs-grid">
+      <div class="prog-card">
+        <div class="prog-eyebrow">Product Knowledge · On Request</div>
+        <h3>Book a PK at your store.</h3>
+        <p>We'll come to your location and walk your team through the install program — what's included, how to quote add-ons, what to ring at the register, and how to handle the questions that come up most. Available to any Home Depot store on request.</p>
+        <a class="prog-cta ca-only" href="http://www.timetuna.com/masterpro" target="_blank" rel="noopener">Schedule a PK Session <span class="arrow">→</span></a>
+        <div class="prog-url ca-only">timetuna.com/masterpro</div>
+        <a class="prog-cta or-only" href="http://www.timetuna.com/masterpror" target="_blank" rel="noopener">Schedule a PK Session <span class="arrow">→</span></a>
+        <div class="prog-url or-only">timetuna.com/masterpror</div>
+      </div>
+
+      <div class="prog-card dark ca-only">
+        <div class="prog-eyebrow">Quarterly Recognition · Q1 2026</div>
+        <h3>We celebrate the <span class="accent">top sellers</span> every quarter.</h3>
+        <p>Each quarter we recognize the Home Depot store driving the highest appliance install sales. The award goes to the team that's selling the program with confidence and converting at the register.</p>
+        <div class="winner">
+          <div class="winner-medal">Q1</div>
+          <div class="winner-info">
+            <div class="winner-label">Q1 2026 Champion</div>
+            <div class="winner-name">Brentwood Store</div>
+            <div class="winner-cat">Top Appliance Installation Sales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Contact ───── -->
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div>
+      <h2>Need help on a sale?<br>Talk to <span class="accent">MasterPro.</span></h2>
+      <p>For pricing questions, special situations, scheduling concerns, or installer escalations — reach out directly. We answer fast.</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-row">
+        <div class="contact-label">Sales Support</div>
+        <div class="contact-value"><a href="tel:+18778982668">1-877-898-2668</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:thd-appliance-support@masterpro.app">thd-appliance-support@masterpro.app</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Hours</div>
+        <div class="contact-value">Mon–Sat · 7am–7pm PST</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-label">Website</div>
+        <div class="contact-value"><a href="https://masterpro.app" target="_blank">masterpro.app</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 MasterPro Installs Corp · <span class="orange">Authorized Home Depot Installer</span> · San Leandro, CA
+</footer>
+
+</div><!-- /.portal-shell -->
+
+<script>
+  // ─── Region selection (gate + topbar toggle) ─────────────
+  (function () {
+    const topBtns = document.querySelectorAll('.state-btn');
+    function setRegion(state, fromGate) {
+      document.body.setAttribute('data-state', state);
+      topBtns.forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-set-state') === state);
+      });
+      if (fromGate) window.scrollTo(0, 0);
+    }
+    document.querySelectorAll('[data-set-state]').forEach(function (el) {
+      const isGate = el.classList.contains('gate-card');
+      el.addEventListener('click', function () {
+        setRegion(el.getAttribute('data-set-state'), isGate);
+      });
+    });
+  })();
+
+  // ─── Pricing data ─────────────────────────────────────────
+  const PRICING = [
+    // ── BUILT-IN (488723) — RETAIL prices ────────────────────
+    { code: '6149', name: 'Dishwasher',                                     cat: 'builtin',         group: 'Cleaning',    price: 214 },
+    { code: '6150', name: 'European Dishwasher',                            cat: 'builtin',         group: 'Cleaning',    price: 239 },
+    { code: '14692',name: 'Dishwasher w/ Hammer Arrestor',                  cat: 'builtin',         group: 'Cleaning',    price: 234 },
+    { code: '14705',name: 'European D/W w/ Hammer Arrestor',                cat: 'builtin',         group: 'Cleaning',    price: 214 },
+    { code: '6151', name: 'Cooktop — Drop-In',                              cat: 'builtin',         group: 'Cooking',     price: 179 },
+    { code: '6153', name: 'Cooktop — Professional',                         cat: 'builtin',         group: 'Cooking',     price: 239 },
+    { code: '6154', name: 'Cooktop w/ Down Draft',                          cat: 'builtin',         group: 'Cooking',     price: 234 },
+    { code: '6156', name: 'Cooktop w/ Popup Down Draft',                    cat: 'builtin',         group: 'Cooking',     price: 254 },
+    { code: '6157', name: 'Wall Oven — Single',                             cat: 'builtin',         group: 'Cooking',     price: 209 },
+    { code: '6158', name: 'Wall Oven — Double',                             cat: 'builtin',         group: 'Cooking',     price: 254 },
+    { code: '6159', name: 'Wall Oven — Single Professional',                cat: 'builtin',         group: 'Cooking',     price: 234 },
+    { code: '6160', name: 'Wall Oven — Double Professional',                cat: 'builtin',         group: 'Cooking',     price: 284 },
+    { code: '6671', name: 'OTR Microwave',                                  cat: 'builtin',         group: 'Cooking',     price: 149 },
+    { code: '13899',name: 'Built-In Microwave w/ Trim',                     cat: 'builtin',         group: 'Cooking',     price: 179 },
+    { code: '6161', name: 'Over-the-Range Hood',                            cat: 'builtin',         group: 'Cooking',     price: 154 },
+    { code: '6162', name: 'Range Downdraft',                                cat: 'builtin',         group: 'Cooking',     price: 209 },
+    { code: '6163', name: 'Cooktop Downdraft',                              cat: 'builtin',         group: 'Cooking',     price: 209 },
+    { code: '6164', name: 'Popup Downdraft',                                cat: 'builtin',         group: 'Cooking',     price: 204 },
+    { code: '7689', name: 'Freezer',                                        cat: 'builtin',         group: 'Cooling',     price: 264 },
+    { code: '6662', name: 'Refrigerator (Built-In)',                        cat: 'builtin',         group: 'Cooling',     price: 359 },
+    { code: '6147', name: 'Warming Drawer',                                 cat: 'builtin',         group: 'Specialty',   price: 129 },
+    { code: '6670', name: 'Coffee Machine',                                 cat: 'builtin',         group: 'Specialty',   price: 144 },
+    { code: '6665', name: 'Trash Compactor',                                cat: 'builtin',         group: 'Specialty',   price: 134 },
+    { code: '6168', name: 'Build Platform',                                 cat: 'builtin',         group: 'Adders',      price: 154 },
+    { code: '6170', name: 'Waterline (up to 20 ft)',                          cat: 'builtin',         group: 'Adders',      price: 169 },
+    { code: '6173', name: 'Haul-Away (Standard Appliance)',                 cat: 'builtin',         group: 'Adders',      price:  50 },
+    { code: '6173p',name: 'Haul-Away (Pro / Oversized)',                    cat: 'builtin',         group: 'Adders',      price:  65 },
+    { code: '405',  name: '2nd Floor / Basement (Standard)',                cat: 'builtin',         group: 'Adders',      price:  29 },
+    { code: '405p', name: '2nd Floor / Basement (Pro)',                     cat: 'builtin',         group: 'Adders',      price:  79 },
+    { code: '6179', name: 'LP Conversion',                                  cat: 'builtin',         group: 'Adders',      price: 119 },
+
+    // ── FREE-STANDING (513622) — RETAIL prices ───────────────
+    { code: '6655', name: 'Washer',                                         cat: 'freestanding',    group: 'Cleaning',    price: 109 },
+    { code: '13141',name: 'Washer w/ Pedestal',                             cat: 'freestanding',    group: 'Cleaning',    price: 154 },
+    { code: '6199', name: 'Electric Dryer',                                 cat: 'freestanding',    group: 'Cleaning',    price: 109 },
+    { code: '6202', name: 'Gas Dryer',                                      cat: 'freestanding',    group: 'Cleaning',    price: 109 },
+    { code: '13142',name: 'Electric Dryer w/ Pedestal',                     cat: 'freestanding',    group: 'Cleaning',    price: 154 },
+    { code: '13143',name: 'Gas Dryer w/ Pedestal',                          cat: 'freestanding',    group: 'Cleaning',    price: 149 },
+    { code: '6201', name: 'Electric Stackable Washer/Dryer',                cat: 'freestanding',    group: 'Cleaning',    price: 254 },
+    { code: '6204', name: 'Gas Stackable Washer/Dryer',                     cat: 'freestanding',    group: 'Cleaning',    price: 254 },
+    { code: '6200', name: 'Electric Washer/Dryer Combo',                    cat: 'freestanding',    group: 'Cleaning',    price: 154 },
+    { code: '6203', name: 'Gas Washer/Dryer Combo',                         cat: 'freestanding',    group: 'Cleaning',    price: 154 },
+    { code: '13139',name: 'Elec Dryer/Washer w/ Pedestal',                  cat: 'freestanding',    group: 'Cleaning',    price: 164 },
+    { code: '13140',name: 'Gas Dryer/Washer w/ Pedestal',                   cat: 'freestanding',    group: 'Cleaning',    price: 159 },
+    { code: '6209', name: 'Electric Range',                                 cat: 'freestanding',    group: 'Cooking',     price: 109 },
+    { code: '6212', name: 'Electric Range — Slide-In',                      cat: 'freestanding',    group: 'Cooking',     price: 109 },
+    { code: '6213', name: 'Gas Range',                                      cat: 'freestanding',    group: 'Cooking',     price: 109 },
+    { code: '6215', name: 'Gas Range — Slide-In',                           cat: 'freestanding',    group: 'Cooking',     price: 109 },
+    { code: '6667', name: 'Dual Fuel Range',                                cat: 'freestanding',    group: 'Cooking',     price: 129 },
+    { code: '6663', name: 'Microwave',                                      cat: 'freestanding',    group: 'Cooking',     price: 109 },
+    { code: '6662', name: 'Refrigerator',                                   cat: 'freestanding',    group: 'Cooling',     price: 129 },
+    { code: '6191', name: 'Mini-Refrigerator',                              cat: 'freestanding',    group: 'Cooling',     price: 109 },
+    { code: '7689', name: 'Freezer',                                        cat: 'freestanding',    group: 'Cooling',     price: 129 },
+    { code: '6146', name: 'Wine Cooler',                                    cat: 'freestanding',    group: 'Cooling',     price: 104 },
+    { code: '6654', name: 'Ice Maker',                                      cat: 'freestanding',    group: 'Cooling',     price: 144 },
+    { code: '6184', name: 'A/C Unit — Up to 12,000 BTU',                    cat: 'freestanding',    group: 'Cooling',     price: 134 },
+    { code: '6185', name: 'A/C Unit — Over 12,000 BTU',                     cat: 'freestanding',    group: 'Cooling',     price: 189 },
+    { code: '6670', name: 'Coffee Machine',                                 cat: 'freestanding',    group: 'Specialty',   price: 109 },
+    { code: '6170', name: 'Waterline (up to 20 ft)',                          cat: 'freestanding',    group: 'Adders',      price: 179 },
+    { code: '6173', name: 'Haul-Away (Standard Appliance)',                 cat: 'freestanding',    group: 'Adders',      price:  50 },
+    { code: '6173p',name: 'Haul-Away (Pro / Oversized)',                    cat: 'freestanding',    group: 'Adders',      price:  65 },
+    { code: '405',  name: '2nd Floor / Basement (Standard)',                cat: 'freestanding',    group: 'Adders',      price:  29 },
+    { code: '405p', name: '2nd Floor / Basement (Pro)',                     cat: 'freestanding',    group: 'Adders',      price:  79 },
+    { code: '6179', name: 'LP Conversion',                                  cat: 'freestanding',    group: 'Adders',      price: 144 },
+  ];
+
+  // ─── Render & filter ──────────────────────────────────────
+  const grid = document.getElementById('priceGrid');
+  const search = document.getElementById('searchBox');
+  const countEl = document.getElementById('countNum');
+  const buttons = document.querySelectorAll('.filter-btn');
+  let activeFilter = 'all';
+
+  function fmt(n) {
+    return n.toLocaleString('en-US', { minimumFractionDigits: 0 });
+  }
+
+  function render() {
+    const q = search.value.trim().toLowerCase();
+    const filtered = PRICING.filter(p => {
+      if (activeFilter !== 'all' && p.cat !== activeFilter) return false;
+      if (q && !p.name.toLowerCase().includes(q) && !p.code.includes(q) && !p.group.toLowerCase().includes(q)) return false;
+      return true;
+    }).sort((a, b) => a.name.localeCompare(b.name));
+
+    countEl.textContent = filtered.length;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = '<div class="price-row empty">No matches. Try a different search term.</div>';
+      return;
+    }
+
+    grid.innerHTML = filtered.map(p => `
+      <div class="price-row" data-cat="${p.cat}">
+        <div class="opt-code mono">${p.code}</div>
+        <div>
+          <div class="opt-name">${p.name}</div>
+          <div class="opt-cat">${p.cat === 'builtin' ? 'Built-In · 488723' : 'Free-Standing · 513622'} · ${p.group}</div>
+        </div>
+        <div class="opt-cat" style="text-align:right;">+ Add-On</div>
+        <div class="opt-price"><span class="dollar">$</span>${fmt(p.price)}</div>
+      </div>
+    `).join('');
+  }
+
+  search.addEventListener('input', render);
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilter = btn.dataset.filter;
+      render();
+    });
+  });
+
+  render();
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

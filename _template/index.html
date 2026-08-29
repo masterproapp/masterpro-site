@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  ============================================================
+  MASTERPRO PAGE TEMPLATE
+  ------------------------------------------------------------
+  To create a new page (example: masterpro.app/careers):
+    1. Copy this "_template" folder
+    2. Rename the copy to the URL you want, e.g. "careers"
+    3. Edit the TITLE and the content below
+    4. Re-deploy the whole site folder to Netlify
+
+  Folders starting with "_" are ignored by Netlify, so this
+  template will never appear as a live page.
+  ============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CHANGE THIS -->
+<title>Page Title | MasterPro</title>
+<meta name="description" content="Short description of this page.">
+
+<!-- Shared icons (leave as-is) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1a1a1a">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* MasterPro design tokens */
+  :root {
+    --bg:#faf8f2; --bg-deep:#1a1a1a; --cream:#fdfbf4;
+    --ink:#1a1a1a; --ink-soft:#555; --ink-faint:#8a8a8a;
+    --line:#e9e4d8; --line-strong:#cfc7b4;
+    --orange:#f96302; --orange-deep:#d35200;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+  body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  img { display:block; max-width:100%; }
+
+  .topbar { background:var(--bg-deep); border-bottom:3px solid var(--orange); }
+  .topbar-inner {
+    max-width:1280px; margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .topbar img.logo { height:44px; width:44px; border:2px solid #fff; }
+  .topbar a { text-decoration:none; }
+  .navlinks {
+    display:flex; gap:24px; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .navlinks a { color:rgba(255,255,255,0.85); }
+  .navlinks a:hover { color:var(--orange); }
+
+  section { padding:72px 0; }
+  .container { max-width:1280px; margin:0 auto; padding:0 28px; }
+  .section-tag {
+    display:inline-block; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:var(--orange); letter-spacing:0.18em; text-transform:uppercase;
+    border:1px solid var(--orange); padding:4px 10px; margin-bottom:16px;
+  }
+  h1, h2 { font-family:'Archivo Black',sans-serif; letter-spacing:-0.02em; line-height:1.02; margin:0 0 14px; }
+  h1 { font-size:clamp(32px,5vw,64px); }
+  h2 { font-size:clamp(26px,3.6vw,42px); }
+  .accent { color:var(--orange); }
+  p { color:var(--ink-soft); max-width:640px; }
+
+  .btn {
+    display:inline-block; background:var(--orange); color:#fff;
+    font-family:'Archivo',sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 28px; border-radius:2px; text-decoration:none;
+    box-shadow:0 4px 0 var(--orange-deep);
+  }
+  .btn:hover { transform:translateY(2px); box-shadow:0 2px 0 var(--orange-deep); }
+
+  footer {
+    background:var(--bg-deep); color:#888; border-top:1px solid #2e2e2e;
+    padding:22px 28px; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+  }
+  footer .orange { color:var(--orange); }
+
+  @media (max-width:600px) {
+    section { padding:48px 0; }
+    .container, .topbar-inner { padding-left:18px; padding-right:18px; }
+    .navlinks { gap:16px; font-size:11px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/"><img class="logo" src="/logo.png" alt="MasterPro"></a>
+    <nav class="navlinks">
+      <a href="/">Home</a>
+      <a href="mailto:hello@masterpro.app">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="section-tag">Section Label</div>
+    <h1>Your headline <span class="accent">here.</span></h1>
+    <p>Replace this with your content. All the MasterPro styles above are ready to use: headings, the orange section tag, buttons, and the footer.</p>
+    <p style="margin-top:24px"><a class="btn" href="mailto:hello@masterpro.app">E-mail Us</a></p>
+  </div>
+</section>
+
+<footer>
+  © 2026 MasterPro Installs Corp · <span class="orange">Built around you</span> · San Leandro, CA
+</footer>
+
+</body>
+</html>
