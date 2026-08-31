@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service | MasterPro</title>
+<meta name="description" content="Terms of Service for MasterPro Installs Corp, including appliance delivery and installation services and mobile messaging terms.">
+<meta name="theme-color" content="#1a1a1a">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:#faf8f2; --bg-deep:#1a1a1a; --bg-deep-2:#232323; --cream:#fdfbf4;
+    --ink:#1a1a1a; --ink-soft:#555; --ink-faint:#8a8a8a;
+    --line:#e9e4d8; --line-strong:#cfc7b4;
+    --orange:#f96302; --orange-deep:#d35200; --orange-tint:#fff1e6;
+    --max:1180px;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+  body {
+    font-family:'IBM Plex Sans',sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  img { display:block; max-width:100%; }
+  a { color:inherit; }
+  .accent { color:var(--orange); }
+
+  /* ===== Hero (no nav bar, logo only) ===== */
+  .hero {
+    position:relative; overflow:hidden;
+    background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .hero-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto;
+    padding:52px 28px 60px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .mark { display:inline-block; margin-bottom:38px; }
+  .mark img { width:56px; height:56px; border:2px solid var(--ink); border-radius:0; }
+  .eyebrow {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--orange);
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px;
+  }
+  h1 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(40px,7vw,88px); line-height:0.94;
+    letter-spacing:-0.025em; margin:0 0 22px; max-width:14ch;
+  }
+  .lede { font-size:18px; color:var(--ink-soft); max-width:70ch; margin:0; }
+  .meta {
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .meta b { color:var(--ink); font-weight:600; }
+
+  /* ===== Layout ===== */
+  .page {
+    max-width:var(--max); margin:0 auto;
+    padding:64px 28px 96px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+    display:grid; grid-template-columns:230px minmax(0,1fr); gap:64px;
+  }
+  .toc { align-self:start; position:sticky; top:32px; }
+  .toc strong {
+    display:block; margin-bottom:14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--orange);
+    border:1px solid var(--orange); padding:4px 10px;
+  }
+  .toc nav { border-left:2px solid var(--line-strong); padding-left:16px; }
+  .toc a {
+    display:block; margin:9px 0;
+    font-size:13px; color:var(--ink-soft); text-decoration:none;
+  }
+  .toc a:hover { color:var(--orange); }
+
+  .terms { min-width:0; }
+  .notice {
+    margin:0 0 40px; padding:20px 22px;
+    background:var(--orange-tint);
+    border:1px solid #ffd5c4; border-left:4px solid var(--orange);
+    font-size:15px;
+  }
+  section { padding:6px 0 34px; border-bottom:1px solid var(--line); }
+  section:last-child { border-bottom:0; }
+  .kicker {
+    display:block; margin:24px 0 6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:var(--orange);
+    letter-spacing:0.16em; text-transform:uppercase;
+  }
+  h2 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(22px,2.8vw,30px); line-height:1.12;
+    letter-spacing:-0.02em; margin:0 0 12px;
+  }
+  h3 { font-family:'Archivo',sans-serif; font-weight:700; font-size:17px; margin:22px 0 8px; }
+  p { margin:10px 0; color:var(--ink-soft); }
+  strong { color:var(--ink); }
+  ul, ol { padding-left:20px; color:var(--ink-soft); }
+  li { margin:8px 0; }
+
+  .sms-box {
+    margin:22px 0; padding:26px;
+    background:var(--bg-deep); color:#cfc9bb;
+    border-left:4px solid var(--orange);
+  }
+  .sms-box h3 { margin-top:0; color:#fff; }
+  .sms-box p { color:#cfc9bb; }
+  .sms-box a { color:var(--orange); }
+
+  .callout {
+    margin:18px 0; padding:20px 22px;
+    background:var(--cream); border:1px solid var(--line-strong);
+  }
+  .callout a { color:var(--orange-deep); }
+
+  /* ===== Footer ===== */
+  footer {
+    background:var(--bg-deep); color:#aaa;
+    border-top:3px solid var(--orange);
+    position:relative; overflow:hidden;
+  }
+  footer::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .footer-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto; padding:56px 28px 30px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .footer-title {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(24px,3.4vw,40px); line-height:1.06;
+    letter-spacing:-0.03em; color:#fff; max-width:18ch; margin:0 0 28px;
+  }
+  .footer-links {
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .footer-links a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .footer-links a:hover { color:var(--orange); }
+  .copyright {
+    margin-top:40px; padding-top:20px; border-top:1px solid #2e2e2e;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8a8a8a;
+  }
+  .copyright .orange { color:var(--orange); }
+
+  /* ===== Mobile ===== */
+  @media (max-width:900px) {
+    .hero-inner { padding:36px 18px 44px; }
+    .mark { margin-bottom:26px; }
+    .page {
+      grid-template-columns:1fr; gap:32px;
+      padding:40px 18px 64px;
+    }
+    .toc { position:static; }
+    .toc nav {
+      display:grid; grid-template-columns:1fr 1fr; gap:2px 16px;
+      border-left:0; border-top:2px solid var(--line-strong);
+      padding-left:0; padding-top:14px;
+    }
+    .footer-inner { padding:44px 18px 26px; }
+    .lede { font-size:16.5px; }
+  }
+  @media (max-width:480px) {
+    .toc nav { grid-template-columns:1fr; }
+    .sms-box { padding:20px; }
+  }
+  @media print {
+    .toc { display:none; }
+    .page { display:block; padding:0; }
+    .hero::before, footer::before { display:none; }
+    footer { background:#fff; color:#000; }
+    .footer-title, .footer-links a { color:#000; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="mark" href="/" aria-label="MasterPro home">
+      <img src="/logo.png" alt="MasterPro">
+    </a>
+    <div class="eyebrow">Service &amp; Website Terms</div>
+    <h1>Terms of <span class="accent">Service</span></h1>
+    <p class="lede">These Terms govern use of the MasterPro Installs website, customer communications, and appliance delivery, installation, modification, and related services provided by MasterPro Installs Corp.</p>
+    <div class="meta"><b>Effective date:</b> July 16, 2026 &nbsp;·&nbsp; <b>Last updated:</b> August 31, 2026</div>
+  </div>
+</header>
+
+<main class="page">
+  <aside class="toc" aria-label="Page contents">
+    <strong>Contents</strong>
+    <nav>
+      <a href="#acceptance">Acceptance</a>
+      <a href="#services">Services</a>
+      <a href="#orders">Orders &amp; Scheduling</a>
+      <a href="#customer">Customer Responsibilities</a>
+      <a href="#conditions">Site Conditions &amp; Modifications</a>
+      <a href="#delivery">Delivery &amp; Installation</a>
+      <a href="#payment">Pricing &amp; Payment</a>
+      <a href="#changes">Changes &amp; Cancellations</a>
+      <a href="#warranty">Service Warranty</a>
+      <a href="#claims">Damage &amp; Claims</a>
+      <a href="#liability">Limitations</a>
+      <a href="#sms">Mobile Messaging</a>
+      <a href="#website">Website Use</a>
+      <a href="#law">Applicable Law</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <article class="terms">
+    <div class="notice">
+      Please read these Terms before scheduling or receiving services. Retailer, manufacturer, financing, product-warranty, or third-party terms may also apply independently.
+    </div>
+
+    <section id="acceptance">
+      <span class="kicker">Agreement</span>
+      <h2>1. Acceptance of These Terms</h2>
+      <p>These Terms of Service (“Terms”) form an agreement between you and MasterPro Installs Corp (“MasterPro,” “we,” “us,” or “our”). By using our website, requesting or scheduling services, authorizing work, or allowing services to begin, you acknowledge that you have reviewed and agree to these Terms.</p>
+      <p>If another person schedules services for a property owner, tenant, business, or customer, that person represents that they are authorized to provide instructions and approve the work.</p>
+    </section>
+
+    <section id="services">
+      <span class="kicker">Scope</span>
+      <h2>2. Our Services</h2>
+      <p>MasterPro provides appliance delivery, placement, installation, connection, removal, site evaluation, and related services. Depending on the work order, services may include installation of dishwashers, microwaves, cooktops, ranges, ovens, hoods, refrigerators, laundry appliances, disposals, downdrafts, and other residential or commercial appliances.</p>
+      <p>We may also provide separately authorized minor plumbing, electrical, ventilation, cabinet, countertop, trim, platform, access, or fit modifications when permitted by applicable law and within the approved scope of work.</p>
+      <p>The services included in a particular appointment are limited to the work order, retailer authorization, estimate, invoice, or other written scope issued for that appointment. Product sales, manufacturer warranties, retailer obligations, and financing arrangements are generally provided by third parties and are not controlled by MasterPro unless expressly stated in writing.</p>
+    </section>
+
+    <section id="orders">
+      <span class="kicker">Appointments</span>
+      <h2>3. Orders, Estimates, and Scheduling</h2>
+      <p>Appointment dates and arrival windows are estimates and may change because of traffic, weather, product availability, prior job conditions, staffing, access restrictions, safety issues, or circumstances outside our reasonable control.</p>
+      <p>We may contact you to confirm the appointment, obtain photographs or measurements, verify product and property conditions, provide arrival updates, or request additional information. Failure to respond or provide required information may result in postponement or cancellation.</p>
+      <p>An estimate is based on the information reasonably available before work begins. Hidden conditions, inaccurate measurements, changed instructions, incomplete product information, or additional work requested at the property may require a revised price and separate approval.</p>
+    </section>
+
+    <section id="customer">
+      <span class="kicker">Preparation</span>
+      <h2>4. Customer Responsibilities</h2>
+      <p>You are responsible for:</p>
+      <ul>
+        <li>Providing accurate contact, address, appliance, access, installation, and site-condition information.</li>
+        <li>Ensuring that an authorized adult is present when required and can approve decisions, additional work, and completion.</li>
+        <li>Providing safe, unobstructed access to the property and installation area, including elevators, gates, parking, loading areas, and building permissions.</li>
+        <li>Removing fragile, valuable, sensitive, or obstructing items from the work path and installation area.</li>
+        <li>Securing children and pets away from the active work area.</li>
+        <li>Ensuring that water, gas, electricity, drainage, ventilation, cabinetry, flooring, walls, and structural conditions are suitable for the requested work.</li>
+        <li>Disclosing known hazardous materials, damaged utilities, pest conditions, building restrictions, permit requirements, or other conditions that may affect safety or legality.</li>
+        <li>Obtaining landlord, homeowner association, property manager, building, or other third-party approvals when required.</li>
+      </ul>
+    </section>
+
+    <section id="conditions">
+      <span class="kicker">Unexpected Conditions</span>
+      <h2>5. Site Conditions, Safety, and Additional Work</h2>
+      <p>Installation depends on the condition and compatibility of the appliance, property, utilities, cabinetry, counters, flooring, ventilation, and existing connections. We may stop or decline work when conditions are unsafe, inaccessible, unlawful, outside the authorized scope, likely to damage the property or appliance, or inconsistent with manufacturer requirements.</p>
+      <p>Examples include active leaks, defective shutoff valves, damaged wiring, missing grounding, inadequate circuits, unsafe gas connections, blocked drainage, mold, infestation, structural deterioration, concealed utilities, asbestos-containing materials, incompatible openings, unstable floors, inaccessible connections, or products that are damaged, incomplete, or incorrect.</p>
+      <p>If additional parts, labor, modifications, permits, specialty trades, return visits, or additional personnel are necessary, we will seek authorization before performing chargeable work whenever reasonably practical. Declining additional work may prevent completion of the installation.</p>
+    </section>
+
+    <section id="delivery">
+      <span class="kicker">Performance</span>
+      <h2>6. Delivery, Installation, Testing, and Completion</h2>
+      <p>Delivery and installation methods may vary based on the appliance, manufacturer requirements, site conditions, retailer instructions, applicable codes, and the approved service scope.</p>
+      <p>Basic testing confirms only that the appliance and connections respond under the conditions available at the appointment. Testing is not a guarantee against later product failure, intermittent defects, concealed leaks, drainage issues, utility problems, manufacturer defects, or conditions that could not reasonably be observed during service.</p>
+      <p>You should inspect the completed work and promptly identify visible concerns before the technician leaves when possible. Acceptance, signature, electronic acknowledgment, payment, or use of the appliance may be recorded as evidence that the authorized work was completed, subject to any written exceptions noted at the time.</p>
+    </section>
+
+    <section id="payment">
+      <span class="kicker">Charges</span>
+      <h2>7. Pricing, Parts, and Payment</h2>
+      <p>Prices may be established by MasterPro, a retailer, a manufacturer, a logistics provider, or another contracting party. Charges may include labor, delivery, removal, parts, accessories, permits, parking, tolls, additional manpower, modifications, return visits, disposal, specialty work, or other authorized services.</p>
+      <p>Unless another written arrangement applies, payment is due when requested and no later than completion of the applicable service. You authorize us and our payment providers to process approved charges using the payment method supplied.</p>
+      <p>Unpaid balances may result in suspension of further service and may be subject to reasonable collection costs to the extent permitted by law. Taxes and government fees may be added when applicable.</p>
+    </section>
+
+    <section id="changes">
+      <span class="kicker">Rescheduling</span>
+      <h2>8. Changes, Cancellations, and Return Visits</h2>
+      <p>Please notify us as early as possible if you need to cancel or reschedule. Charges may apply for late cancellations, inaccessible properties, missed appointments, failed readiness, products that are unavailable or incorrect, or appointments that cannot be completed for reasons outside MasterPro’s control, when allowed by the applicable work order or law.</p>
+      <p>A return visit may require additional charges when completion was prevented by customer readiness, building access, unsuitable utilities, missing parts, product defects, incorrect appliances, rejected additional work, or another condition not caused by MasterPro.</p>
+      <p>We may reschedule, suspend, or cancel services because of safety, weather, staffing, vehicle, access, legal, product, or site-condition concerns.</p>
+    </section>
+
+    <section id="warranty">
+      <span class="kicker">Workmanship</span>
+      <h2>9. Service Warranty and Product Issues</h2>
+      <p>MasterPro warrants that its authorized installation work will be performed in a professional manner consistent with the approved scope. Any workmanship warranty is subject to the work order, retailer program, written estimate, invoice, and applicable law.</p>
+      <p>The workmanship warranty does not cover appliance or part defects; manufacturer recalls; normal wear; customer misuse; alterations by others; pre-existing conditions; hidden defects; inadequate utilities; building movement; clogs; corrosion; pests; damage from freezing, flooding, power irregularities, or external events; or work outside MasterPro’s authorized scope.</p>
+      <p>Product defects and manufacturer warranty claims should generally be directed to the retailer or manufacturer. We may assist with documentation or service coordination but do not control third-party warranty decisions.</p>
+    </section>
+
+    <section id="claims">
+      <span class="kicker">Reporting</span>
+      <h2>10. Property Concerns, Damage, and Claims</h2>
+      <p>Report any suspected leak, gas odor, electrical issue, unsafe condition, appliance instability, or property damage immediately. If there is an urgent safety concern, shut off the affected utility when safe to do so, discontinue use, and contact the appropriate emergency or utility service.</p>
+      <p>Claims should be submitted promptly by e-mail to <a href="mailto:hello@masterpro.app">hello@masterpro.app</a> with photographs, relevant receipts, the service address, appointment date, and a description of the concern. Prompt notice helps preserve evidence and allows us to inspect or mitigate the condition.</p>
+      <p>Do not repair, dispose of, alter, or replace allegedly affected property before inspection unless immediate action is reasonably necessary to prevent additional damage or protect health and safety. Keep reasonable documentation of emergency mitigation.</p>
+    </section>
+
+    <section id="liability">
+      <span class="kicker">Legal Limits</span>
+      <h2>11. Disclaimers and Limitation of Liability</h2>
+      <p>Except for warranties expressly provided in writing and rights that cannot legally be waived, the website and services are provided on an “as available” basis. We do not guarantee uninterrupted website access, exact arrival times, product performance, retailer performance, or completion when site or product conditions prevent the authorized work.</p>
+      <p>To the maximum extent permitted by applicable law, MasterPro will not be liable for indirect, incidental, special, exemplary, punitive, or consequential damages, including loss of use, lost income, lost business, or inconvenience, arising from the website or services.</p>
+      <p>Nothing in these Terms excludes or limits liability that cannot be excluded or limited under applicable law. Consumer rights provided by law remain unaffected.</p>
+    </section>
+
+    <section id="sms">
+      <span class="kicker">A2P Messaging</span>
+      <h2>12. Mobile Messaging Terms</h2>
+      <div class="sms-box">
+        <h3>Transactional service notifications</h3>
+        <p>By expressly opting in, you agree to receive service-related text messages from MasterPro Installs Corp regarding your scheduled appliance delivery or installation. Messages may include appointment confirmations, arrival windows, technician updates, preparation instructions, scheduling changes, service-status notices, and post-service follow-up.</p>
+      </div>
+      <p><strong>Consent:</strong> Consent to receive text messages is voluntary and is not a condition of purchase or service. Providing a telephone number alone does not constitute consent.</p>
+      <p><strong>Frequency and charges:</strong> Message frequency varies based on the number and status of scheduled services. Message and data rates may apply.</p>
+      <p><strong>Opt out:</strong> Reply <strong>STOP</strong> to unsubscribe at any time. You may receive one final confirmation message. Reply <strong>START</strong> to resubscribe where supported.</p>
+      <p><strong>Help:</strong> Reply <strong>HELP</strong> for assistance or e-mail us at <a href="mailto:hello@masterpro.app">hello@masterpro.app</a>.</p>
+      <p><strong>Carrier notice:</strong> Mobile carriers are not responsible for delayed or undelivered messages. Delivery is subject to carrier availability and network conditions.</p>
+      <p><strong>Privacy:</strong> Mobile phone numbers, SMS opt-in information, and messaging consent are not sold, rented, or shared with third parties or affiliates for their own marketing or promotional purposes. Review our <a href="/privacy">Privacy Policy</a> and <a href="/sms-consent">SMS Consent page</a>.</p>
+      <p>We may suspend or end the messaging program, or change these mobile messaging terms, subject to applicable law. Opting out of SMS does not cancel an appointment and does not prevent necessary service communications through other channels.</p>
+    </section>
+
+    <section id="website">
+      <span class="kicker">Online Use</span>
+      <h2>13. Website Content and Acceptable Use</h2>
+      <p>The website and its text, graphics, logos, photographs, videos, designs, software, and other content are owned by or licensed to MasterPro and are protected by applicable intellectual-property laws.</p>
+      <p>You may use the website for lawful personal or business purposes related to our services. You may not interfere with website security, introduce harmful code, scrape or copy substantial content, impersonate another person, submit false information, misuse forms, or use the website in a way that violates law or harms MasterPro or others.</p>
+      <p>Website information is general and may not reflect the exact requirements of a specific appliance, property, jurisdiction, retailer program, or appointment.</p>
+    </section>
+
+    <section id="third-party">
+      <span class="kicker">External Parties</span>
+      <h2>14. Third-Party Services and Links</h2>
+      <p>Our website and services may involve retailers, manufacturers, logistics companies, payment processors, communications providers, subcontractors, property managers, and other third parties. Their products, websites, warranties, policies, and conduct are governed by their own terms. MasterPro is not responsible for third-party acts or omissions except to the extent required by law or expressly agreed in writing.</p>
+    </section>
+
+    <section id="changes-to-terms">
+      <span class="kicker">Updates</span>
+      <h2>15. Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. Updated Terms will be posted on this page with a revised “Last updated” date. Changes apply prospectively unless applicable law requires otherwise.</p>
+    </section>
+
+    <section id="law">
+      <span class="kicker">General Provisions</span>
+      <h2>16. Applicable Law and Severability</h2>
+      <p>These Terms are governed by applicable federal, state, and local law. Mandatory consumer protections and rules applicable in the location where services are performed will control when they conflict with these Terms.</p>
+      <p>If any provision is held unenforceable, the remaining provisions will remain in effect to the fullest extent permitted by law. A failure to enforce a provision is not a waiver of that provision.</p>
+    </section>
+
+    <section id="contact">
+      <span class="kicker">Support</span>
+      <h2>17. Contact Us</h2>
+      <p>Questions about these Terms, an appointment, billing, service concerns, or mobile messaging may be sent to us by e-mail:</p>
+      <div class="callout">
+        <strong>MasterPro Installs Corp</strong><br>
+        San Leandro, CA<br>
+        <a href="mailto:hello@masterpro.app">hello@masterpro.app</a>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Our pros are prepared to go beyond expectations at every service.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/sms-consent">SMS Consent</a>
+      <a href="mailto:hello@masterpro.app">Contact</a>
+    </div>
+    <div class="copyright">© 2026 MasterPro Installs Corp. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

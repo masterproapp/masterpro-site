@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy | MasterPro</title>
+<meta name="description" content="Privacy Policy for MasterPro Installs Corp, including mobile messaging and SMS consent practices.">
+<meta name="theme-color" content="#1a1a1a">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:#faf8f2; --bg-deep:#1a1a1a; --bg-deep-2:#232323; --cream:#fdfbf4;
+    --ink:#1a1a1a; --ink-soft:#555; --ink-faint:#8a8a8a;
+    --line:#e9e4d8; --line-strong:#cfc7b4;
+    --orange:#f96302; --orange-deep:#d35200; --orange-tint:#fff1e6;
+    --max:1180px;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+  body {
+    font-family:'IBM Plex Sans',sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  img { display:block; max-width:100%; }
+  a { color:inherit; }
+  .accent { color:var(--orange); }
+
+  /* ===== Hero (no nav bar, logo only) ===== */
+  .hero {
+    position:relative; overflow:hidden;
+    background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .hero-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto;
+    padding:52px 28px 60px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .mark { display:inline-block; margin-bottom:38px; }
+  .mark img { width:56px; height:56px; border:2px solid var(--ink); border-radius:0; }
+  .eyebrow {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--orange);
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px;
+  }
+  h1 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(40px,7vw,88px); line-height:0.94;
+    letter-spacing:-0.025em; margin:0 0 22px; max-width:14ch;
+  }
+  .lede { font-size:18px; color:var(--ink-soft); max-width:70ch; margin:0; }
+  .meta {
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .meta b { color:var(--ink); font-weight:600; }
+
+  /* ===== Layout ===== */
+  .page {
+    max-width:var(--max); margin:0 auto;
+    padding:64px 28px 96px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+    display:grid; grid-template-columns:230px minmax(0,1fr); gap:64px;
+  }
+  .toc { align-self:start; position:sticky; top:32px; }
+  .toc strong {
+    display:block; margin-bottom:14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--orange);
+    border:1px solid var(--orange); padding:4px 10px;
+  }
+  .toc nav { border-left:2px solid var(--line-strong); padding-left:16px; }
+  .toc a {
+    display:block; margin:9px 0;
+    font-size:13px; color:var(--ink-soft); text-decoration:none;
+  }
+  .toc a:hover { color:var(--orange); }
+
+  .terms { min-width:0; }
+  .notice {
+    margin:0 0 40px; padding:20px 22px;
+    background:var(--orange-tint);
+    border:1px solid #ffd5c4; border-left:4px solid var(--orange);
+    font-size:15px;
+  }
+  section { padding:6px 0 34px; border-bottom:1px solid var(--line); }
+  section:last-child { border-bottom:0; }
+  .kicker {
+    display:block; margin:24px 0 6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:var(--orange);
+    letter-spacing:0.16em; text-transform:uppercase;
+  }
+  h2 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(22px,2.8vw,30px); line-height:1.12;
+    letter-spacing:-0.02em; margin:0 0 12px;
+  }
+  h3 { font-family:'Archivo',sans-serif; font-weight:700; font-size:17px; margin:22px 0 8px; }
+  p { margin:10px 0; color:var(--ink-soft); }
+  strong { color:var(--ink); }
+  ul, ol { padding-left:20px; color:var(--ink-soft); }
+  li { margin:8px 0; }
+
+  .sms-box {
+    margin:22px 0; padding:26px;
+    background:var(--bg-deep); color:#cfc9bb;
+    border-left:4px solid var(--orange);
+  }
+  .sms-box h3 { margin-top:0; color:#fff; }
+  .sms-box p { color:#cfc9bb; }
+  .sms-box a { color:var(--orange); }
+
+  .callout {
+    margin:18px 0; padding:20px 22px;
+    background:var(--cream); border:1px solid var(--line-strong);
+  }
+  .callout a { color:var(--orange-deep); }
+
+  /* ===== Footer ===== */
+  footer {
+    background:var(--bg-deep); color:#aaa;
+    border-top:3px solid var(--orange);
+    position:relative; overflow:hidden;
+  }
+  footer::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .footer-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto; padding:56px 28px 30px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .footer-title {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(24px,3.4vw,40px); line-height:1.06;
+    letter-spacing:-0.03em; color:#fff; max-width:18ch; margin:0 0 28px;
+  }
+  .footer-links {
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .footer-links a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .footer-links a:hover { color:var(--orange); }
+  .copyright {
+    margin-top:40px; padding-top:20px; border-top:1px solid #2e2e2e;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8a8a8a;
+  }
+  .copyright .orange { color:var(--orange); }
+
+  /* ===== Mobile ===== */
+  @media (max-width:900px) {
+    .hero-inner { padding:36px 18px 44px; }
+    .mark { margin-bottom:26px; }
+    .page {
+      grid-template-columns:1fr; gap:32px;
+      padding:40px 18px 64px;
+    }
+    .toc { position:static; }
+    .toc nav {
+      display:grid; grid-template-columns:1fr 1fr; gap:2px 16px;
+      border-left:0; border-top:2px solid var(--line-strong);
+      padding-left:0; padding-top:14px;
+    }
+    .footer-inner { padding:44px 18px 26px; }
+    .lede { font-size:16.5px; }
+  }
+  @media (max-width:480px) {
+    .toc nav { grid-template-columns:1fr; }
+    .sms-box { padding:20px; }
+  }
+  @media print {
+    .toc { display:none; }
+    .page { display:block; padding:0; }
+    .hero::before, footer::before { display:none; }
+    footer { background:#fff; color:#000; }
+    .footer-title, .footer-links a { color:#000; }
+  }
+
+  /* ===== Consent steps, script, record table ===== */
+  .consent-steps { counter-reset: step; margin: 28px 0; }
+  .step {
+    position: relative; margin: 0 0 14px;
+    padding: 20px 20px 20px 68px;
+    background: var(--cream); border: 1px solid var(--line-strong);
+    color: var(--ink-soft); font-size: 15px;
+  }
+  .step strong { color: var(--ink); }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 20px; top: 18px;
+    width: 30px; height: 30px;
+    display: grid; place-items: center;
+    background: var(--orange); color: #fff;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+  }
+  .script {
+    margin: 22px 0; padding: 26px;
+    background: var(--cream); border-left: 4px solid var(--orange);
+    font-size: 17px; color: var(--ink); line-height: 1.6;
+  }
+  .record-example { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+  .record-example th, .record-example td {
+    padding: 13px 15px; border: 1px solid var(--line-strong);
+    text-align: left; vertical-align: top; color: var(--ink-soft);
+  }
+  .record-example th {
+    width: 34%; background: var(--cream); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+  }
+  @media (max-width: 560px) {
+    .record-example, .record-example tbody, .record-example tr, .record-example th, .record-example td { display: block; width: 100%; }
+    .record-example tr { margin-bottom: 12px; border: 1px solid var(--line-strong); }
+    .record-example th, .record-example td { border: 0; }
+    .record-example th { border-bottom: 1px solid var(--line); }
+    .step { padding: 18px 16px 18px 16px; }
+    .step::before { position: static; display: inline-grid; margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="mark" href="/" aria-label="MasterPro home">
+      <img src="/logo.png" alt="MasterPro">
+    </a>
+    <div class="eyebrow">Legal &amp; Privacy</div>
+    <h1>Privacy Policy</h1>
+    <p class="lede">This policy explains how MasterPro Installs Corp collects, uses, protects, and shares information in connection with our appliance delivery, installation, support, website, and mobile messaging services.</p>
+    <div class="meta"><b>Effective date:</b> August 31, 2026 &nbsp;·&nbsp; <b>Last updated:</b> August 31, 2026</div>
+  </div>
+</header>
+
+<main class="page">
+  <aside class="toc" aria-label="Page contents">
+    <strong>Contents</strong>
+    <nav>
+      <a href="#scope">Scope</a>
+      <a href="#collect">Information We Collect</a>
+      <a href="#use">How We Use Information</a>
+      <a href="#sms">SMS &amp; Mobile Messaging</a>
+      <a href="#sharing">How We Share Information</a>
+      <a href="#cookies">Cookies &amp; Analytics</a>
+      <a href="#retention">Retention &amp; Security</a>
+      <a href="#rights">Your Privacy Choices</a>
+      <a href="#children">Children’s Privacy</a>
+      <a href="#changes">Changes</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </aside>
+
+  <article class="terms">
+    <div class="notice">
+      <strong>Important SMS disclosure:</strong> Mobile phone numbers, SMS opt-in data, and messaging consent are not sold, rented, or shared with third parties or affiliates for their own marketing or promotional purposes.
+    </div>
+
+    <section id="scope">
+      <h2>1. Scope</h2>
+      <p>This Privacy Policy applies to information collected by MasterPro Installs Corp (“MasterPro,” “we,” “us,” or “our”) through our website, customer support channels, appointment scheduling, appliance delivery and installation services, service documentation, and text messaging program.</p>
+      <p>This policy does not govern the independent privacy practices of retailers, manufacturers, payment processors, or other third parties. Their privacy notices apply to information they collect directly.</p>
+    </section>
+
+    <section id="collect">
+      <h2>2. Information We Collect</h2>
+      <p>Depending on how you interact with us, we may collect:</p>
+      <ul>
+        <li><strong>Contact information:</strong> name, telephone number, email address, service address, and preferred contact method.</li>
+        <li><strong>Appointment and service information:</strong> retailer or referral source, appliance details, delivery and installation dates, access instructions, service notes, technician assignments, and service history.</li>
+        <li><strong>Communications:</strong> messages, support requests, call notes, survey responses, and records of your communication preferences and consent.</li>
+        <li><strong>Service documentation:</strong> photographs, measurements, condition records, signatures, completion records, and information needed to address safety, warranty, property, or damage concerns.</li>
+        <li><strong>Website and device information:</strong> IP address, browser type, device information, pages viewed, referring pages, and cookie or analytics data.</li>
+        <li><strong>Transaction information:</strong> payment status and limited transaction details. Payment card information may be processed directly by third-party payment providers rather than stored by MasterPro.</li>
+      </ul>
+    </section>
+
+    <section id="use">
+      <h2>3. How We Use Information</h2>
+      <p>We may use information to:</p>
+      <ul>
+        <li>Schedule, coordinate, perform, document, and complete appliance delivery and installation services.</li>
+        <li>Send appointment confirmations, arrival windows, technician updates, preparation instructions, rescheduling notices, and service follow-up communications.</li>
+        <li>Respond to questions, resolve service issues, administer warranties or claims, and provide customer support.</li>
+        <li>Verify service quality, train personnel, prevent fraud, protect customers and property, and maintain safety and compliance records.</li>
+        <li>Process payments, maintain business records, comply with legal obligations, and enforce our agreements.</li>
+        <li>Operate, secure, analyze, and improve our website, systems, services, and customer experience.</li>
+      </ul>
+    </section>
+
+    <section id="sms">
+      <h2>4. SMS and Mobile Messaging Privacy</h2>
+      <div class="sms-box">
+        <h3>Mobile information is protected</h3>
+        <p>We do not sell, rent, or share mobile phone numbers, SMS opt-in data, or messaging consent with third parties or affiliates for their own marketing or promotional purposes. Text messaging originator opt-in data and consent are excluded from any data-sharing arrangement and will not be provided to third parties for marketing.</p>
+      </div>
+
+      <h3>How customers opt in</h3>
+      <p>Customers may enroll through explicit verbal consent during a live telephone conversation while scheduling or coordinating an appliance delivery or installation. Before enrollment, our representative explains the types of service-related messages, that message frequency varies, that message and data rates may apply, and that the customer may reply STOP to opt out or HELP for assistance. Consent is not a condition of purchase.</p>
+
+      <h3>Types of messages</h3>
+      <p>Messages may include appointment confirmations, delivery or installation reminders, arrival time windows, technician names, en-route notifications, preparation instructions, rescheduling notices, service-status updates, and post-service follow-up directly related to the customer’s scheduled service.</p>
+
+      <h3>Frequency and charges</h3>
+      <p>Message frequency varies based on the number and status of scheduled services. Message and data rates may apply according to your mobile carrier and plan.</p>
+
+      <h3>Opting out and requesting help</h3>
+      <p>Reply <strong>STOP</strong> to unsubscribe at any time. After opting out, you may receive one confirmation message. Reply <strong>HELP</strong> for assistance or e-mail us at <a href="mailto:hello@masterpro.app">hello@masterpro.app</a>. You may reply <strong>START</strong> to resubscribe where supported.</p>
+
+      <h3>Service providers</h3>
+      <p>We may use communications and technology providers to transmit messages on our behalf. They may process mobile information only as necessary to provide those services and not for their own marketing or promotional purposes.</p>
+
+      <p>For the complete enrollment workflow, see our <a href="/sms-consent">SMS Consent page</a>. Our mobile messaging terms are also included in our <a href="/terms">Terms of Service</a>.</p>
+    </section>
+
+    <section id="sharing">
+      <h2>5. How We Share Information</h2>
+      <p>We may disclose information only as reasonably necessary for the following purposes:</p>
+      <ul>
+        <li><strong>Service fulfillment:</strong> to technicians, authorized subcontractors, retailers, manufacturers, logistics providers, and other parties involved in the customer’s requested delivery or installation.</li>
+        <li><strong>Business operations:</strong> to hosting, scheduling, communications, analytics, payment, insurance, professional, and information-security providers that support our operations.</li>
+        <li><strong>Legal and safety purposes:</strong> when required by law, legal process, insurance requirements, or when reasonably necessary to protect people, property, rights, systems, or the integrity of our services.</li>
+        <li><strong>Business transactions:</strong> in connection with a merger, financing, acquisition, reorganization, or sale of all or part of the business, subject to appropriate protections.</li>
+      </ul>
+      <p>We do not sell personal information for money. We do not share mobile numbers or SMS consent data for third-party or affiliate marketing.</p>
+    </section>
+
+    <section id="cookies">
+      <h2>6. Cookies and Analytics</h2>
+      <p>Our website may use cookies and similar technologies to operate pages, remember preferences, understand website use, improve performance, and protect against abuse. Browser settings may allow you to block or delete cookies, although some website functions may not work correctly afterward.</p>
+    </section>
+
+    <section id="retention">
+      <h2>7. Data Retention and Security</h2>
+      <p>We retain information for as long as reasonably necessary to provide services, maintain installation and warranty records, resolve disputes, satisfy contractual and legal obligations, and protect our business and customers.</p>
+      <p>We use administrative, technical, and physical safeguards designed to protect information. No storage or transmission method is completely secure, and we cannot guarantee absolute security.</p>
+    </section>
+
+    <section id="rights">
+      <h2>8. Your Privacy Choices and Rights</h2>
+      <p>You may ask us to access, correct, or delete certain personal information, subject to identity verification and legal exceptions. Depending on where you live, you may also have rights to receive information about our collection and disclosure practices, limit certain uses, or appeal a decision concerning a privacy request.</p>
+      <p>You may manage marketing email preferences through the unsubscribe link in an email. Service communications necessary to complete an active appointment may continue through non-SMS channels. For text messages, reply STOP to opt out.</p>
+      <p>We will not discriminate against you for exercising an applicable privacy right.</p>
+    </section>
+
+    <section id="children">
+      <h2>9. Children’s Privacy</h2>
+      <p>Our services are not directed to children under 13, and we do not knowingly collect personal information directly from children under 13. If you believe a child has provided information to us, please contact us so we can review and address the request.</p>
+    </section>
+
+    <section id="links">
+      <h2>10. Third-Party Links and Services</h2>
+      <p>Our website or communications may link to third-party websites or services. We are not responsible for their privacy or security practices. Review the applicable third-party privacy notice before providing information.</p>
+    </section>
+
+    <section id="changes">
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. The revised version will be posted on this page with a new “Last updated” date. Material changes may also be communicated through other appropriate channels.</p>
+    </section>
+
+    <section id="contact">
+      <h2>12. Contact Us</h2>
+      <p>For privacy questions, requests, or concerns, contact MasterPro Installs Corp by e-mail:</p>
+      <div class="callout">
+        <strong>MasterPro Installs Corp</strong><br>
+        <a href="mailto:hello@masterpro.app">hello@masterpro.app</a>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Our pros are prepared to go beyond expectations at every service.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/sms-consent">SMS Consent</a>
+      <a href="mailto:hello@masterpro.app">Contact</a>
+    </div>
+    <div class="copyright">© 2026 MasterPro Installs Corp. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

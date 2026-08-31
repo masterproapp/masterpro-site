@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMS Consent | MasterPro</title>
+<meta name="description" content="How customers consent to receive service-related SMS messages from MasterPro Installs Corp.">
+<meta name="theme-color" content="#1a1a1a">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:#faf8f2; --bg-deep:#1a1a1a; --bg-deep-2:#232323; --cream:#fdfbf4;
+    --ink:#1a1a1a; --ink-soft:#555; --ink-faint:#8a8a8a;
+    --line:#e9e4d8; --line-strong:#cfc7b4;
+    --orange:#f96302; --orange-deep:#d35200; --orange-tint:#fff1e6;
+    --max:1180px;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+  body {
+    font-family:'IBM Plex Sans',sans-serif;
+    background:var(--bg); color:var(--ink);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  img { display:block; max-width:100%; }
+  a { color:inherit; }
+  .accent { color:var(--orange); }
+
+  /* ===== Hero (no nav bar, logo only) ===== */
+  .hero {
+    position:relative; overflow:hidden;
+    background:var(--bg); border-bottom:1px solid var(--line);
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .hero-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto;
+    padding:52px 28px 60px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .mark { display:inline-block; margin-bottom:38px; }
+  .mark img { width:56px; height:56px; border:2px solid var(--ink); border-radius:0; }
+  .eyebrow {
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--orange);
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:16px;
+  }
+  h1 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(40px,7vw,88px); line-height:0.94;
+    letter-spacing:-0.025em; margin:0 0 22px; max-width:14ch;
+  }
+  .lede { font-size:18px; color:var(--ink-soft); max-width:70ch; margin:0; }
+  .meta {
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .meta b { color:var(--ink); font-weight:600; }
+
+  /* ===== Layout ===== */
+  .page {
+    max-width:var(--max); margin:0 auto;
+    padding:64px 28px 96px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+    display:grid; grid-template-columns:230px minmax(0,1fr); gap:64px;
+  }
+  .toc { align-self:start; position:sticky; top:32px; }
+  .toc strong {
+    display:block; margin-bottom:14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--orange);
+    border:1px solid var(--orange); padding:4px 10px;
+  }
+  .toc nav { border-left:2px solid var(--line-strong); padding-left:16px; }
+  .toc a {
+    display:block; margin:9px 0;
+    font-size:13px; color:var(--ink-soft); text-decoration:none;
+  }
+  .toc a:hover { color:var(--orange); }
+
+  .terms { min-width:0; }
+  .notice {
+    margin:0 0 40px; padding:20px 22px;
+    background:var(--orange-tint);
+    border:1px solid #ffd5c4; border-left:4px solid var(--orange);
+    font-size:15px;
+  }
+  section { padding:6px 0 34px; border-bottom:1px solid var(--line); }
+  section:last-child { border-bottom:0; }
+  .kicker {
+    display:block; margin:24px 0 6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; color:var(--orange);
+    letter-spacing:0.16em; text-transform:uppercase;
+  }
+  h2 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(22px,2.8vw,30px); line-height:1.12;
+    letter-spacing:-0.02em; margin:0 0 12px;
+  }
+  h3 { font-family:'Archivo',sans-serif; font-weight:700; font-size:17px; margin:22px 0 8px; }
+  p { margin:10px 0; color:var(--ink-soft); }
+  strong { color:var(--ink); }
+  ul, ol { padding-left:20px; color:var(--ink-soft); }
+  li { margin:8px 0; }
+
+  .sms-box {
+    margin:22px 0; padding:26px;
+    background:var(--bg-deep); color:#cfc9bb;
+    border-left:4px solid var(--orange);
+  }
+  .sms-box h3 { margin-top:0; color:#fff; }
+  .sms-box p { color:#cfc9bb; }
+  .sms-box a { color:var(--orange); }
+
+  .callout {
+    margin:18px 0; padding:20px 22px;
+    background:var(--cream); border:1px solid var(--line-strong);
+  }
+  .callout a { color:var(--orange-deep); }
+
+  /* ===== Footer ===== */
+  footer {
+    background:var(--bg-deep); color:#aaa;
+    border-top:3px solid var(--orange);
+    position:relative; overflow:hidden;
+  }
+  footer::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .footer-inner {
+    position:relative; z-index:1;
+    max-width:var(--max); margin:0 auto; padding:56px 28px 30px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .footer-title {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(24px,3.4vw,40px); line-height:1.06;
+    letter-spacing:-0.03em; color:#fff; max-width:18ch; margin:0 0 28px;
+  }
+  .footer-links {
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+  }
+  .footer-links a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .footer-links a:hover { color:var(--orange); }
+  .copyright {
+    margin-top:40px; padding-top:20px; border-top:1px solid #2e2e2e;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8a8a8a;
+  }
+  .copyright .orange { color:var(--orange); }
+
+  /* ===== Mobile ===== */
+  @media (max-width:900px) {
+    .hero-inner { padding:36px 18px 44px; }
+    .mark { margin-bottom:26px; }
+    .page {
+      grid-template-columns:1fr; gap:32px;
+      padding:40px 18px 64px;
+    }
+    .toc { position:static; }
+    .toc nav {
+      display:grid; grid-template-columns:1fr 1fr; gap:2px 16px;
+      border-left:0; border-top:2px solid var(--line-strong);
+      padding-left:0; padding-top:14px;
+    }
+    .footer-inner { padding:44px 18px 26px; }
+    .lede { font-size:16.5px; }
+  }
+  @media (max-width:480px) {
+    .toc nav { grid-template-columns:1fr; }
+    .sms-box { padding:20px; }
+  }
+  @media print {
+    .toc { display:none; }
+    .page { display:block; padding:0; }
+    .hero::before, footer::before { display:none; }
+    footer { background:#fff; color:#000; }
+    .footer-title, .footer-links a { color:#000; }
+  }
+
+  /* ===== Consent steps, script, record table ===== */
+  .consent-steps { counter-reset: step; margin: 28px 0; }
+  .step {
+    position: relative; margin: 0 0 14px;
+    padding: 20px 20px 20px 68px;
+    background: var(--cream); border: 1px solid var(--line-strong);
+    color: var(--ink-soft); font-size: 15px;
+  }
+  .step strong { color: var(--ink); }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 20px; top: 18px;
+    width: 30px; height: 30px;
+    display: grid; place-items: center;
+    background: var(--orange); color: #fff;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+  }
+  .script {
+    margin: 22px 0; padding: 26px;
+    background: var(--cream); border-left: 4px solid var(--orange);
+    font-size: 17px; color: var(--ink); line-height: 1.6;
+  }
+  .record-example { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14.5px; }
+  .record-example th, .record-example td {
+    padding: 13px 15px; border: 1px solid var(--line-strong);
+    text-align: left; vertical-align: top; color: var(--ink-soft);
+  }
+  .record-example th {
+    width: 34%; background: var(--cream); color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-weight: 600;
+  }
+  @media (max-width: 560px) {
+    .record-example, .record-example tbody, .record-example tr, .record-example th, .record-example td { display: block; width: 100%; }
+    .record-example tr { margin-bottom: 12px; border: 1px solid var(--line-strong); }
+    .record-example th, .record-example td { border: 0; }
+    .record-example th { border-bottom: 1px solid var(--line); }
+    .step { padding: 18px 16px 18px 16px; }
+    .step::before { position: static; display: inline-grid; margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="mark" href="/" aria-label="MasterPro home">
+      <img src="/logo.png" alt="MasterPro">
+    </a>
+    <div class="eyebrow">Mobile Messaging</div>
+    <h1>SMS Consent</h1>
+    <p class="lede">This page describes the complete opt-in workflow used by MasterPro Installs Corp for transactional appliance delivery and installation notifications.</p>
+    <div class="meta"><b>Last updated:</b> August 31, 2026</div>
+  </div>
+</header>
+
+<main class="page">
+  <aside class="toc" aria-label="Page contents">
+    <strong>Contents</strong>
+    <nav>
+      <a href="#purpose">Program Purpose</a>
+      <a href="#workflow">Consent Workflow</a>
+      <a href="#script">Verbal Disclosure</a>
+      <a href="#record">Consent Record</a>
+      <a href="#messages">Messages Sent</a>
+      <a href="#choices">STOP &amp; HELP</a>
+      <a href="#links">Privacy &amp; Terms</a>
+    </nav>
+  </aside>
+
+  <article class="terms">
+    <div class="notice">
+      Customers are enrolled only after giving an express affirmative response. Consent is not a condition of purchase, and customers who decline are not sent SMS messages.
+    </div>
+
+    <section id="purpose">
+      <h2>1. Program Purpose</h2>
+      <p>MasterPro Installs Corp sends non-marketing, transactional service notifications to customers who have scheduled an appliance delivery or installation and have agreed to receive text messages.</p>
+    </section>
+
+    <section id="workflow">
+      <h2>2. Verbal Consent Workflow</h2>
+      <div class="consent-steps">
+        <div class="step"><strong>Appointment scheduling.</strong> A customer speaks with a MasterPro representative by telephone to schedule or coordinate an appliance delivery or installation.</div>
+        <div class="step"><strong>Disclosure is read.</strong> Before any SMS enrollment, the representative reads the disclosure shown below.</div>
+        <div class="step"><strong>Active consent.</strong> The customer must clearly answer “yes” or otherwise expressly agree. Silence, a preselected choice, or simply providing a telephone number is not treated as consent.</div>
+        <div class="step"><strong>Consent is recorded.</strong> The representative records the mobile number, consent status, date and time, and representative identity in the scheduling record.</div>
+        <div class="step"><strong>Messaging begins.</strong> Only customers with recorded affirmative consent receive service-related text messages. Customers who decline are not enrolled.</div>
+      </div>
+    </section>
+
+    <section id="script">
+      <h2>3. Verbal Opt-In Disclosure</h2>
+      <div class="script">
+        “Would you like to receive service-related text messages from MasterPro Installs Corp regarding your scheduled appliance delivery and installation, including appointment confirmations, arrival time windows, technician updates, preparation instructions, and service follow-up? Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help. Consent is not a condition of purchase.”
+      </div>
+    </section>
+
+    <section id="record">
+      <h2>4. Information Recorded With Consent</h2>
+      <p>The scheduling record includes the following information:</p>
+      <table class="record-example">
+        <tr><th>Customer mobile number</th><td>The number authorized to receive service notifications.</td></tr>
+        <tr><th>Consent status</th><td>Affirmative “Yes” or declined “No.”</td></tr>
+        <tr><th>Date and time</th><td>The timestamp when the customer provided the response.</td></tr>
+        <tr><th>Representative</th><td>The MasterPro representative who obtained and recorded consent.</td></tr>
+        <tr><th>Related service</th><td>The delivery or installation appointment associated with the consent.</td></tr>
+      </table>
+    </section>
+
+    <section id="messages">
+      <h2>5. Messages Customers May Receive</h2>
+      <ul>
+        <li>Appointment confirmations and reminders</li>
+        <li>Delivery or installation dates and arrival time windows</li>
+        <li>Technician names and en-route notifications</li>
+        <li>Preparation instructions and scheduling changes</li>
+        <li>Service-status updates and post-service follow-up</li>
+      </ul>
+      <p>No promotional offers, third-party advertising, affiliate marketing, or lead-generation content is sent through this program.</p>
+    </section>
+
+    <section id="choices">
+      <h2>6. Message Frequency, STOP, and HELP</h2>
+      <p>Message frequency varies based on the number and status of scheduled services. Message and data rates may apply.</p>
+      <p>Reply <strong>STOP</strong> to unsubscribe. After opting out, the customer may receive one confirmation message and will receive no additional SMS messages unless they later resubscribe. Reply <strong>HELP</strong> for assistance or e-mail us at <a href="mailto:hello@masterpro.app">hello@masterpro.app</a>.</p>
+    </section>
+
+    <section id="links">
+      <h2>7. Privacy and Terms</h2>
+      <p>Mobile phone numbers, SMS opt-in data, and messaging consent are not shared with third parties or affiliates for their own marketing or promotional purposes.</p>
+      <div class="callout">
+        <a href="/privacy"><strong>Privacy Policy</strong></a><br>
+        <a href="/terms"><strong>Terms of Service</strong></a><br>
+        <a href="mailto:hello@masterpro.app"><strong>Customer Support</strong></a>
+      </div>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">Our pros are prepared to go beyond expectations at every service.</div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/sms-consent">SMS Consent</a>
+      <a href="mailto:hello@masterpro.app">Contact</a>
+    </div>
+    <div class="copyright">© 2026 MasterPro Installs Corp. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
