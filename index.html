@@ -389,6 +389,20 @@
     font-size: 12px; letter-spacing: 0.04em; line-height: 1.8;
   }
   footer .orange { color: var(--orange); }
+  .foot-links {
+    display: flex; justify-content: center; flex-wrap: wrap;
+    gap: 10px 28px; margin-bottom: 18px;
+  }
+  .foot-links a {
+    color: rgba(255,255,255,0.72); text-decoration: none;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .foot-links a:hover { color: var(--orange); }
+  .foot-copy { color: #8a8a8a; }
+  @media (max-width: 600px) {
+    .foot-links { gap: 10px 18px; font-size: 11px; }
+  }
 </style>
 </head>
 <body>
@@ -420,12 +434,11 @@
 <!-- ===== Hero ===== -->
 <section class="hero" id="top" style="padding:0">
   <div class="hero-media">
-    <img class="kenburns" src="https://static.wixstatic.com/media/41ebec_f1e30d814ee34a2c937b1bf054178a6cf000.jpg/v1/fill/w_1920,h_1080,al_c,q_85,enc_avif,quality_auto/41ebec_f1e30d814ee34a2c937b1bf054178a6cf000.jpg" alt="">
+    <img class="kenburns" src="/assets/hero-poster.jpg" alt="">
     <video autoplay muted loop playsinline
-           poster="https://static.wixstatic.com/media/41ebec_f1e30d814ee34a2c937b1bf054178a6cf000.jpg/v1/fill/w_1920,h_1080,al_c,q_85,enc_avif,quality_auto/41ebec_f1e30d814ee34a2c937b1bf054178a6cf000.jpg"
+           poster="/assets/hero-poster.jpg"
            onerror="this.remove()">
-      <source src="https://video.wixstatic.com/video/41ebec_f1e30d814ee34a2c937b1bf054178a6c/1080p/mp4/file.mp4" type="video/mp4">
-      <source src="https://video.wixstatic.com/video/41ebec_f1e30d814ee34a2c937b1bf054178a6c/720p/mp4/file.mp4" type="video/mp4">
+      <source src="/assets/hero-video.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-inner">
@@ -501,7 +514,7 @@
     <p class="section-sub">Owned, connected, and ready to scale. The infrastructure behind every install.</p>
     <div class="panels">
       <div class="panel">
-        <img class="bg" loading="lazy" src="https://static.wixstatic.com/media/11062b_85ad833c89f0428e90b87f1383d35d37~mv2.jpg/v1/fill/w_1400,h_960,q_85,enc_avif,quality_auto/11062b_85ad833c89f0428e90b87f1383d35d37~mv2.jpg" alt="MasterPro white van fleet">
+        <img class="bg" loading="lazy" src="/assets/panel-fleet.jpg" alt="MasterPro white van fleet">
         <div class="txt">
           <div class="lbl">// Owned Fleet</div>
           <h3>New vehicles, ready to roll.</h3>
@@ -509,7 +522,7 @@
         </div>
       </div>
       <div class="panel">
-        <img class="bg" loading="lazy" src="https://static.wixstatic.com/media/11062b_7bad73c646f14dbea64061cfcfaff58bf000.jpg/v1/fill/w_1400,h_960,q_85,enc_avif,quality_auto/11062b_7bad73c646f14dbea64061cfcfaff58bf000.jpg" alt="MasterPro dispatch leadership on the ground">
+        <img class="bg" loading="lazy" src="/assets/panel-dispatch.jpg" alt="MasterPro dispatch leadership on the ground">
         <div class="txt">
           <div class="lbl">// Real-Time Dispatch</div>
           <h3>Leadership on the ground.</h3>
@@ -570,7 +583,13 @@
 </section>
 
 <footer>
-  © 2026 MasterPro Installs Corp · <span class="orange">From A to Beyond expectations</span> · San Leandro, CA
+  <nav class="foot-links" aria-label="Legal">
+    <a href="/terms">Terms of Service</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/sms-consent">SMS Consent</a>
+    <a href="mailto:hello@masterpro.app">Contact</a>
+  </nav>
+  <div class="foot-copy">© 2026 MasterPro Installs Corp · <span class="orange">From A to Beyond expectations</span> · San Leandro, CA</div>
 </footer>
 
 <script>
@@ -581,27 +600,27 @@
 
   // ===== Services (all 21, from the services menu) =====
   var SERVICES = [
-    ["Last Mile Delivery", "https://static.wixstatic.com/media/11062b_8d2587db867e4c5690a48c073791a62b~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/11062b_8d2587db867e4c5690a48c073791a62b~mv2.jpg"],
-    ["Premeasurement + Inspection", "https://static.wixstatic.com/media/873e38_23d17eb387ef4cb6b48c5fecacea6bd1~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_23d17eb387ef4cb6b48c5fecacea6bd1~mv2.jpg"],
-    ["Washer + Dryer", "https://static.wixstatic.com/media/873e38_24552381dd8f4bcfa8ce5b0d94dbb441~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_24552381dd8f4bcfa8ce5b0d94dbb441~mv2.jpg"],
-    ["Dishwasher", "https://static.wixstatic.com/media/873e38_75cae7a2c52a4f56b31586ac80878f3a~mv2.jpg/v1/fill/w_560,h_420,fp_0.4_0.53,q_90,enc_avif,quality_auto/873e38_75cae7a2c52a4f56b31586ac80878f3a~mv2.jpg"],
-    ["Built-In Refrigerator", "https://static.wixstatic.com/media/873e38_5e4f7d4f842c45a885f646bf25eaf008~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_5e4f7d4f842c45a885f646bf25eaf008~mv2.jpg"],
-    ["Professional Range", "https://static.wixstatic.com/media/873e38_867f5924ede44de5aa0b0b5689ddb4da~mv2.png/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_867f5924ede44de5aa0b0b5689ddb4da~mv2.png"],
-    ["Range with Downdraft", "https://static.wixstatic.com/media/873e38_726a2d9b63d048179c21b1e4dd8dd091~mv2.webp/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_726a2d9b63d048179c21b1e4dd8dd091~mv2.webp"],
-    ["Cooktop", "https://static.wixstatic.com/media/873e38_0250fedb8b4f4c79bfe645fa8c3ab046~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_0250fedb8b4f4c79bfe645fa8c3ab046~mv2.jpg"],
-    ["Single Wall Oven", "https://static.wixstatic.com/media/873e38_bbd478edae2c463490a82e1f7df9d23b~mv2.webp/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_bbd478edae2c463490a82e1f7df9d23b~mv2.webp"],
-    ["Double Wall Oven", "https://static.wixstatic.com/media/873e38_571a97ce460149b6b8929e7abfef6542~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_571a97ce460149b6b8929e7abfef6542~mv2.jpg"],
-    ["Microwave", "https://static.wixstatic.com/media/873e38_3e8c8b756f0b4997ae7bd8edb56dfdfa~mv2.webp/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_3e8c8b756f0b4997ae7bd8edb56dfdfa~mv2.webp"],
-    ["Island Hood", "https://static.wixstatic.com/media/873e38_db05fa26cbf348ce87cf29f2a04882ac~mv2.webp/v1/fill/w_560,h_420,fp_0.71_0.47,q_90,enc_avif,quality_auto/873e38_db05fa26cbf348ce87cf29f2a04882ac~mv2.webp"],
-    ["Wall Mounted Hood", "https://static.wixstatic.com/media/873e38_e6da0b468e1d4e838a72bcca3eb911fe~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_e6da0b468e1d4e838a72bcca3eb911fe~mv2.jpg"],
-    ["Under Cabinet Range Hood", "https://static.wixstatic.com/media/873e38_a4defa12fdb84253b9458fa005c0cc68~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_a4defa12fdb84253b9458fa005c0cc68~mv2.jpg"],
-    ["LP Conversion", "https://static.wixstatic.com/media/873e38_37bdabb72e6a4fbcb9a8fbd77f2607b9~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_37bdabb72e6a4fbcb9a8fbd77f2607b9~mv2.jpg"],
-    ["Gas or Water Valve Replacement", "https://static.wixstatic.com/media/873e38_8d06824f515f43cfae3442d95ac1b19b~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_8d06824f515f43cfae3442d95ac1b19b~mv2.jpg"],
-    ["Airgap", "https://static.wixstatic.com/media/873e38_24a94dfd2f314adb9ab67d05ab7afdc7~mv2.png/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_24a94dfd2f314adb9ab67d05ab7afdc7~mv2.png"],
-    ["Garbage Disposal", "https://static.wixstatic.com/media/873e38_82a7fc836bf04d03a990623450af2661~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_82a7fc836bf04d03a990623450af2661~mv2.jpg"],
-    ["Trash Compactor", "https://static.wixstatic.com/media/873e38_6abee522fd6040afa63eba889cf0b404~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_6abee522fd6040afa63eba889cf0b404~mv2.jpg"],
-    ["Cabinetry Adjustment + Customization", "https://static.wixstatic.com/media/873e38_6ea50923f5884bfba7c05e77d5b5e615~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_6ea50923f5884bfba7c05e77d5b5e615~mv2.jpg"],
-    ["Stone or Wood Countertop Customization", "https://static.wixstatic.com/media/873e38_bd843152cc4041988e9facadc042cfd8~mv2.jpg/v1/fill/w_560,h_420,q_90,enc_avif,quality_auto/873e38_bd843152cc4041988e9facadc042cfd8~mv2.jpg"]
+    ["Last Mile Delivery", "/assets/svc-01-last-mile-delivery.jpg"],
+    ["Premeasurement + Inspection", "/assets/svc-02-premeasurement-and-inspection.jpg"],
+    ["Washer + Dryer", "/assets/svc-03-washer-and-dryer.jpg"],
+    ["Dishwasher", "/assets/svc-04-dishwasher.jpg"],
+    ["Built-In Refrigerator", "/assets/svc-05-built-in-refrigerator.jpg"],
+    ["Professional Range", "/assets/svc-06-professional-range.jpg"],
+    ["Range with Downdraft", "/assets/svc-07-range-with-downdraft.jpg"],
+    ["Cooktop", "/assets/svc-08-cooktop.jpg"],
+    ["Single Wall Oven", "/assets/svc-09-single-wall-oven.jpg"],
+    ["Double Wall Oven", "/assets/svc-10-double-wall-oven.jpg"],
+    ["Microwave", "/assets/svc-11-microwave.jpg"],
+    ["Island Hood", "/assets/svc-12-island-hood.jpg"],
+    ["Wall Mounted Hood", "/assets/svc-13-wall-mounted-hood.jpg"],
+    ["Under Cabinet Range Hood", "/assets/svc-14-under-cabinet-range-hood.jpg"],
+    ["LP Conversion", "/assets/svc-15-lp-conversion.jpg"],
+    ["Gas or Water Valve Replacement", "/assets/svc-16-gas-or-water-valve-replacement.jpg"],
+    ["Airgap", "/assets/svc-17-airgap.jpg"],
+    ["Garbage Disposal", "/assets/svc-18-garbage-disposal.jpg"],
+    ["Trash Compactor", "/assets/svc-19-trash-compactor.jpg"],
+    ["Cabinetry Adjustment + Customization", "/assets/svc-20-cabinetry-adjustment-and-customization.jpg"],
+    ["Stone or Wood Countertop Customization", "/assets/svc-21-stone-or-wood-countertop-customization.jpg"]
   ];
 
   (function () {
