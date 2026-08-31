@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installation Price Quoter | MasterPro</title>
+<meta name="description" content="Build an instant estimate for appliance installation and delivery services from MasterPro Installs.">
+<meta name="theme-color" content="#1a1a1a">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:#faf8f2; --bg-deep:#1a1a1a; --bg-deep-2:#232323; --cream:#fdfbf4;
+    --ink:#1a1a1a; --ink-soft:#555; --ink-faint:#8a8a8a;
+    --line:#e9e4d8; --line-strong:#cfc7b4;
+    --orange:#f96302; --orange-deep:#d35200; --orange-tint:#fff1e6;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  html, body { margin:0; padding:0; width:100%; overflow-x:hidden; }
+  body {
+    font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--ink);
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    padding-bottom:96px; /* room for mobile total bar */
+  }
+  img { display:block; max-width:100%; }
+  .accent { color:var(--orange); }
+
+  /* Hero */
+  .hero { position:relative; overflow:hidden; border-bottom:1px solid var(--line); }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(26,26,26,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,26,26,0.045) 1px, transparent 1px);
+    background-size:32px 32px; pointer-events:none;
+  }
+  .hero-inner {
+    position:relative; z-index:1; max-width:1280px; margin:0 auto;
+    padding:44px 28px 48px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+  }
+  .mark { display:inline-block; margin-bottom:30px; }
+  .mark img { width:54px; height:54px; border:2px solid var(--ink); }
+  .eyebrow {
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--orange);
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:14px;
+  }
+  h1 {
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(34px,6vw,72px); line-height:0.95;
+    letter-spacing:-0.025em; margin:0 0 18px; max-width:16ch;
+  }
+  .lede { font-size:17px; color:var(--ink-soft); max-width:62ch; margin:0; }
+  .updated {
+    margin-top:22px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint);
+  }
+
+  /* Layout */
+  .wrap {
+    max-width:1280px; margin:0 auto; padding:36px 28px 60px;
+    padding-left:calc(28px + env(safe-area-inset-left));
+    padding-right:calc(28px + env(safe-area-inset-right));
+    display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:40px; align-items:start;
+  }
+
+  /* Search + controls */
+  .controls { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .search {
+    flex:1; min-width:220px;
+    font-family:'IBM Plex Sans',sans-serif; font-size:16px;
+    padding:13px 15px; border:1.5px solid var(--line-strong);
+    border-radius:2px; background:#fff; color:var(--ink);
+  }
+  .search:focus { outline:none; border-color:var(--orange); }
+  .chip {
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    padding:11px 14px; border:1.5px solid var(--line-strong);
+    background:#fff; color:var(--ink-soft); cursor:pointer; border-radius:2px;
+  }
+  .chip:hover { border-color:var(--orange); color:var(--orange); }
+
+  /* Category */
+  .cat { margin-bottom:28px; border:1px solid var(--line-strong); background:#fff; }
+  .cat-head {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 20px; background:var(--cream);
+    border-bottom:1px solid var(--line-strong); cursor:pointer;
+    user-select:none;
+  }
+  .cat-head h2 {
+    font-family:'Archivo Black',sans-serif; font-size:18px;
+    letter-spacing:-0.01em; margin:0;
+  }
+  .cat-head .meta {
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint);
+    display:flex; align-items:center; gap:12px;
+  }
+  .cat-head .caret { font-size:14px; color:var(--orange); transition:transform 0.2s; }
+  .cat.closed .caret { transform:rotate(-90deg); }
+  .cat.closed .cat-body { display:none; }
+  .grp {
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--orange);
+    padding:14px 20px 6px;
+  }
+
+  /* Row */
+  .row {
+    display:grid; grid-template-columns:1fr auto auto; gap:14px;
+    align-items:center; padding:13px 20px; border-top:1px solid var(--line);
+  }
+  .row.on { background:var(--orange-tint); }
+  .row .name { font-size:15px; }
+  .row .note {
+    display:block; margin-top:3px;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.06em; color:var(--ink-faint); text-transform:uppercase;
+  }
+  .row .price {
+    font-family:'Archivo',sans-serif; font-weight:700; font-size:15px;
+    white-space:nowrap; text-align:right; min-width:66px;
+  }
+  .row .price.est {
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.12em; color:var(--orange); font-weight:500;
+  }
+  .qty { display:flex; align-items:center; border:1.5px solid var(--line-strong); background:#fff; }
+  .qty button {
+    width:34px; height:34px; border:0; background:transparent; cursor:pointer;
+    font-family:'Archivo',sans-serif; font-size:17px; font-weight:700; color:var(--ink);
+    line-height:1;
+  }
+  .qty button:hover { color:var(--orange); }
+  .qty .n {
+    min-width:30px; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:14px; font-variant-numeric:tabular-nums;
+  }
+  .qty.zero .n { color:var(--ink-faint); }
+  .addons { grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; padding:2px 0 4px; }
+  .addon {
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.08em; text-transform:uppercase;
+    padding:6px 11px; border:1.5px dashed var(--line-strong);
+    background:#fff; cursor:pointer; color:var(--ink-soft);
+  }
+  .addon.on { border-style:solid; border-color:var(--orange); color:var(--orange-deep); background:var(--orange-tint); }
+
+  /* Travel */
+  .travel { display:flex; flex-wrap:wrap; gap:8px; padding:14px 20px 18px; }
+  .tv {
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.1em; text-transform:uppercase;
+    padding:10px 14px; border:1.5px solid var(--line-strong);
+    background:#fff; cursor:pointer; color:var(--ink-soft);
+  }
+  .tv.on { border-color:var(--orange); background:var(--orange); color:#fff; }
+
+  /* Quote panel */
+  .quote { position:sticky; top:24px; border:2px solid var(--bg-deep); background:#fff; }
+  .quote-head {
+    background:var(--bg-deep); color:#fff; padding:14px 18px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.16em; text-transform:uppercase;
+  }
+  .quote-head span { color:var(--orange); }
+  .lines { max-height:46vh; overflow-y:auto; }
+  .line {
+    display:flex; justify-content:space-between; gap:12px;
+    padding:11px 18px; border-bottom:1px solid var(--line); font-size:13.5px;
+  }
+  .line .l { color:var(--ink-soft); }
+  .line .l b { color:var(--ink); font-weight:600; }
+  .line .r { font-family:'Archivo',sans-serif; font-weight:700; white-space:nowrap; }
+  .line .r.est { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--orange); font-weight:500; letter-spacing:0.1em; }
+  .empty { padding:26px 18px; color:var(--ink-faint); font-size:14px; }
+  .totals { padding:16px 18px; border-top:2px solid var(--bg-deep); }
+  .total-row { display:flex; justify-content:space-between; align-items:baseline; }
+  .total-row .lbl {
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-faint);
+  }
+  .total-row .amt { font-family:'Archivo Black',sans-serif; font-size:34px; letter-spacing:-0.02em; }
+  .est-flag {
+    margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:10.5px;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--orange-deep);
+    background:var(--orange-tint); padding:8px 10px;
+  }
+  .acts { display:grid; gap:9px; padding:0 18px 18px; }
+  .btn {
+    display:block; text-align:center; background:var(--orange); color:#fff;
+    font-family:'Archivo',sans-serif; font-size:13px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 18px; border-radius:2px; text-decoration:none; border:none; cursor:pointer;
+    box-shadow:0 4px 0 var(--orange-deep); transition:transform .12s, box-shadow .12s;
+  }
+  .btn:hover { transform:translateY(2px); box-shadow:0 2px 0 var(--orange-deep); }
+  .btn.ghost {
+    background:transparent; color:var(--ink); border:2px solid var(--line-strong);
+    box-shadow:none; font-weight:600;
+  }
+  .btn.ghost:hover { border-color:var(--orange); color:var(--orange); transform:none; }
+  .disclaimer {
+    padding:0 18px 18px; font-size:12px; color:var(--ink-faint); line-height:1.5;
+  }
+
+  /* Mobile total bar */
+  .bar { display:none; }
+
+  footer {
+    background:var(--bg-deep); color:#aaa; border-top:3px solid var(--orange);
+    padding:26px 28px; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em;
+  }
+  .foot-links { display:flex; justify-content:center; flex-wrap:wrap; gap:10px 26px; margin-bottom:16px; }
+  .foot-links a { color:rgba(255,255,255,0.72); text-decoration:none; letter-spacing:0.12em; text-transform:uppercase; }
+  .foot-links a:hover { color:var(--orange); }
+  .foot-copy { color:#8a8a8a; }
+  footer .orange { color:var(--orange); }
+
+  @media (max-width:1000px) {
+    .wrap { grid-template-columns:1fr; gap:28px; padding:26px 18px 40px; }
+    .hero-inner { padding:30px 18px 34px; }
+    .quote { position:static; }
+    .lines { max-height:none; }
+    /* sticky bottom bar on phones */
+    .bar {
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      position:fixed; left:0; right:0; bottom:0; z-index:60;
+      background:var(--bg-deep); color:#fff;
+      padding:12px 18px; padding-bottom:calc(12px + env(safe-area-inset-bottom));
+      border-top:3px solid var(--orange);
+    }
+    .bar .l { font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:#aaa; }
+    .bar .v { font-family:'Archivo Black',sans-serif; font-size:24px; line-height:1; }
+    .bar .btn { box-shadow:none; padding:12px 16px; font-size:12px; }
+    .row { grid-template-columns:1fr auto; gap:10px; padding:13px 16px; }
+    .row .price { grid-column:2; }
+    .row .qty { grid-column:2; }
+    .cat-head, .grp, .travel { padding-left:16px; padding-right:16px; }
+  }
+  @media (max-width:420px) {
+    .row .name { font-size:14.5px; }
+    h1 { font-size:32px; }
+  }
+  @media print {
+    .controls, .qty, .acts, .bar, .hero::before, footer { display:none !important; }
+    .wrap { display:block; }
+    .quote { position:static; border:1px solid #000; }
+    .cat.closed .cat-body { display:block; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <a class="mark" href="/" aria-label="MasterPro home">
+      <img src="/logo.png" alt="MasterPro">
+    </a>
+    <div class="eyebrow">// Installation Price Quoter</div>
+    <h1>Build your <span class="accent">estimate.</span></h1>
+    <p class="lede">Select the services you need and the total updates as you go. Prices reflect standard installation conditions. Final pricing is confirmed after review of the appliance, site conditions, and access.</p>
+    <div class="updated">Price list updated August 14, 2026</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div>
+    <div class="controls">
+      <input class="search" id="q" type="search" placeholder="Search services, e.g. dishwasher, hood, LP conversion" aria-label="Search services">
+      <button class="chip" id="expandAll" type="button">Expand all</button>
+      <button class="chip" id="collapseAll" type="button">Collapse all</button>
+    </div>
+    <div id="list"></div>
+  </div>
+
+  <aside>
+    <div class="quote">
+      <div class="quote-head">// Your Quote <span id="cnt"></span></div>
+      <div class="lines" id="lines"></div>
+      <div class="totals">
+        <div class="total-row">
+          <span class="lbl">Total</span>
+          <span class="amt" id="total">$0</span>
+        </div>
+        <div class="est-flag" id="estFlag" style="display:none">Includes items that require an estimate</div>
+      </div>
+      <div class="acts">
+        <button class="btn" id="send" type="button">E-mail This Quote</button>
+        <button class="btn ghost" id="print" type="button">Print or Save PDF</button>
+        <button class="btn ghost" id="clear" type="button">Clear</button>
+      </div>
+      <p class="disclaimer">This is an estimate, not a final invoice. Additional parts, modifications, access requirements, or site conditions may change the price. Trip charges apply beyond 30 miles from the warehouse.</p>
+    </div>
+  </aside>
+</main>
+
+<div class="bar">
+  <div>
+    <div class="l">Total</div>
+    <div class="v" id="barTotal">$0</div>
+  </div>
+  <button class="btn" id="barSend" type="button">E-mail Quote</button>
+</div>
+
+<footer>
+  <nav class="foot-links" aria-label="Legal">
+    <a href="/">Home</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/sms-consent">SMS Consent</a>
+    <a href="mailto:hello@masterpro.app">Contact</a>
+  </nav>
+  <div class="foot-copy">© 2026 MasterPro Installs Corp · <span class="orange">Built around you</span> · San Leandro, CA</div>
+</footer>
+
+<script>
+/* MasterPro price list, updated August 14, 2026.
+   p = price (null means estimate only), n = note, add = optional add-ons */
+const DUAL = { id:'df', label:'Dual fuel range', amt:15 };
+const DUCT = { id:'duct', label:'Duct work with 3ft duct pipe', amt:100 };
+const DWKIT = { id:'dwk', label:'Long D/W kit and extended drain', amt:35 };
+
+const DATA = [
+{ cat:'Ranges', group:'Pro ranges and freestanding ranges', items:[
+  { t:'Install 30" range', p:315, add:[DUAL] },
+  { t:'Install 36" range', p:325, add:[DUAL] },
+  { t:'Install 48" range', p:620, add:[DUAL] },
+  { t:'Install 60" range', p:635, add:[DUAL] },
+  { t:'Install freestanding range', p:155, add:[DUAL] },
+  { t:'Install slide-in range', p:165, add:[DUAL] },
+  { t:'Install downdraft range', p:300 },
+  { t:'Install O-T-R over the range hood', p:185 }
+]},
+{ cat:'Ranges', group:'Pro cooktops', items:[
+  { t:'Install pro cooktop 36"-48"', p:325 },
+  { t:'Install 30"-36" rangetop', p:267 },
+  { t:'Install 48" rangetop', p:325 },
+  { t:'Install 60" rangetop', p:345 },
+  { t:'Install cooktop with telescopic back down draft', p:320 },
+  { t:'Install cooktop with telescopic center down draft', p:345 },
+  { t:'Install Gagganau cooktops', p:null, n:'Estimate only' },
+  { t:'Uninstall and haul away all appliances', p:150, n:'Excludes BI refers and pro stoves' },
+  { t:'Pro range uninstall and haul away', p:75 }
+]},
+{ cat:'Refrigerators', group:'Built-in and freestanding refrigerators', items:[
+  { t:'Install 30"-36" refrigerators', p:465 },
+  { t:'Install 42" BI refrigerator', p:525 },
+  { t:'Install 48" refrigerator', p:575 },
+  { t:'Install under counter refrigerator or wine cooler', p:149 },
+  { t:'Install under counter refrigerator or wine cooler with panel', p:215 },
+  { t:'Install built-in wine refrigerator', p:435 },
+  { t:'Install under counter drawer refrigerator', p:265 },
+  { t:'Install under counter drawer refrigerator with panels', p:345 }
+]},
+{ cat:'Microwaves', group:'Built-in microwaves', items:[
+  { t:'Install built-in microwave drawer', p:147 },
+  { t:'Install built-in microwave', p:170 },
+  { t:'Install microwave and trim kit', p:185 }
+]},
+{ cat:'Coffee makers', group:'Coffee makers', items:[
+  { t:'Install coffee maker', p:165 },
+  { t:'Install coffee maker with pump', p:180 },
+  { t:"Install coffee maker's trim kit", p:85 }
+]},
+{ cat:'Trash compactors', group:'Trash compactors', items:[
+  { t:'Install trash compactor', p:155 },
+  { t:'Install trash compactor panel', p:50 },
+  { t:'Install trash bin', p:165 },
+  { t:'Install BBQ doors, drawers, side burners, trash bins, etc. (each)', p:95 }
+]},
+{ cat:'Dishwashers', group:'Dishwashers', items:[
+  { t:'Install dishwasher', p:215, add:[DWKIT] },
+  { t:'Install dishwasher drawers', p:230, add:[DWKIT] }
+]},
+{ cat:'Laundry', group:'Laundry', items:[
+  { t:'Install washer', p:140 },
+  { t:'Install electric dryer', p:140 },
+  { t:'Install electric dryer with steam kit', p:140 },
+  { t:'Install gas dryer', p:150 },
+  { t:'Install gas dryer with steam kit', p:150 },
+  { t:'Install washer and electric dryer combination', p:275 },
+  { t:'Install washer and gas dryer combination', p:290 },
+  { t:'Reverse dryer door swing', p:80 },
+  { t:'Miele washer', p:140 },
+  { t:'Miele dryer', p:150 },
+  { t:'Stackable washer and dryer', p:280 }
+]},
+{ cat:'Ventilation & hoods', group:'Ventilation and hoods', items:[
+  { t:'Install 30"-36" hood', p:285, add:[DUCT] },
+  { t:'Install 42"-48" hood', p:400, add:[DUCT] },
+  { t:'Install custom hoods', p:350, add:[DUCT] },
+  { t:'Install 30"-36" island hood', p:265, add:[DUCT] },
+  { t:'Install 54" and up hoods', p:485, add:[DUCT], n:'3rd man may be required' },
+  { t:'Install hood insert', p:350, n:'$385 with duct access / $495 without duct access' },
+  { t:'Install external blower', p:null, n:'Estimate only based on pre-site inspection' },
+  { t:'Install blower', p:null, n:'Estimate only based on pre-site inspection and model' },
+  { t:'Install under cabinet hood', p:225 }
+]},
+{ cat:'Built-in refrigeration & panels', group:'Built-in refrigeration and panels', items:[
+  { t:'Install pro 48" SubZero, Thermador 42" and Thermador 48"', p:665 },
+  { t:'Install column unit (cost per unit), includes merge kit', p:435 },
+  { t:'Install stainless steel panel (cost per panel)', p:155 },
+  { t:'Install custom wood panel (cost is per panel)', p:200 },
+  { t:'Install custom handles', p:65, n:'Preferred if this can be done by contractor' },
+  { t:'Install ice maker', p:230 },
+  { t:'Install ice maker without drain line', p:190 },
+  { t:"Install ice maker that doesn't include drain accessories", p:265 },
+  { t:'Install free standing refers without water line', p:150 },
+  { t:'Install free standing refers with water line', p:175 },
+  { t:'Install wood/custom panel with handles (cost is per unit)', p:150 },
+  { t:'Install stainless steel panel (cost per panel)', p:150 }
+]},
+{ cat:'Ovens, warming & kitchen', group:'Ovens, warming and kitchen', items:[
+  { t:'Install warming drawer', p:105 },
+  { t:'Install warming drawer panel', p:50 },
+  { t:'Install trim kit', p:125 },
+  { t:'Install garbage disposal', p:170 },
+  { t:'Install single wall oven', p:165 },
+  { t:'Install double oven', p:230 },
+  { t:'Install steam oven plum', p:200 },
+  { t:'Install steam, speed oven', p:200 },
+  { t:'Install micro/oven combo', p:245 }
+]},
+{ cat:'Outdoor & accessories', group:'Outdoor, accessories and reschedule', items:[
+  { t:'Install BBQ built-in up to 30"', p:325 },
+  { t:'Install BBQ built-in over 36"', p:325, n:'3rd man required' },
+  { t:'Install pedestal', p:60 },
+  { t:'Install stacking kit', p:60 },
+  { t:'Reship/reschedule fee, one installation only', p:125 },
+  { t:'Reship/reschedule fee, more than one installation', p:null, n:'Estimate only based on installation price' }
+]},
+{ cat:'Removal & delivery', group:'Removal and delivery', items:[
+  { t:'Uninstall and haul away built-in refers', p:135 },
+  { t:'In-home uncrate and set in place delivery drop off', p:null, n:'Estimate only' },
+  { t:'Garage drop off pro package in box', p:null, n:'Estimate only' },
+  { t:'In-home free standing drop off out of box', p:null, n:'Estimate only' },
+  { t:'Garage drop off freestanding in box, one free standing kitchen', p:159 },
+  { t:'In-home drop off left in box', p:null, n:'Estimate only' }
+]},
+{ cat:'Appliance & specialty', group:'Appliance and specialty', items:[
+  { t:'LP conversion', p:200 },
+  { t:'Reverse door swing (cost is per unit) on columns and remove panels to switch hinge', p:225 },
+  { t:'Door reverse', p:65 },
+  { t:'Remove doors on free standing refer', p:125 },
+  { t:'Set up BBQ with cart assembly', p:325 },
+  { t:'Miele stacking kit', p:60 },
+  { t:'Pre-site inspection/surveys', p:129 },
+  { t:'Pro hoods', p:null, n:'Estimate only' },
+  { t:'Pro wall ovens (such as Bosch, Miele, Thermador, Dacor)', p:null, n:'Estimate only' }
+]},
+{ cat:'Access & manpower', group:'Access, manpower and delivery', items:[
+  { t:'3rd man charge', p:250, n:'Required for excess stairs and/or challenging situations' },
+  { t:'4th man charge', p:350, n:'Required for excess stairs and/or challenging situations' },
+  { t:'Small truck or flatbed charge', p:365, n:'Required for steep/narrow roads or driveways' },
+  { t:'Stairs charge, applied after 5 steps (per step)', p:10, n:'Price list also notes $6 per step' }
+]},
+{ cat:'Plumbing & electrical', group:'Plumbing, electrical and modifications', items:[
+  { t:'Air gap replacement', p:125 },
+  { t:'Three ways air gap', p:215 },
+  { t:'Water shut off valve replacement', p:155 },
+  { t:'110 power outlet relocation', p:185 },
+  { t:'Add 110 power outlet', p:135 },
+  { t:'Any other modification', p:null, n:'Contact us for an estimate' },
+  { t:'Farther areas', p:null, n:'Estimate only' }
+]}
+];
+
+/* Travel is a single choice, not a quantity */
+const TRAVEL = [
+  { t:'Under 30 miles', p:0 },
+  { t:'30 to 50 miles', p:75 },
+  { t:'50 to 70 miles', p:125 },
+  { t:'70 to 90 miles', p:175 },
+  { t:'90 to 110 miles', p:275 },
+  { t:'110 to 140 miles', p:345 },
+  { t:'More than 140 miles', p:null }
+];
+
+
+// ---------- state ----------
+var state = {};      // key -> {qty, add:{}}
+var travelIdx = 0;
+
+function key(ci, ii) { return ci + '-' + ii; }
+function money(n) { return '$' + n.toLocaleString('en-US'); }
+
+// ---------- build the list ----------
+var listEl = document.getElementById('list');
+var cats = [];
+DATA.forEach(function (sec) {
+  var found = cats.filter(function (c) { return c.cat === sec.cat; })[0];
+  if (!found) { found = { cat: sec.cat, groups: [] }; cats.push(found); }
+  found.groups.push(sec);
+});
+
+var html = '';
+cats.forEach(function (c, ci) {
+  var count = 0;
+  c.groups.forEach(function (g) { count += g.items.length; });
+  html += '<div class="cat closed" data-cat="' + ci + '">' +
+    '<div class="cat-head"><h2>' + c.cat + '</h2>' +
+    '<span class="meta"><span class="n" data-sel="' + ci + '"></span>' + count + ' items <span class="caret">&#9662;</span></span></div>' +
+    '<div class="cat-body">';
+  c.groups.forEach(function (g) {
+    var gi = DATA.indexOf(g);
+    html += '<div class="grp">// ' + g.group + '</div>';
+    g.items.forEach(function (it, ii) {
+      var k = key(gi, ii);
+      var price = it.p === null
+        ? '<span class="price est">Estimate</span>'
+        : '<span class="price">' + money(it.p) + '</span>';
+      html += '<div class="row" data-k="' + k + '" data-name="' + it.t.toLowerCase() + '">' +
+        '<span class="name">' + it.t + (it.n ? '<span class="note">' + it.n + '</span>' : '') + '</span>' +
+        price +
+        '<span class="qty zero" data-k="' + k + '">' +
+          '<button type="button" data-d="-1" aria-label="Remove one">&minus;</button>' +
+          '<span class="n">0</span>' +
+          '<button type="button" data-d="1" aria-label="Add one">+</button>' +
+        '</span>';
+      if (it.add) {
+        html += '<span class="addons">';
+        it.add.forEach(function (a) {
+          html += '<button type="button" class="addon" data-k="' + k + '" data-a="' + a.id + '">' +
+                  a.label + ' +' + money(a.amt) + '</button>';
+        });
+        html += '</span>';
+      }
+      html += '</div>';
+    });
+  });
+  html += '</div></div>';
+});
+
+// travel block
+html += '<div class="cat closed" data-cat="travel">' +
+  '<div class="cat-head"><h2>Travel charges</h2>' +
+  '<span class="meta"><span class="n" data-sel="travel"></span>' + TRAVEL.length + ' options <span class="caret">&#9662;</span></span></div>' +
+  '<div class="cat-body"><div class="grp">// Distance from warehouse store</div><div class="travel">';
+TRAVEL.forEach(function (t, i) {
+  html += '<button type="button" class="tv' + (i === 0 ? ' on' : '') + '" data-t="' + i + '">' +
+          t.t + (t.p ? ' &middot; ' + money(t.p) : (t.p === null ? ' &middot; Estimate' : '')) + '</button>';
+});
+html += '</div></div></div>';
+listEl.innerHTML = html;
+
+// ---------- interactions ----------
+listEl.addEventListener('click', function (e) {
+  var head = e.target.closest('.cat-head');
+  if (head) { head.parentElement.classList.toggle('closed'); return; }
+
+  var qtyBtn = e.target.closest('.qty button');
+  if (qtyBtn) {
+    var k = qtyBtn.parentElement.getAttribute('data-k');
+    var d = parseInt(qtyBtn.getAttribute('data-d'), 10);
+    if (!state[k]) state[k] = { qty: 0, add: {} };
+    state[k].qty = Math.max(0, Math.min(99, state[k].qty + d));
+    render();
+    return;
+  }
+
+  var ad = e.target.closest('.addon');
+  if (ad) {
+    var k2 = ad.getAttribute('data-k'), a = ad.getAttribute('data-a');
+    if (!state[k2]) state[k2] = { qty: 0, add: {} };
+    state[k2].add[a] = !state[k2].add[a];
+    if (state[k2].add[a] && state[k2].qty === 0) state[k2].qty = 1;
+    render();
+    return;
+  }
+
+  var tv = e.target.closest('.tv');
+  if (tv) { travelIdx = parseInt(tv.getAttribute('data-t'), 10); render(); }
+});
+
+document.getElementById('expandAll').onclick = function () {
+  document.querySelectorAll('.cat').forEach(function (c) { c.classList.remove('closed'); });
+};
+document.getElementById('collapseAll').onclick = function () {
+  document.querySelectorAll('.cat').forEach(function (c) { c.classList.add('closed'); });
+};
+
+// search
+document.getElementById('q').addEventListener('input', function () {
+  var v = this.value.trim().toLowerCase();
+  document.querySelectorAll('.cat').forEach(function (cat) {
+    if (cat.getAttribute('data-cat') === 'travel') { cat.style.display = v ? 'none' : ''; return; }
+    var any = false;
+    cat.querySelectorAll('.row').forEach(function (r) {
+      var hit = !v || r.getAttribute('data-name').indexOf(v) > -1;
+      r.style.display = hit ? '' : 'none';
+      if (hit) any = true;
+    });
+    cat.querySelectorAll('.grp').forEach(function (g) { g.style.display = v ? 'none' : ''; });
+    cat.style.display = any ? '' : 'none';
+    if (v) cat.classList.remove('closed');
+  });
+});
+
+// ---------- render ----------
+function itemAt(k) {
+  var parts = k.split('-');
+  return DATA[+parts[0]].items[+parts[1]];
+}
+
+function render() {
+  var lines = [], total = 0, hasEst = false, count = 0;
+
+  Object.keys(state).forEach(function (k) {
+    var s = state[k];
+    if (!s.qty) return;
+    var it = itemAt(k);
+    count += s.qty;
+    var unit = it.p === null ? 0 : it.p;
+    var addLabels = [];
+    if (it.add) {
+      it.add.forEach(function (a) {
+        if (s.add[a.id]) { unit += a.amt; addLabels.push(a.label); }
+      });
+    }
+    if (it.p === null) hasEst = true;
+    total += unit * s.qty;
+    lines.push({
+      name: it.t + (addLabels.length ? ' (' + addLabels.join(', ') + ')' : ''),
+      qty: s.qty,
+      amt: it.p === null ? null : unit * s.qty
+    });
+  });
+
+  var tv = TRAVEL[travelIdx];
+  if (travelIdx > 0) {
+    if (tv.p === null) { hasEst = true; lines.push({ name: 'Travel: ' + tv.t, qty: 1, amt: null }); }
+    else { total += tv.p; lines.push({ name: 'Travel: ' + tv.t, qty: 1, amt: tv.p }); }
+  }
+
+  // quote panel
+  var box = document.getElementById('lines');
+  if (!lines.length) {
+    box.innerHTML = '<div class="empty">No services selected yet. Add items from the list to build your estimate.</div>';
+  } else {
+    box.innerHTML = lines.map(function (l) {
+      return '<div class="line"><span class="l">' +
+        (l.qty > 1 ? '<b>' + l.qty + '&times;</b> ' : '') + l.name +
+        '</span><span class="r' + (l.amt === null ? ' est' : '') + '">' +
+        (l.amt === null ? 'Estimate' : money(l.amt)) + '</span></div>';
+    }).join('');
+  }
+
+  document.getElementById('total').textContent = money(total);
+  document.getElementById('barTotal').textContent = money(total);
+  document.getElementById('cnt').textContent = count ? '· ' + count + ' item' + (count > 1 ? 's' : '') : '';
+  document.getElementById('estFlag').style.display = hasEst ? '' : 'none';
+
+  // row states
+  document.querySelectorAll('.row').forEach(function (r) {
+    var k = r.getAttribute('data-k');
+    var s = state[k] || { qty: 0, add: {} };
+    var q = r.querySelector('.qty');
+    q.querySelector('.n').textContent = s.qty;
+    q.classList.toggle('zero', s.qty === 0);
+    r.classList.toggle('on', s.qty > 0);
+    r.querySelectorAll('.addon').forEach(function (a) {
+      a.classList.toggle('on', !!s.add[a.getAttribute('data-a')]);
+    });
+  });
+
+  // per-category selected counts
+  document.querySelectorAll('.cat').forEach(function (cat) {
+    var n = 0;
+    cat.querySelectorAll('.row').forEach(function (r) {
+      var s = state[r.getAttribute('data-k')];
+      if (s && s.qty) n += s.qty;
+    });
+    var badge = cat.querySelector('.n');
+    if (badge && cat.getAttribute('data-cat') !== 'travel') {
+      badge.textContent = n ? n + ' selected · ' : '';
+      badge.style.color = n ? 'var(--orange)' : '';
+    }
+  });
+  document.querySelectorAll('.tv').forEach(function (b) {
+    b.classList.toggle('on', +b.getAttribute('data-t') === travelIdx);
+  });
+  var tBadge = document.querySelector('[data-sel="travel"]');
+  if (tBadge) {
+    tBadge.textContent = travelIdx > 0 ? 'selected · ' : '';
+    tBadge.style.color = travelIdx > 0 ? 'var(--orange)' : '';
+  }
+
+  window.__quote = { lines: lines, total: total, hasEst: hasEst };
+}
+
+// ---------- actions ----------
+function sendQuote() {
+  var q = window.__quote || { lines: [], total: 0 };
+  if (!q.lines.length) { alert('Add at least one service to your quote first.'); return; }
+  var body = 'MASTERPRO INSTALLATION QUOTE\n\n';
+  q.lines.forEach(function (l) {
+    body += '- ' + (l.qty > 1 ? l.qty + 'x ' : '') + l.name + ': ' +
+            (l.amt === null ? 'Estimate required' : money(l.amt)) + '\n';
+  });
+  body += '\nESTIMATED TOTAL: ' + money(q.total) + '\n';
+  if (q.hasEst) body += 'Some items require an estimate and are not included in the total.\n';
+  body += '\nName:\nService address:\nPhone:\nPreferred date:\n\nNotes:\n';
+  window.location.href = 'mailto:hello@masterpro.app' +
+    '?subject=' + encodeURIComponent('Installation quote request') +
+    '&body=' + encodeURIComponent(body);
+}
+document.getElementById('send').onclick = sendQuote;
+document.getElementById('barSend').onclick = sendQuote;
+document.getElementById('print').onclick = function () { window.print(); };
+document.getElementById('clear').onclick = function () {
+  state = {}; travelIdx = 0; render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+render();
+</script>
+
+</body>
+</html>
