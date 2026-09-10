@@ -103,8 +103,9 @@
   }
 
   /* State-conditional content visibility */
-  body[data-state="OR"] .ca-only { display: none !important; }
-  body[data-state="CA"] .or-only { display: none !important; }
+  body[data-state="OR"] .ca-only, body[data-state="OR"] .wa-only { display: none !important; }
+  body[data-state="CA"] .or-only, body[data-state="CA"] .wa-only { display: none !important; }
+  body[data-state="WA"] .ca-only, body[data-state="WA"] .or-only { display: none !important; }
 
   /* ───── Region gate (landing splash) ───── */
   /* Hide the whole portal until a region is chosen */
@@ -870,6 +871,107 @@
     text-transform: uppercase;
   }
   footer .orange { color: var(--orange); }
+
+  .mpc-legal { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 22px; margin-bottom:14px; }
+  .mpc-legal a { color:rgba(255,255,255,0.7); text-decoration:none; letter-spacing:0.1em; text-transform:uppercase; }
+  .mpc-legal a:hover { color:#f96302; }
+  .opt-price .ask {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--orange); white-space: nowrap;
+  }
+
+  /* ───── Permits ───── */
+  .permits { background: var(--cream); }
+  .permit-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px;
+  }
+  .permit-card {
+    background: #fff; border: 1px solid var(--line-strong);
+    border-left: 4px solid var(--ink-faint); padding: 22px 24px;
+  }
+  .permit-card.flag { border-left-color: var(--orange); }
+  .permit-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 14px;
+  }
+  .permit-card.flag .permit-label { color: var(--orange); }
+  .permit-card ul { margin: 0; padding-left: 18px; }
+  .permit-card li { margin: 8px 0; font-size: 14.5px; color: var(--ink-soft); }
+  .permit-note {
+    margin-top: 20px; padding: 18px 20px;
+    background: rgba(249,99,2,0.08); border-left: 4px solid var(--orange);
+    font-size: 14.5px; color: var(--ink-soft); line-height: 1.6;
+  }
+  .permit-note strong { color: var(--ink); }
+  .permit-foot {
+    margin-top: 18px; font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); line-height: 1.7;
+  }
+  .permit-foot a { color: var(--orange-deep); }
+  @media (max-width: 800px) { .permit-grid { grid-template-columns: 1fr; } }
+
+  /* ═══════════ MOBILE HARDENING ═══════════ */
+  html { -webkit-text-size-adjust: 100%; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  img, svg { max-width: 100%; }
+
+  /* topbar: 3 regions no longer fit one row on a phone */
+  @media (max-width: 860px) {
+    .topbar-inner { flex-wrap: wrap; gap: 10px 14px; }
+    .state-select { width: 100%; justify-content: flex-start; }
+    .state-toggle { width: 100%; }
+    .state-btn { flex: 1; padding: 9px 6px; font-size: 12px; }
+  }
+  @media (max-width: 420px) {
+    .state-btn { font-size: 11px; letter-spacing: 0; padding: 9px 4px; }
+    .brand { font-size: 12px; gap: 10px; }
+    .brand img.logo { height: 30px; width: 30px; }
+  }
+
+  /* section + container breathing room */
+  @media (max-width: 600px) {
+    section { padding: 48px 16px; }
+    .hero { padding: 36px 16px 44px; }
+    .stamp-banner, .renovation-banner, .contact { padding-left: 16px; padding-right: 16px; }
+    .section-title { font-size: clamp(26px, 7vw, 34px); }
+    .section-sub { font-size: 15.5px; }
+  }
+
+  /* price rows: keep the Ask Associate label from squeezing the name */
+  @media (max-width: 520px) {
+    .price-row { padding: 13px 14px; gap: 3px 10px; }
+    .opt-price .ask { font-size: 9.5px; letter-spacing: 0.08em; }
+    .opt-name { font-size: 14.5px; line-height: 1.35; }
+  }
+
+  /* add-on rows: long names need to wrap, prices must not */
+  @media (max-width: 520px) {
+    .addon-list li { padding: 13px 16px; gap: 10px; }
+    .addon-list .name { font-size: 14px; line-height: 1.35; }
+    .addon-list .price { white-space: nowrap; }
+    .addon-cat-head { padding-left: 16px; padding-right: 16px; }
+  }
+
+  /* gate: three cards stack cleanly */
+  @media (max-width: 720px) {
+    #regionGate { padding: 20px 16px; overflow-y: auto; }
+    .gate-inner { padding: 24px 0; }
+    .gate-sub { margin-bottom: 28px; font-size: 15px; }
+    .gate-card { padding: 22px 20px; }
+    .gate-card-state { font-size: 22px; }
+  }
+
+  /* long words / emails must not blow out the layout */
+  .tip-a, .permit-foot, .contact-card, .prog-url { overflow-wrap: anywhere; }
+
+  /* safe-area for notched phones */
+  @media (max-width: 860px) {
+    .topbar-inner { padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
+    footer { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  }
 </style>
 </head>
 <body>
@@ -894,6 +996,10 @@
         <div class="gate-card-state">Oregon <span class="gate-card-abbr">· OR</span></div>
         <div class="gate-card-go">Open Portal →</div>
       </button>
+      <button type="button" class="gate-card" data-set-state="WA">
+        <div class="gate-card-state">Washington <span class="gate-card-abbr">· WA</span></div>
+        <div class="gate-card-go">Open Portal →</div>
+      </button>
     </div>
   </div>
 </div>
@@ -914,7 +1020,8 @@
       <a href="#pricing">Install Labor</a>
       <a href="#addons">Add-Ons</a>
       <a href="#tips">Talking Points</a>
-      <a href="#programs">Programs</a>
+      <a href="#permits">Permits</a>
+        <a href="#programs">Programs</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="state-select">
@@ -922,6 +1029,7 @@
       <div class="state-toggle" role="group" aria-label="Select region">
         <button type="button" class="state-btn" data-set-state="CA">California</button>
         <button type="button" class="state-btn" data-set-state="OR">Oregon</button>
+        <button type="button" class="state-btn" data-set-state="WA">Washington</button>
       </div>
     </div>
   </div>
@@ -1027,7 +1135,7 @@
   <div class="container">
     <div class="section-tag">03 / Install Labor — by Appliance</div>
     <h2 class="section-title">Install labor lookup.</h2>
-    <p class="section-sub">The labor charge for each appliance type. Search or filter to quote a customer in seconds. For situational add-ons (cabinet cuts, electrical, hood installs, etc.) see the next section.</p>
+    <p class="section-sub">Look up any appliance type and its option code. Base install labor is confirmed by the sales associate at the register. Add-on pricing is shown here and in the next section.</p>
 
     <div class="lookup-tools">
       <div class="search">
@@ -1042,7 +1150,7 @@
     </div>
 
     <div class="results-meta">
-      Showing <span class="count" id="countNum">0</span> add-on options · Prices in USD · Effective 2026
+      Showing <span class="count" id="countNum">0</span> results · Add-on prices in USD · Effective 2026
     </div>
 
     <div class="price-grid" id="priceGrid"></div>
@@ -1241,6 +1349,62 @@
         <div class="tip-q"><span class="qmark">Q</span><span>"Does the dishwasher need an air gap or GFCI?"</span></div>
         <div class="tip-a"><strong>Yes.</strong> In California a dishwasher requires an <strong>air gap</strong> and a <strong>GFCI</strong>. If a countertop air-gap hole is needed, that's a drilled hole add-on ($212) — quote it at the register.</div>
       </div>
+      <div class="tip wa-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Dishwasher install — what else can you handle?"</span></div>
+        <div class="tip-a">A lot. We can <strong>replace angle stops</strong> and <strong>install or replace toilets and p-traps</strong>. Add the line items at the register so the tech arrives with everything quoted and ready.</div>
+      </div>
+      <div class="tip wa-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Why is the Washington total higher than the quote?"</span></div>
+        <div class="tip-a"><strong>Sales tax.</strong> Washington treats appliance installation as a retail sale, so <strong>the labor is taxable</strong>, not just the appliance. The rate is set by where the install happens, not where the store is. Tell the customer the install line will be taxed so the final number isn't a surprise.</div>
+      </div>
+      <div class="tip wa-only">
+        <div class="tip-q"><span class="qmark">Q</span><span>"Does this job need an electrical permit in WA?"</span></div>
+        <div class="tip-a">Often, yes. A <strong>plug-in swap needs no permit</strong>, and a like-for-like replacement of one hardwired appliance is generally exempt. But <strong>any new or extended circuit requires a permit and inspection</strong> through L&amp;I, or through the city in self-inspecting jurisdictions like Seattle, Bellevue, and Everett. A new hardwired dishwasher install falls on the permit side. Flag it and we'll quote it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Permits ───── -->
+<section id="permits" class="permits">
+  <div class="container">
+    <div class="section-tag">Permits &amp; Inspections</div>
+    <h2 class="section-title">Some jobs need a permit.</h2>
+    <p class="section-sub">Permit requirements depend on the state, the local city or county, and the scope of work being performed. Straight swaps usually do not need one. Anything that modifies gas, electrical, plumbing, or venting often does. When a permit is required, it adds cost and time to the job, so flag it at the register rather than on install day.</p>
+
+    <div class="permit-grid">
+      <div class="permit-card">
+        <div class="permit-label">// Usually no permit</div>
+        <ul>
+          <li>Plug-in appliance swaps: washer, dryer, range, refrigerator</li>
+          <li>Like-for-like replacement using the existing connection</li>
+          <li>Haul-away, stacking kits, pedestals, trim kits</li>
+        </ul>
+      </div>
+      <div class="permit-card flag">
+        <div class="permit-label">// Often requires a permit</div>
+        <ul>
+          <li>New or extended electrical circuits, added outlets, panel work</li>
+          <li>New gas line, gas shutoff relocation, or fuel type conversion</li>
+          <li>New plumbing connection, drain, or vent penetration</li>
+          <li>New hardwired appliance where none existed before</li>
+          <li>New ductwork or exterior vent for a hood</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="permit-note ca-only">
+      <strong>California.</strong> Permits are issued by the local city or county building department, so requirements vary between jurisdictions. Gas and electrical modifications generally require a permit and inspection.
+    </div>
+    <div class="permit-note or-only">
+      <strong>Oregon.</strong> Permits are issued by the local building department or the state, depending on the jurisdiction. Gas and electrical modifications generally require a permit and inspection.
+    </div>
+    <div class="permit-note wa-only">
+      <strong>Washington.</strong> Electrical permits run through L&amp;I in most of the state, but Seattle, Bellevue, Everett and other self-inspecting cities issue their own. Plug-in appliances are exempt, and like-for-like replacement of a single hardwired appliance is generally exempt, but all circuit wiring requires a permit and inspection. Work touching water, sewer, or gas may also need a separate building or plumbing permit from the city or county.
+    </div>
+
+    <div class="permit-foot">
+      Not sure whether a job needs a permit? Ask before you promise a date. E-mail <a href="mailto:thd-appliance-support@masterpro.app">thd-appliance-support@masterpro.app</a> or call <a href="tel:+18778982668">1-877-898-2668</a> and we will confirm for that address.
     </div>
   </div>
 </section>
@@ -1261,6 +1425,8 @@
         <div class="prog-url ca-only">timetuna.com/masterpro</div>
         <a class="prog-cta or-only" href="http://www.timetuna.com/masterpror" target="_blank" rel="noopener">Schedule a PK Session <span class="arrow">→</span></a>
         <div class="prog-url or-only">timetuna.com/masterpror</div>
+        <a class="prog-cta wa-only" href="mailto:thd-appliance-support@masterpro.app?subject=Washington%20PK%20session%20request" target="_blank" rel="noopener">Request a PK Session <span class="arrow">→</span></a>
+        <div class="prog-url wa-only">thd-appliance-support@masterpro.app</div>
       </div>
 
       <div class="prog-card dark ca-only">
@@ -1309,7 +1475,13 @@
 </section>
 
 <footer>
-  © 2026 MasterPro Installs Corp · <span class="orange">Authorized Home Depot Installer</span> · San Leandro, CA
+  <nav class="mpc-legal" aria-label="Legal">
+    <a href="/terms">Terms</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/sms-consent">SMS Consent</a>
+    <a href="#privacy-choices">Your Privacy Choices</a>
+  </nav>
+  © 2026 MasterPro Installs Corp · <span class="orange">Built Around You</span> · San Leandro, CA
 </footer>
 
 </div><!-- /.portal-shell -->
@@ -1435,8 +1607,10 @@
           <div class="opt-name">${p.name}</div>
           <div class="opt-cat">${p.cat === 'builtin' ? 'Built-In · 488723' : 'Free-Standing · 513622'} · ${p.group}</div>
         </div>
-        <div class="opt-cat" style="text-align:right;">+ Add-On</div>
-        <div class="opt-price"><span class="dollar">$</span>${fmt(p.price)}</div>
+        <div class="opt-cat" style="text-align:right;">${p.group === 'Adders' ? '+ Add-On' : ''}</div>
+        <div class="opt-price">${p.group === 'Adders'
+          ? '<span class="dollar">$</span>' + fmt(p.price)
+          : '<span class="ask">Ask Associate</span>'}</div>
       </div>
     `).join('');
   }
@@ -1465,5 +1639,6 @@
   });
 </script>
 
+<script src="/consent.js" defer></script>
 </body>
 </html>
