@@ -1,165 +1,116 @@
-# MasterPro Website
+# MasterPro — masterpro.app
 
-Everything for masterpro.app in one folder. Drag this folder to Netlify and it goes live.
+Single-page site for MasterPro. Home services and appliance installation across CA, OR, WA, TX, OK and LA.
+
+**Always By Your Side.**
 
 ---
 
-## What's in here
+## Contents
 
 ```
-masterpro-site/
-├── index.html            →  masterpro.app          (the main site)
-├── 404.html              →  shown for any bad URL
-├── thd/index.html        →  masterpro.app/thd      (Home Depot portal)
-├── _template/index.html  →  starter for new pages (NOT published)
-│
-├── logo.png              →  logo for use inside pages
-├── favicon.ico           →  browser tab icon
-├── favicon-16x16.png
-├── favicon-32x32.png
-├── apple-touch-icon.png  →  icon when saved to a phone home screen
-├── icon-192.png
-├── icon-512.png
-├── site.webmanifest
-├── robots.txt
-└── netlify.toml          →  Netlify settings (caching, security)
+index.html              the whole site — HTML, CSS and JS in one file
+images/
+  masterpro-logo.png        dark logo (light backgrounds)
+  masterpro-logo-light.png  light logo (dark backgrounds)
+  max-02-thumbs-up.png      Max in the nav bar
+  max-09-phone-clipboard.png  Max in the "Meet Max" section
+  appliances/               product and part photos, transparent PNG
+.nojekyll               stops GitHub Pages running Jekyll
 ```
 
-**The rule:** a folder with an `index.html` inside becomes a URL path.
-`thd/index.html` becomes `masterpro.app/thd`. That's the whole system.
-
-Folders starting with `_` are ignored by Netlify, which is why `_template`
-never shows up as a live page.
+No build step, no dependencies, no framework. Open `index.html` and it works.
 
 ---
 
-## Adding a new page
+## Publishing on GitHub Pages
 
-Example: creating `masterpro.app/requirements`
+1. Create a repository and upload everything in this folder (keep the structure).
+2. **Settings → Pages → Source:** Deploy from a branch → `main` → `/ (root)`.
+3. Wait a minute, then load `https://<user>.github.io/<repo>/`.
 
-1. Copy the `_template` folder
-2. Rename the copy to `requirements`
-3. Open `requirements/index.html` and edit the title and content
-4. Re-deploy (see below)
+### Custom domain
 
-Done. The page is live at `masterpro.app/requirements`.
-
-Some naming rules for folders: lowercase, no spaces (use hyphens, like
-`retail-partners`), and no accents. The folder name IS the URL.
-
----
-
-## Deploying updates
-
-### Option A: Drag and drop (what you're doing now)
-
-1. Go to your site in Netlify
-2. Click the **Deploys** tab
-3. Drag this whole folder onto the drop area
-
-**Important:** always drag the ENTIRE folder, never a single file.
-Each deploy replaces the whole site, so dragging one file would delete
-everything else.
-
-### Option B: GitHub (recommended once you have several pages)
-
-This is worth setting up because you get automatic deploys, version
-history, and one-click rollback if something breaks.
-
-1. Create a free account at github.com
-2. Create a new repository named `masterpro-site` (keep it Private)
-3. Upload this folder's contents to it (GitHub's web uploader works fine,
-   no command line needed: "Add file" → "Upload files")
-4. In Netlify: **Site configuration → Build & deploy → Link repository**
-5. Choose GitHub, pick `masterpro-site`
-6. Leave the build command EMPTY, set publish directory to `.`
-
-From then on, every time you change a file on GitHub, Netlify rebuilds
-the site automatically in about 30 seconds.
+1. Add a file named `CNAME` at the root containing one line: `masterpro.app`
+2. At your DNS provider add four A records for the apex pointing at
+   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`,
+   and a CNAME for `www` pointing at `<user>.github.io`.
+3. **Settings → Pages → Custom domain:** enter the domain and tick *Enforce HTTPS*.
 
 ---
 
-## Rolling back a bad deploy
+## Sections
 
-Netlify keeps every version. In **Deploys**, click any earlier deploy and
-press **Publish deploy**. The site reverts instantly. Nothing is lost.
-
----
-
-## Previewing before going live
-
-Under **Deploys**, each deploy has its own preview URL (something like
-`68a3f2--masterpro.netlify.app`). Open it to check a page before
-publishing it to the real domain.
-
----
-
-## Linking between pages
-
-Use paths starting with `/`:
-
-```html
-<a href="/">Home</a>
-<a href="/thd">Home Depot Portal</a>
-<a href="mailto:hello@masterpro.app">Contact</a>
-```
-
-The leading slash matters: it works the same from any page, at any depth.
+| Section | Notes |
+| --- | --- |
+| Nav | Logo, Max peeking over the bar, tagline, **Work With Us** |
+| Hero | Orange poster — *Always by your side.* |
+| Metrics | Six operational figures |
+| Meet Max | The mascot and what he stands for |
+| Can MasterPro install this? | Two-step picker: appliance → modification → answer |
+| Reviews | Three customer quotes |
+| Every job, end to end | Seven-step retail partner timeline |
+| Coverage | Dot map + service van |
+| Final CTA | Request Installation + phone |
+| Footer | Links, contact, social |
 
 ---
 
-## Shared images
+## Editing
 
-Put images in the top-level folder (or create an `assets/` folder) and
-reference them with a leading slash:
+Everything lives in `index.html`.
 
-```html
-<img src="/logo.png" alt="MasterPro">
-<img src="/assets/van.jpg" alt="MasterPro fleet">
+**Text** — search for the wording and change it.
+
+**Phone / email** — `(341) 344-9850` and `hello@masterpro.app` appear in the final CTA, the footer, and the sticky mobile bar. Search and replace both the visible text and the `tel:` / `mailto:` links.
+
+**Coverage map** — near the bottom of the file, look for `class="coverage-map"`. It's a grid of `<circle>` elements. Orange `#E56A2C` / `#F08E58` marks an active state, `#c9bea1` is everywhere else. To light up a new state, change the `fill` on the circles in that position.
+
+**Picker options** — in the `<script>` block, the `steps` array holds both questions. Each option is `{l: label, img: photo, a: "Problem?", b: "Answer."}`. Add an entry and drop a matching transparent PNG into `images/appliances/`.
+
+**Colours** — the `:root` block at the top of the `<style>`:
+
+```css
+--orange:  #E56A2C
+--paper:   #F1E9D7
+--ink:     #171614
 ```
 
 ---
 
-## One thing to plan for
+## Responsive
 
-The main page still loads photos and video from Wix. See the section at
-the bottom of this file: "Cutting ties with Wix".
+Tested with no horizontal overflow at 1440, 1024, 768 and 390 px.
+
+| Width | Layout |
+| --- | --- |
+| ≥1180px | Full desktop |
+| ≤1180px | Timeline to 4 columns, picker to 4 |
+| ≤1024px | Meet Max and Coverage stack, picker result stacks |
+| ≤820px | Timeline to 2 columns, picker to 3 |
+| ≤680px | Single column, picker to 2, type scales down |
+| ≤400px | Tighter padding, smaller nav |
+
+Touch devices get 44px minimum tap targets and no hover transforms.
 
 ---
 
-## Custom domain
+## Images
 
-If masterpro.app isn't pointed at Netlify yet:
-**Site configuration → Domain management → Add a domain**, then follow
-Netlify's DNS instructions. HTTPS is automatic and free.
+All images are full-resolution 24-bit RGBA PNGs with transparency, exactly as cut from the
+source files — no downscaling, no palette reduction. Total around 26 MB, which is well within
+GitHub Pages limits (1 GB repo, 100 GB/month bandwidth).
 
+If you later want faster first loads without touching the originals, the safe options are
+serving WebP alongside the PNGs, or adding `loading="lazy"` to images below the fold.
+Neither changes the source files.
 
 ---
 
-## Cutting ties with Wix (IMPORTANT before you cancel)
+## Still open
 
-Right now the main page loads its 21 service photos, the two panel
-photos, the hero video and its poster frame from Wix's servers. If you
-cancel Wix, all of them go blank.
-
-Fixing it takes about 10 minutes:
-
-1. While your Wix site is still active, open **download-wix-assets.html**
-   in your browser (just double-click it).
-2. Click **Download All**. It saves all 25 files with exactly the names
-   the site expects. If your browser asks to allow multiple downloads,
-   click Allow.
-3. Move all 25 downloaded files into the **assets** folder here.
-4. Delete `index.html`, then rename `index-local-assets.html` to
-   `index.html`.
-5. Re-deploy the folder to Netlify.
-
-Now nothing points at Wix, and you can cancel it safely.
-
-`assets/README.txt` has the full checklist of required filenames. If a
-file failed to download automatically, the downloader page turns that row
-into a link: click it, then right-click the image and Save As using the
-filename shown.
-
-**Tip:** the hero video may be large. If the site feels slow afterward,
-tell me and I can compress it.
+- **Contact is `mailto:`** — every CTA opens an email. A form posting to an inbox would convert better and would not depend on the visitor having a mail client set up.
+- **Reviews are placeholders** — swap in real ones, ideally pulled from Google.
+- **Metrics** — confirm the six figures before launch.
+- **Range photo** — the picker has no range image; the cooktop tile covers that case for now.
+- **Social links** in the footer point to `#`.
