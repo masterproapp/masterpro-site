@@ -20,7 +20,6 @@
     --line: #e4ded6;
     --orange: #f96302;
     --orange-deep: #c94e00;
-    --ok: #1f8a4c;
     --maxw: 760px;
   }
 
@@ -60,9 +59,8 @@
   .hero p { font-size: 19px; color: var(--muted); margin: 0; max-width: 58ch; }
   .rule { width: 64px; height: 6px; background: var(--orange); margin: 28px 0 0; border-radius: 2px; }
 
-  /* ---- Section shell ---- */
+  /* ---- Form section ---- */
   section { padding: 44px 0; border-top: 1px solid var(--line); }
-  .band { background: var(--paper-2); border-top: 1px solid var(--line); }
   .eyebrow {
     font-family: "Archivo Black", sans-serif; font-weight: 400;
     font-size: 13px; color: var(--orange-deep); margin: 0 0 10px;
@@ -71,89 +69,16 @@
     font-family: "Archivo Black", sans-serif; font-weight: 400;
     font-size: clamp(22px, 4vw, 28px); letter-spacing: -0.01em; margin: 0 0 14px;
   }
-  .lead { color: var(--muted); margin: 0 0 24px; max-width: 60ch; }
+  .lead { color: var(--muted); margin: 0 0 8px; max-width: 60ch; }
 
-  /* ---- Info fields ---- */
-  .field { margin: 0 0 18px; }
-  .field .lbl2 { display: block; font-weight: 600; font-size: 14.5px; margin-bottom: 6px; }
-  .field .req { color: var(--orange-deep); }
-  .field input[type="text"], .field input[type="email"], .field input[type="tel"] {
-    width: 100%; padding: 12px 14px; font: inherit; color: var(--ink);
-    border: 1px solid var(--line); border-radius: 8px; background: #fff;
-  }
-  .field input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(249,99,2,.15); }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
-  .states { display: flex; flex-wrap: wrap; gap: 10px; }
-  .states label {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px;
-    cursor: pointer; font-size: 14.5px; transition: border-color .15s ease, background .15s ease;
-  }
-  .states label:hover { border-color: var(--orange); background: rgba(249,99,2,.05); }
-  .states input { accent-color: var(--orange); width: 16px; height: 16px; }
+  #form-embed { margin-top: 24px; }
+  #form-embed iframe { width: 100% !important; min-width: 100% !important; border: 0; border-radius: 10px; }
 
-  /* ---- Progress ---- */
-  .progress { display: flex; align-items: baseline; gap: 10px; margin: 0 0 18px; font-weight: 600; }
-  .progress .count { font-family: "Archivo Black", sans-serif; font-size: 22px; color: var(--orange); }
-  .progress .lbl { color: var(--muted); font-weight: 500; font-size: 15px; }
-
-  /* ---- Document upload rows ---- */
-  .docs { margin: 0; }
-  .doc {
-    display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
-    border-top: 1px solid var(--line); padding: 16px 12px; margin: 0 -8px;
-    cursor: pointer; border-radius: 8px; position: relative;
-    transition: background .15s ease, transform .15s ease;
-  }
-  .doc:last-of-type { border-bottom: 1px solid var(--line); }
-  .doc:hover { background: rgba(249,99,2,.06); transform: translateX(3px); }
-  .doc input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; }
-  .doc:focus-within { outline: 3px solid var(--orange); outline-offset: 2px; }
-
-  .box {
-    flex: 0 0 auto; width: 24px; height: 24px;
-    border: 2px solid var(--muted); border-radius: 6px;
-    display: grid; place-items: center;
-    font-size: 15px; font-weight: 700; line-height: 1; color: transparent;
-    transition: background .15s ease, border-color .15s ease, color .15s ease;
-  }
-  .doc[data-filled="true"] .box { background: var(--ok); border-color: var(--ok); color: #fff; }
-  .box.pop { animation: pop .28s ease; }
-  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.28); } 100% { transform: scale(1); } }
-
-  .txt { flex: 1 1 auto; min-width: 0; }
-  .txt strong { display: block; font-weight: 700; font-size: 16.5px; }
-  .txt .hint { display: block; color: var(--muted); font-size: 14.5px; margin-top: 2px; }
-
-  .tag { display: inline-block; font-size: 12px; font-weight: 600; color: var(--orange-deep);
-    background: rgba(249,99,2,.1); padding: 1px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
-
-  .upload-btn {
-    flex: 0 0 auto; background: var(--ink); color: #fff; font-weight: 700; font-size: 14px;
-    padding: 9px 16px; border-radius: 7px; white-space: nowrap;
-    transition: transform .14s cubic-bezier(.34,1.56,.64,1), background .15s ease, box-shadow .14s ease;
-  }
-  .doc:hover .upload-btn { background: var(--orange-deep); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(249,99,2,.3); }
-  .doc[data-filled="true"] .upload-btn { background: var(--ok); }
-  .fname { width: 100%; order: 3; font-size: 13.5px; color: var(--muted); padding-left: 38px; word-break: break-all; }
-  .fname:empty { display: none; }
-
-  .note { margin-top: 22px; padding: 14px 16px; background: var(--paper);
+  .note {
+    margin-top: 28px; padding: 14px 16px; background: var(--paper-2);
     border: 1px solid var(--line); border-left: 4px solid var(--orange);
-    border-radius: 6px; font-size: 15px; color: var(--muted); }
-
-  /* ---- Submit ---- */
-  .submit-row { margin-top: 32px; }
-  .btn {
-    display: inline-block; border: 0; cursor: pointer;
-    background: var(--orange); color: #fff; font-weight: 700; font-family: inherit;
-    text-decoration: none; padding: 16px 34px; border-radius: 8px; font-size: 17px;
-    box-shadow: 0 2px 8px rgba(249,99,2,.25);
-    transition: transform .14s cubic-bezier(.34,1.56,.64,1), box-shadow .14s ease, background .15s ease;
+    border-radius: 6px; font-size: 15px; color: var(--muted);
   }
-  .btn:hover { background: var(--orange-deep); transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 22px rgba(249,99,2,.35); }
-  .btn:active { transform: translateY(-1px) scale(.99); box-shadow: 0 4px 10px rgba(249,99,2,.3); }
-  .btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
   /* ---- Footer ---- */
   footer { background: var(--ink); color: #d9cfc4; margin-top: 8px; padding: 40px 0; font-size: 15px; }
@@ -167,7 +92,6 @@
     body { font-size: 16px; }
     .hero { padding: 40px 0 28px; }
     section { padding: 34px 0; }
-    .grid2 { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
@@ -185,176 +109,27 @@
   <div class="wrap">
     <div class="hero">
       <h1>Submit your onboarding documents</h1>
-      <p>Fill in your details and attach each document with its own upload button below. Everything goes straight to our compliance team when you submit.</p>
+      <p>Fill out the form below and attach your insurance, licensing, and compliance paperwork. Everything goes straight to our compliance team once you submit.</p>
       <div class="rule"></div>
     </div>
   </div>
 
-  <!--
-    ============================================================
-    Files are sent via FormSubmit (formsubmit.co) to compliance@masterpro.app.
-    FIRST-TIME SETUP: submit this form once yourself. FormSubmit emails
-    compliance@masterpro.app a one-time activation link — click it once,
-    and every submission after that flows through automatically.
-    To send somewhere else, change the form's action URL below.
-    ============================================================
-  -->
-  <form action="https://formsubmit.co/compliance@masterpro.app" method="POST" enctype="multipart/form-data">
-    <input type="hidden" name="_subject" value="New contractor onboarding submission" />
-    <input type="hidden" name="_template" value="table" />
-    <input type="hidden" name="_captcha" value="false" />
-    <!-- Optional: redirect to a thank-you page after submit -->
-    <!-- <input type="hidden" name="_next" value="https://masterpro.app/thank-you" /> -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Get started</p>
+      <h2>Onboarding form</h2>
+      <p class="lead">Have your documents ready as PDF scans or clear photos before you begin — each one has its own upload button in the form.</p>
 
-    <section class="band">
-      <div class="wrap">
-        <p class="eyebrow">Step 1</p>
-        <h2>Your details</h2>
-
-        <div class="grid2">
-          <div class="field">
-            <label class="lbl2" for="legal">Legal name <span class="req">*</span></label>
-            <input type="text" id="legal" name="Legal name" required />
-          </div>
-          <div class="field">
-            <label class="lbl2" for="dba">Business / DBA name</label>
-            <input type="text" id="dba" name="Business / DBA name" />
-          </div>
-          <div class="field">
-            <label class="lbl2" for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" name="Email" required />
-          </div>
-          <div class="field">
-            <label class="lbl2" for="phone">Phone <span class="req">*</span></label>
-            <input type="tel" id="phone" name="Phone" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="lbl2" for="address">Business address <span class="req">*</span></label>
-          <input type="text" id="address" name="Business address" required />
-        </div>
-        <div class="field">
-          <label class="lbl2" for="ein">EIN <span class="req">*</span></label>
-          <input type="text" id="ein" name="EIN" required />
-        </div>
-
-        <div class="field">
-          <span class="lbl2">States you'll work in</span>
-          <div class="states">
-            <label><input type="checkbox" name="States" value="California" /> California</label>
-            <label><input type="checkbox" name="States" value="Oregon" /> Oregon</label>
-            <label><input type="checkbox" name="States" value="Texas" /> Texas</label>
-            <label><input type="checkbox" name="States" value="Louisiana" /> Louisiana</label>
-            <label><input type="checkbox" name="States" value="Washington" /> Washington</label>
-          </div>
-        </div>
+      <!-- Jotform embed -->
+      <div id="form-embed">
+        <script type="text/javascript" src="https://form.jotform.com/jsform/262586601268059"></script>
       </div>
-    </section>
 
-    <section>
-      <div class="wrap">
-        <p class="eyebrow">Step 2</p>
-        <h2>Your documents</h2>
-        <p class="lead">Attach each one — clear photos or PDF scans are fine. Each row has its own upload button; the check turns green once a file is attached.</p>
-
-        <div class="progress">
-          <span class="count" id="count">0</span>
-          <span class="lbl" id="count-lbl">of 10 attached</span>
-        </div>
-
-        <div class="docs" id="docs">
-          <label class="doc">
-            <input type="file" name="General Liability COI" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>General Liability insurance (COI) <span class="tag">Required</span></strong><span class="hint">Certificate of insurance listing MasterPro Installs Corp as additional insured.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Workers Comp" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Workers' Comp coverage <span class="tag">Required</span></strong><span class="hint">Your workers' comp COI — or a signed sole-proprietor exemption if you have no employees.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Commercial Auto COI" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Commercial Auto insurance (COI) <span class="tag">Required</span></strong><span class="hint">Coverage for the vehicle you'll use on delivery and install jobs.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Contractors License" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Contractor's license <span class="tag">Required</span></strong><span class="hint">Your trade license for the state(s) you'll work in (e.g. CA C-36 / C-10, OR CCB, WA PB / EL).</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="City Business License" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>City business license certificate <span class="tag">Required</span></strong><span class="hint">Your current city or municipal business license for where you operate.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="W-9" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>W-9 <span class="tag">Required</span></strong><span class="hint">Completed and signed, matching your business name and EIN.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="IRS EIN Letter" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>IRS EIN confirmation letter <span class="tag">Required</span></strong><span class="hint">The letter the IRS sent confirming your EIN (Form CP 575, or a 147C replacement if you no longer have the original).</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Drivers License" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Driver's license / photo ID <span class="tag">Required</span></strong><span class="hint">Front of a current, unexpired government-issued ID.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Background Check" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Background check <span class="tag">Required</span></strong><span class="hint">Recent results, or your signed authorization for us to run one.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-
-          <label class="doc">
-            <input type="file" name="Drug Screening" accept=".pdf,.jpg,.jpeg,.png" required />
-            <span class="box">&#10003;</span>
-            <span class="txt"><strong>Drug screening results <span class="tag">Required</span></strong><span class="hint">Results from a recent screening.</span></span>
-            <span class="upload-btn">Choose file</span>
-            <span class="fname"></span>
-          </label>
-        </div>
-
-        <div class="note">
-          Trouble with a document, or not sure what applies to your state? Email <a href="mailto:compliance@masterpro.app">compliance@masterpro.app</a> before you submit.
-        </div>
-
-        <div class="submit-row">
-          <button type="submit" class="btn">Submit documents</button>
-        </div>
+      <div class="note">
+        Trouble with a document, or not sure what applies to your state? Email <a href="mailto:compliance@masterpro.app">compliance@masterpro.app</a> before you submit.
       </div>
-    </section>
-  </form>
+    </div>
+  </section>
 
   <footer>
     <div class="wrap">
@@ -370,40 +145,5 @@
     </div>
   </footer>
 
-<script>
-  (function () {
-    var inputs = Array.prototype.slice.call(document.querySelectorAll('#docs input[type="file"]'));
-    var countEl = document.getElementById('count');
-    var lblEl = document.getElementById('count-lbl');
-    var total = inputs.length;
-
-    function refresh() {
-      var done = inputs.filter(function (i) { return i.files && i.files.length; }).length;
-      countEl.textContent = done;
-      lblEl.textContent = done === total ? "— all attached, ready to submit" : "of " + total + " attached";
-    }
-
-    inputs.forEach(function (input) {
-      input.addEventListener('change', function () {
-        var row = input.closest('.doc');
-        var fname = row.querySelector('.fname');
-        var box = row.querySelector('.box');
-        var btn = row.querySelector('.upload-btn');
-        if (input.files && input.files.length) {
-          row.setAttribute('data-filled', 'true');
-          fname.textContent = input.files[0].name;
-          btn.textContent = 'Change';
-          box.classList.remove('pop'); void box.offsetWidth; box.classList.add('pop');
-        } else {
-          row.removeAttribute('data-filled');
-          fname.textContent = '';
-          btn.textContent = 'Choose file';
-        }
-        refresh();
-      });
-    });
-    refresh();
-  })();
-</script>
 </body>
 </html>
