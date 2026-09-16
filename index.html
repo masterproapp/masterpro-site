@@ -221,11 +221,11 @@
 
   /* ---------- FAILURE TICKER ---------- */
   .ticker{background:var(--orange);color:#fff;overflow:hidden;border-top:2px solid var(--ink)}
-  .ticker-track{display:flex;gap:56px;white-space:nowrap;padding:14px 0;animation:scroll 34s linear infinite;width:max-content}
+  .ticker-track{display:flex;gap:56px;white-space:nowrap;padding:14px 0;animation:scroll 34s linear infinite;width:max-content;will-change:transform;transform:translateZ(0)}
   .ticker-track span{font-family:var(--exp);font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.02em;display:inline-flex;align-items:center;gap:16px}
   .ticker-track span::after{content:"◆";font-size:9px;color:rgba(255,255,255,.55)}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+  @media(prefers-reduced-motion:reduce){.ticker-track{animation-duration:80s}}
 
   /* ---------- THESIS / FAILURE POINT ---------- */
   .thesis{background:var(--bone);padding:110px 0;position:relative;overflow:hidden}
@@ -305,10 +305,10 @@
   .appl-track-wrap{position:relative;width:100%;overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-  .appl-track{display:flex;gap:20px;width:max-content;animation:applscroll 46s linear infinite}
+  .appl-track{display:flex;gap:20px;width:max-content;animation:applscroll 46s linear infinite;will-change:transform;transform:translateZ(0)}
   .appl-track:hover{animation-play-state:paused}
   @keyframes applscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @media(prefers-reduced-motion:reduce){.appl-track{animation:none}}
+  @media(prefers-reduced-motion:reduce){.appl-track{animation-duration:110s}}
   .appl-item{flex:0 0 auto;width:190px;height:200px;background:#141414;border:1px solid var(--line-dark);
     display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 18px 16px;transition:border-color .2s,background .2s}
   .appl-item:hover{border-color:var(--orange);background:#181818}
