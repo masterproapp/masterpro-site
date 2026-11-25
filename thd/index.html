@@ -572,6 +572,7 @@
     white-space: nowrap;
   }
   @media (max-width: 760px) { .addon-note { display: block; margin: 7px 0 0; font-size: 9px; letter-spacing: 0.05em; padding: 3px 6px; } }
+  .addon-note.addon-note-wrap { display: block; margin: 7px 0 0; white-space: normal; }
 
   /* ───── Pricing lookup ───── */
   .lookup { background: var(--cream); }
@@ -1788,7 +1789,7 @@
     <p class="section-sub">Additional services that may be required based on installation conditions — cabinet cuts, stone work, plumbing, electrical, hoods. Quote them up front so the customer isn't surprised on install day.</p>
 
     <div class="addon-meta">
-      <strong>Pricing reference</strong> · All prices in USD · Effective 2026 · 30 add-on services across 6 categories
+      <strong>Pricing reference</strong> · All prices in USD · Effective 2026 · 34 add-on services across 6 categories
     </div>
 
     <div class="addon-cats">
@@ -1839,19 +1840,20 @@
       <div class="addon-cat">
         <div class="addon-cat-head">
           <div class="cat-name">Electrical</div>
-          <div class="cat-count">3 items</div>
+          <div class="cat-count">4 items</div>
         </div>
         <ul class="addon-list">
-          <li><span class="name">Electrical outlet install</span><span class="price"><span class="dollar">$</span>233</span></li>
+          <li><span class="name">Electrical outlet / GFCI / J-box install</span><span class="price"><span class="dollar">$</span>233</span></li>
           <li><span class="name">Power conversion (220V to 110V)</span><span class="price"><span class="dollar">$</span>314</span></li>
           <li><span class="name">Junction box relocation</span><span class="price"><span class="dollar">$</span>234</span></li>
+          <li><span class="name">Electrical code correction<span class="addon-note addon-note-wrap">Minor corrections, elbows, covers, connectors &amp; fittings included</span></span><span class="price"><span class="dollar">$</span>75</span></li>
         </ul>
       </div>
 
       <div class="addon-cat">
         <div class="addon-cat-head">
           <div class="cat-name">Ventilation / Hood / Range</div>
-          <div class="cat-count">8 items</div>
+          <div class="cat-count">9 items</div>
         </div>
         <ul class="addon-list">
           <li><span class="name">Insert hood install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>287</span></li>
@@ -1859,7 +1861,8 @@
           <li><span class="name">Island hood 37"+ install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>354</span></li>
           <li><span class="name">Wall-mounted hood &lt;37" install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>200</span></li>
           <li><span class="name">Wall-mounted hood 37"+ install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>420</span></li>
-          <li><span class="name">Transition boot or ducting work replaced</span><span class="price"><span class="dollar">$</span>184</span></li>
+          <li><span class="name">Transition boot or ductwork replacement</span><span class="price"><span class="dollar">$</span>184</span></li>
+          <li><span class="name">Vent relocation<span class="addon-note">Wood cutting included</span></span><span class="price"><span class="dollar">$</span>396</span></li>
           <li><span class="name">Pro range &lt;37" install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>307</span></li>
           <li><span class="name">Pro range 37"+ install<span class="addon-note">+ On top of base install</span></span><span class="price"><span class="dollar">$</span>714</span></li>
         </ul>
@@ -1868,11 +1871,13 @@
       <div class="addon-cat">
         <div class="addon-cat-head">
           <div class="cat-name">Labor / Special Handling</div>
-          <div class="cat-count">3 items</div>
+          <div class="cat-count">5 items</div>
         </div>
         <ul class="addon-list">
           <li><span class="name">Additional man power</span><span class="price"><span class="dollar">$</span>334</span></li>
-          <li><span class="name">Platform for oven</span><span class="price"><span class="dollar">$</span>267</span></li>
+          <li><span class="name">Appliance uninstallation</span><span class="price"><span class="dollar">$</span>150</span></li>
+          <li><span class="name">Oven platform install</span><span class="price"><span class="dollar">$</span>267</span></li>
+          <li><span class="name">Lower existing oven platform<span class="addon-note">Wood cutting included</span></span><span class="price"><span class="dollar">$</span>479</span></li>
           <li><span class="name">Angled dishwasher (extra service &amp; parts)</span><span class="price"><span class="dollar">$</span>177</span></li>
         </ul>
       </div>
@@ -2509,7 +2514,7 @@
     { code: '6147', name: 'Warming Drawer',                                 cat: 'builtin',         group: 'Specialty',   price: 129 },
     { code: '6670', name: 'Coffee Machine',                                 cat: 'builtin',         group: 'Specialty',   price: 144 },
     { code: '6665', name: 'Trash Compactor',                                cat: 'builtin',         group: 'Specialty',   price: 134 },
-    { code: '6168', name: 'Build Platform',                                 cat: 'builtin',         group: 'Adders',      price: 154 },
+    { code: '6168', name: 'Build Platform',                                 cat: 'builtin',         group: 'Adders',      price: 267 },
     { code: '6170', name: 'Waterline (up to 20 ft)',                          cat: 'builtin',         group: 'Adders',      price: 169 },
     { code: '6173', name: 'Haul-Away (Standard Appliance)',                 cat: 'builtin',         group: 'Adders',      price:  50 },
     { code: '6173p',name: 'Haul-Away (Pro / Oversized)',                    cat: 'builtin',         group: 'Adders',      price:  65 },
