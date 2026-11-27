@@ -1647,6 +1647,26 @@
 </header>
 
 <!-- ───── Hero ───── -->
+<!-- Book a measure banner (California only) -->
+<style>
+  .mpb-banner{display:block;background:var(--orange);color:#1a1a1a;text-decoration:none}
+  .mpb-banner .mpb-in{max-width:1000px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:"IBM Plex Sans",sans-serif;font-size:15px}
+  .mpb-banner b{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:16px}
+  .mpb-banner .mpb-go{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;background:#1a1a1a;color:#fff;padding:8px 14px;border-radius:6px;white-space:nowrap}
+  .mpb-banner:hover .mpb-go{background:#000}
+  @media (max-width:600px){
+    .mpb-banner .mpb-in{padding:10px 16px;font-size:13px}
+    .mpb-banner .mpb-more{display:none}
+  }
+</style>
+<a class="mpb-banner ca-only" href="https://thd-po-extractor-production.up.railway.app/book" target="_blank" rel="noopener">
+  <div class="mpb-in">
+    <span><b>New: book the measure at the register.</b> <span class="mpb-more">Enter the PO and the customer's ZIP, pick a day and window.</span></span>
+    <span class="mpb-go">Book a measure &rarr;</span>
+  </div>
+</a>
+<!-- /Book a measure banner -->
+
 <section class="hero">
   <div class="hero-inner">
     <div>
