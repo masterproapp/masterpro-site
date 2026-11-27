@@ -33,3 +33,16 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# Short link for Home Depot associates to book a measure
+[[redirects]]
+  from = "/thd/schedule"
+  to = "https://thd-po-extractor-production.up.railway.app/book"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/thd/schedule/"
+  to = "https://thd-po-extractor-production.up.railway.app/book"
+  status = 302
+  force = true
